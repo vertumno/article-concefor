@@ -1,0 +1,19 @@
+# Normalização de texto: LF no repositório, conversão automática no checkout
+* text=auto
+
+# Binários — NUNCA aplicar conversão de fim de linha (evita corrupção no Windows)
+*.pptx  binary
+*.ppt   binary
+*.docx  binary
+*.doc   binary
+*.pdf   binary
+*.xlsx  binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.zip   binary
+
+# Scripts shell mantêm LF
+*.sh    text eol=lf

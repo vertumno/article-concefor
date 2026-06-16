@@ -1,0 +1,15 @@
+# Dependências reinstaláveis (a skill pptx instala via npm quando necessário)
+node_modules/
+
+# Saídas de execução do pipeline (cada run gera novas)
+producao-tecnica/cefor-slides/stages/*/output/*
+!producao-tecnica/cefor-slides/stages/*/output/.gitkeep
+
+# Arquivos temporários do Office (lock files)
+~$*
+# Obs.: .pptx de referência (referencias/) e do exemplo (examples/) SÃO versionados.
+# Apenas as saídas de run em stages/*/output/ são ignoradas (regra acima).
+
+# SO
+Thumbs.db
+.DS_Store
