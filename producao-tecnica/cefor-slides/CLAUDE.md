@@ -32,7 +32,7 @@ cefor-slides/
 │   ├── producer-identity.md
 │   └── course-meta.md
 ├── design-system/         (paleta e tipografia Cefor: Sólida | Degradê)
-├── skills/                (pptx + frontend-design)
+├── skills/                (pptx + frontend-design + qa: validadores automáticos)
 └── stages/
     ├── 01-extraction/     (material bruto → conteúdo estruturado)
     ├── 02-curriculum/     (conteúdo → arco instrucional Merrill)
@@ -66,9 +66,15 @@ cefor-slides/
 |--------|----------|--------------|
 | Extrair | `stages/01-extraction/references/*`, `shared/methodology.md`, `shared/producer-identity.md`, `shared/course-meta.md` | `design-system/`, `skills/pptx/`, stages 03–05 |
 | Currículo / arco | `stages/01-extraction/output/`, `stages/02-curriculum/references/*`, `shared/methodology.md` | `design-system/`, `skills/pptx/`, stages 03–05 |
-| Outline (slides) | `stages/02-curriculum/output/`, `stages/03-outline/references/*`, `shared/methodology.md`, `design-system/*` | `skills/pptx/`, stages 01, 04, 05 |
+| Outline (slides) | `stages/03-outline/references/*` (slide-patterns + slide-structure-library), `stages/02-curriculum/output/`, `shared/methodology.md`, `design-system/*` | `skills/pptx/`, stages 01, 04, 05 |
 | Gerar .pptx | `stages/03-outline/output/`, `stages/04-generation/references/*`, `design-system/*`, `skills/pptx/SKILL.md` | stages 01, 02 |
-| QA e entrega | `stages/04-generation/output/`, `stages/05-qa-delivery/references/*`, `shared/methodology.md`, `design-system/*` | stages 01, 02, 03 |
+| QA e entrega | `stages/04-generation/output/`, `stages/05-qa-delivery/references/*` (qa-checklist + anti-patterns), `skills/qa/*`, `shared/methodology.md`, `design-system/*` | stages 01, 02, 03 |
+
+## Validadores automáticos (`skills/qa/`)
+
+- `validate_outline.py` — checa o outline (Stage 03) contra Assertion-Evidence.
+- `check_pptx.py` — checa o `.pptx` (placeholders, slides vazios, contagem).
+Rode-os no Stage 05 (ou no 03) antes de declarar um deck pronto. Detalhes: `skills/qa/README.md`.
 
 ## Stage Handoffs
 

@@ -27,3 +27,6 @@ Sistema de produção de slides instrucionais para o Cefor, fundamentado em 4 ca
 | Design system Cefor | `design-system/CONTEXT.md` | Paleta (Sólida/Degradê) e tipografia (Arial) |
 | Skill pptx | `skills/pptx/SKILL.md` | html2pptx, scripts, edição OOXML |
 | Skill frontend-design | `skills/frontend-design/SKILL.md` | Direção de design, estética |
+| Validadores QA | `skills/qa/` | `validate_outline.py` (assertion-evidence) + `check_pptx.py` |
+| Biblioteca de estruturas | `stages/03-outline/references/slide-structure-library.md` | Estruturas de slide curadas (por função Merrill) |
+| Anti-patterns | `stages/05-qa-delivery/references/anti-patterns.md` | Slides que não ensinam (e correções) |

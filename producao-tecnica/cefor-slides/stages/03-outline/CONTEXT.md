@@ -13,7 +13,9 @@ Create a detailed slide-by-slide outline for each session in the curriculum.
 | Design system | `../../design-system/CONTEXT.md` | Routes to palette, typography | Visual direction |
 | Skill | `../../skills/pptx/SKILL.md` | Design principles, layout constraints | Slide layout rules |
 | Skill | `../../skills/frontend-design/SKILL.md` | Full file | Design thinking, aesthetics |
-| Reference | `references/slide-patterns.md` | Full file | Common slide types and when to use each |
+| Reference | `references/slide-patterns.md` | Full file | Padrões assertion-evidence e formato do outline |
+| Reference | `references/slide-structure-library.md` | Full file | Estruturas de slide curadas, por função (Merrill) |
+| Methodology | `../../shared/methodology.md` | Full file | Regras Sweller/Mayer/Alley/Merrill |
 
 ## Process
 
@@ -22,13 +24,13 @@ Create a detailed slide-by-slide outline for each session in the curriculum.
 3. Load the design system via its CONTEXT.md
 4. For each session in the curriculum:
    a. Determine slide count (target 15-25)
-   b. Choose a slide type for each slide from the patterns library
-   c. Write the content for each slide (title, bullets, speaker notes)
-   d. Add visual direction (which colors, layout variant, chart/image needed)
+   b. Atribua a função pedagógica (Merrill) e escolha a estrutura em `references/slide-structure-library.md`
+   c. Escreva o slide como **assertion-evidence**: título-afirmação + evidência visual (sem bullets)
+   d. Add visual direction (variante Cefor, cor, chart/image needed)
    e. Flag any slide that needs a chart, table, or image (becomes a `class="placeholder"` in Stage 04)
 5. Verify no single-column chart-below-text layouts (pptx SKILL.md constraint)
 6. **[Checkpoint]** -- Present the outlines to the user. Ask: Do the slide flows make sense? Any slides to add, remove, or restructure?
-7. Run the audit checks below. If any fail, revise before saving.
+7. Run the audit checks below. Rode `python ../../skills/qa/validate_outline.py output/[session-slug]-outline.md`. If any fail, revise before saving.
 8. Save one outline file per session
 
 ## Checkpoints
@@ -41,10 +43,12 @@ Create a detailed slide-by-slide outline for each session in the curriculum.
 
 | Check | Pass Condition |
 |-------|---------------|
-| Slide count | Each session has 15-25 slides |
-| Layout compliance | No single-column chart-below-text layouts (pptx skill constraint) |
-| Visual direction | Every slide has a specified color scheme and layout variant |
-| Content completeness | Every learning objective from the curriculum is addressed by at least one slide |
+| Assertion-evidence | Todo slide de conteúdo tem título-afirmação + evidência (não bullets) |
+| Estrutura declarada | Cada slide declara uma estrutura da biblioteca + função Merrill |
+| Variedade de layout | Não mais que 2 slides consecutivos com a mesma estrutura |
+| Densidade | ≤ ~40 palavras visíveis por slide (Sweller/Mayer) |
+| Content completeness | Cada objetivo de aprendizagem é endereçado por ≥ 1 slide |
+| validate_outline.py | O script passa (status pass) |
 
 ## Outputs
 

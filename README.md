@@ -37,7 +37,9 @@ article-concefor/
 
 ## A produção: `cefor-slides`
 
-Especialização do workspace `course-deck-production` (ICM) para o contexto Cefor. A metodologia **ICM (Interpretable Context Methodology)** — "estrutura de pastas como arquitetura de agente" — é o diferencial acadêmico: pipeline glass-box, observável, com superfície de edição humana entre cada estágio.
+Especialização do workspace `course-deck-production` (ICM) para o contexto Cefor. A metodologia **ICM (Interpretable Context Methodology)** — "estrutura de pastas como arquitetura de agente" — é o diferencial arquitetural: pipeline glass-box, observável, com superfície de edição humana entre cada estágio.
+
+Fundamentação pedagógica (4 camadas, citáveis): **Sweller** (carga cognitiva) → **Mayer** (multimídia) → **Alley** (assertion-evidence) → **Merrill** (sequência). Cada camada vira regra automatizável — incluindo biblioteca de estruturas curada e **validadores executáveis** (`skills/qa/`). Inteligência reaproveitada da skill `slide-creator`, reorientada de persuasão para aprendizagem. Ver [`artigo/02_metodologia.md`](artigo/02_metodologia.md).
 
 Para usar/configurar: abrir o Claude Code em `producao-tecnica/cefor-slides/` e digitar `setup`. Ver [`producao-tecnica/cefor-slides/CLAUDE.md`](producao-tecnica/cefor-slides/CLAUDE.md).
 

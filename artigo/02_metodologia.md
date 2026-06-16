@@ -84,6 +84,20 @@ A skill `slide-creator` é narrative-first, mas voltada a **persuasão/conversã
 
 Mantém-se a disciplina (não renderizar direto do outline; gates; speaker notes); troca-se o *telos* de vender para ensinar.
 
+### Ativos concretos aproveitados (não só princípios)
+
+Além da filosofia, foram **portados e adaptados** ativos da `slide-creator` para o `cefor-slides`:
+
+| Ativo da `slide-creator` | Como foi adaptado | Onde ficou |
+|--------------------------|-------------------|------------|
+| `slide-structure-library` (240+ estruturas) | Curada para ensino, organizada por função de Merrill, toda assertion-evidence; IDs de origem preservados (proveniência) | `stages/03-outline/references/slide-structure-library.md` |
+| `anti-patterns.md` | Reorientado p/ aprendizagem; razão de fundo = carga cognitiva (Sweller) | `stages/05-qa-delivery/references/anti-patterns.md` |
+| `validate_deck_package.py` | Virou validador de outline assertion-evidence (Pattern, Assertion, Evidence, variedade) | `skills/qa/validate_outline.py` |
+| `check_pptx_placeholders.py` | Estendido (placeholders + slides vazios + contagem) | `skills/qa/check_pptx.py` |
+| `rubrics.md` (scoring ponderado) | Dimensões trocadas p/ as 4 camadas pedagógicas | `qa-checklist.md` (seção C) |
+
+Isso materializa a contribuição técnica: a teoria não fica no texto — vira biblioteca consultável e **validação automática executável**.
+
 ---
 
 ## Aplicação aos dois modos

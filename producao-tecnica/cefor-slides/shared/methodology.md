@@ -47,3 +47,11 @@ Fonte canônica das regras pedagógicas da skill. Toda decisão de slide rastrei
 
 ## Objetivos de aprendizagem (apoio, Bloom revisada)
 Verbos por nível: lembrar, entender, aplicar, analisar, avaliar, criar. Todo objetivo começa com verbo de ação e descreve resultado observável.
+
+## Recursos operacionais (regras → ferramentas)
+As regras acima são operacionalizadas por (aproveitados/adaptados da skill `slide-creator`):
+- `stages/03-outline/references/slide-structure-library.md` — estruturas de slide curadas por função (Merrill), todas assertion-evidence.
+- `stages/05-qa-delivery/references/anti-patterns.md` — slides que não ensinam + correções (carga cognitiva).
+- `skills/qa/validate_outline.py` — valida o outline contra assertion-evidence (Alley/Mayer).
+- `skills/qa/check_pptx.py` — checa o `.pptx` (placeholders, slides vazios).
+- `stages/05-qa-delivery/references/qa-checklist.md` — rubrica ponderada das 4 camadas.

@@ -31,6 +31,15 @@ python build_example.py
 
 Requer `python-pptx` e `Pillow`. As cores/fonte vêm de `../../design-system/`.
 
+## Validação (QA automático)
+
+Ambos os validadores de `skills/qa/` passam neste exemplo:
+
+```bash
+python ../../skills/qa/validate_outline.py 03-outline.md   # status: pass | slides: 9
+python ../../skills/qa/check_pptx.py avaliacao-formativa.pptx  # status: pass | slides: 9
+```
+
 ## Nota técnica
 
 Este exemplo usa `python-pptx` (formas nativas) por robustez no ambiente. O motor primário do workspace é o `html2pptx` da skill `pptx` (fidelidade total ao template `.pptx` Cefor); ambos consomem o mesmo outline do Stage 03.
