@@ -22,13 +22,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 W, H = 1280, 720  # canvas de referencia (16:9)
 
 # --- Paleta Cefor (variante Solida) ---
-AZUL   = "314A99"
-OLIVA  = "A3A51A"
-LIMA   = "B0C804"
-GRENA  = "980000"
-TEXTO  = "343434"
-TEXTO2 = "595959"
-PAINEL = "EEEEEE"
+AZUL   = "2C459A"
+OLIVA  = "8C9A0D"
+LIMA   = "B0CB1F"
+GRENA  = "CC1111"
+TEXTO  = "2B2B2B"
+TEXTO2 = "5A5A5A"
+PAINEL = "EAEAEC"
 BRANCO = "FFFFFF"
 
 def rgb(h): return RGBColor.from_string(h)
@@ -38,13 +38,19 @@ def pil(h): return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 SCALE_IN = 13.333 / W
 def IN(px): return Inches(px * SCALE_IN)
 
-# --- fontes Arial (Windows) ---
+# --- fontes Open Sans / Arial (Windows) ---
 def font(size, bold=False):
-    path = r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf"
-    try:
-        return ImageFont.truetype(path, size)
-    except Exception:
-        return ImageFont.load_default()
+    paths = [
+        r"C:\Windows\Fonts\OpenSans-Bold.ttf" if bold else r"C:\Windows\Fonts\OpenSans-Regular.ttf",
+        r"C:\Windows\Fonts\OpenSans.ttf",
+        r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf",
+    ]
+    for p in paths:
+        try:
+            return ImageFont.truetype(p, size)
+        except Exception:
+            continue
+    return ImageFont.load_default()
 
 # ============================================================
 # DADOS DOS SLIDES (assertion-evidence)
@@ -205,7 +211,7 @@ def box(slide, x, y, w, h, text, size, color, bold=False, align=PP_ALIGN.LEFT,
     tf.word_wrap = wrap_; tf.vertical_anchor = anchor
     p = tf.paragraphs[0]; p.alignment = align
     r = p.add_run(); r.text = text
-    r.font.size = Pt(size); r.font.bold = bold; r.font.name = "Arial"
+    r.font.size = Pt(size); r.font.bold = bold; r.font.name = "Open Sans"
     r.font.color.rgb = rgb(color)
     return tb
 

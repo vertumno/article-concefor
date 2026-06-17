@@ -12,7 +12,7 @@ Evidência de funcionamento do `cefor-slides` ponta a ponta (Modo 2 — design p
   - **Alley:** todo slide = título-afirmação + evidência visual (sem bullets).
   - **Sweller/Mayer:** baixa densidade, 1 ideia/slide, sinalização, contiguidade, notas ≠ tela.
   - **Merrill:** arco activation → demonstration → application → integration.
-- **Design system Cefor (variante Sólida):** azul `#314A99`, oliva `#A3A51A`, grená `#980000`, Arial, rodapé `cefor.ifes.edu.br`.
+- **Design system Cefor (variante Sólida):** azul `#2C459A`, oliva `#8C9A0D`, lima `#B0CB1F`, vermelho `#CC1111`, Open Sans, rodapé `cefor.ifes.edu.br`.
 
 ## Arquivos
 

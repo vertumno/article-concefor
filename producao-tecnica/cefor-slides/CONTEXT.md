@@ -24,7 +24,7 @@ Sistema de produção de slides instrucionais para o Cefor, fundamentado em 4 ca
 | Metodologia (canônica) | `shared/methodology.md` | 4 camadas + regras automatizáveis + 2 modos |
 | Identidade do produtor | `shared/producer-identity.md` | Nome/org, fontes típicas, estágio inicial padrão |
 | Meta do curso | `shared/course-meta.md` | Template por curso (preenchido a cada run) |
-| Design system Cefor | `design-system/CONTEXT.md` | Paleta (Sólida/Degradê) e tipografia (Arial) |
+| Design system Cefor | `design-system/CONTEXT.md` | Paleta (Sólida/Degradê) e tipografia (Open Sans) |
 | Skill pptx | `skills/pptx/SKILL.md` | html2pptx, scripts, edição OOXML |
 | Skill frontend-design | `skills/frontend-design/SKILL.md` | Direção de design, estética |
 | Validadores QA | `skills/qa/` | `validate_outline.py` (assertion-evidence) + `check_pptx.py` |

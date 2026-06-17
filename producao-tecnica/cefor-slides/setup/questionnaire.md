@@ -12,13 +12,13 @@ Leia este arquivo quando o usuário digitar "setup". Faça TODAS as perguntas em
 - Arquivo: `design-system/palette.md`
 - Tipo: seleção. Default: **Sólida**.
 - Opções:
-  - **Sólida (institucional):** azul 314A99 + oliva A3A51A + grená 980000 (fundo claro EEEEEE).
-  - **Degradê:** teal 134F5C → 08A18E (fundo branco).
+  - **Sólida (institucional):** azul 2C459A + oliva 8C9A0D + lima B0CB1F + vermelho CC1111 (fundo claro EAEAEC).
+  - **Degradê:** azul/ciano/verde/lima 3F93CE → 36B4A6 → 7FC24A → C6D452 (fundo branco).
 - Obs.: as cores vêm dos templates oficiais (`referencias/CEFOR Apresentação *.pptx`). Pode-se alternar por deck.
 
 ### Q3: Fonte?
 - Arquivo: `design-system/typography.md`
-- Default: **Arial / Arial** (padrão dos templates Cefor; web-safe). Mudar só se necessário.
+- Default: **Open Sans** (padrão dos templates Cefor). Mudar só se necessário.
 
 ### Q4: Modo padrão de trabalho?
 - Arquivo: `shared/producer-identity.md`

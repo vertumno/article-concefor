@@ -5,25 +5,25 @@
 ## Duas variantes oficiais
 
 ### A — Cor Sólida (institucional)
-- Fundo cinza claro (`#EEEEEE`) na área de conteúdo, sobre branco.
-- Bloco **oliva** (`#A3A51A` / lima `#B0C804`) no canto superior esquerdo + linha-guia vertical oliva.
-- Bloco **azul royal** (`#314A99`) no canto inferior esquerdo.
-- Acento **grená** (`#980000`).
-- Rodapé: `cefor.ifes.edu.br` em oliva.
+- Fundo cinza claro (`#EAEAEC`) na área de conteúdo, sobre branco.
+- Bloco **oliva** (`#8C9A0D` / lima `#B0CB1F`) no canto superior esquerdo + linha-guia vertical oliva.
+- Bloco **azul royal** (`#2C459A`) no canto inferior esquerdo.
+- Acento **Vermelho IF** (`#CC1111`).
+- Rodapé: `cefor.ifes.edu.br` em oliva `#8C9A0D`.
 - 15 slides, 14 layouts, 2 masters, 8 imagens.
 
 ### B — Degradê
-- Faixa superior em **degradê teal → verde** (`#134F5C → #125E65 → #08A18E`) com retângulos arredondados decorativos.
-- Fundo branco; faixa inferior cinza (`#EEEEEE`).
-- Rodapé: `cefor.ifes.edu.br` em verde-lima.
+- Faixa superior e fundo em **degradê** (`#C6D452` → `#7FC24A` → `#36B4A6` → `#3F93CE`) com retângulos arredondados decorativos.
+- Fundo branco; rodapé/barra lateral cinza (`#EAEAEC`).
+- Rodapé: `cefor.ifes.edu.br` em oliva `#8C9A0D`.
 - 13 slides, 11 layouts, 2 masters, 9 imagens.
 
 ## Tipografia (ambas)
-- Títulos e corpo: **Arial** (theme: major=Arial, minor=Arial). Web-safe.
+- Títulos e corpo: **Open Sans** (theme: major=Open Sans, minor=Open Sans). Fallback: Arial.
 
 ## Cores reais mais usadas (frequência no XML)
-- **Sólida:** `#314A99` (dominante), `#000000`, `#595959`, `#980000`, `#343434`, `#A3A51A`, `#EEEEEE`, `#B0C804`.
-- **Degradê:** `#343434`, `#000000`, `#595959`, `#134F5C`, `#08A18E`, `#125E65`.
+- **Sólida:** `#2C459A` (dominante), `#2B2B2B` (tinta), `#5A5A5A` (texto médio), `#CC1111` (Vermelho IF), `#8C9A0D` (oliva), `#EAEAEC` (cinza), `#B0CB1F` (lima).
+- **Degradê:** `#2B2B2B`, `#5A5A5A`, `#3F93CE`, `#36B4A6`, `#7FC24A`, `#C6D452`.
 
 > Observação: o `clrScheme` do theme é o esquema genérico antigo do Office (accent1 `#058DC7` etc.) — **não** representa a identidade real. As cores acima (dos slides/master) são as válidas.
 

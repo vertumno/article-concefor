@@ -36,14 +36,14 @@ Inspeção dos thumbnails/renders dos decks. Duas frentes: **qualidade pedagógi
 ### Avisos (preferível corrigir)
 - [ ] Espaçamento inconsistente entre slides do mesmo tipo.
 - [ ] **Cores fora da paleta Cefor** (Sólida ou Degradê — ver `design-system/palette.md`).
-- [ ] Fallback de fonte (não-Arial substituída).
+- [ ] Fallback de fonte (não-Open Sans substituída).
 - [ ] Excesso de espaço vazio.
 
 ### Conformidade de marca Cefor
 - [ ] Variante visual consistente em todo o deck (não misturar Sólida e Degradê).
 - [ ] Rodapé `cefor.ifes.edu.br` presente onde o template prevê.
-- [ ] Cores conforme `design-system/palette.md`; fonte Arial.
-- [ ] Contraste: texto escuro sobre oliva; texto branco sobre azul/teal.
+- [ ] Cores conforme `design-system/palette.md`; fonte Open Sans.
+- [ ] Contraste: texto escuro sobre oliva; texto branco sobre azul/azul degradê.
 - [ ] 1º slide = title-slide; último = end-slide.
 
 ## C. Scoring ponderado (verdict do deck)
