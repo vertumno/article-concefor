@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Figura representativa — gerador de apresentações institucionais (anonimizada)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap">
+    <style>
+        /* ===========================================================
+           FIGURA REPRESENTATIVA — VERSÃO DE AVALIAÇÃO (BLIND/ANÔNIMA)
+           Slide-título estático 1920×1080 para captura de PNG.
+           Marca anonimizada (placeholder "Instituto X"); paleta/elementos
+           do produto mantidos. Já incorpora os refinamentos de acessibilidade:
+           texto em tinta sobre lima (7,7:1), <h1>, aria, movimento reduzido.
+           Para gerar a imagem: abra no navegador e capture a tela
+           (ou Imprimir → Salvar como PDF e exportar a página 1 como PNG).
+           =========================================================== */
+        :root {
+            --lime: #B0CB1F; --olive: #8C9A0D; --navy: #2C459A;
+            --ink: #2B2B2B; --font: 'Open Sans', system-ui, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 1920px; height: 1080px; overflow: hidden; background: #fff; }
+        body { font-family: var(--font); color: var(--ink); }
+        .slide { position: relative; width: 1920px; height: 1080px; background: #fff; overflow: hidden; }
+        .eyebrow { font-weight: 700; font-size: 30px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+        h1.titulo { font-weight: 800; font-size: 96px; line-height: 1.04; color: var(--ink); margin-top: 24px; }
+        .subtitulo { font-weight: 400; font-size: 38px; color: var(--ink); margin-top: 30px; }
+        .rodape { font-weight: 600; font-size: 22px; color: #6E7A0A; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+    <main class="slide">
+        <!-- Bloco lima superior (assinatura da Versão A) -->
+        <div style="position:absolute;left:0;top:0;width:100%;height:66%;background:var(--lime);border-bottom-left-radius:300px;"></div>
+        <!-- Moldura oliva -->
+        <div style="position:absolute;left:120px;top:92px;right:120px;bottom:236px;border:3px solid rgba(140,154,13,.55);border-radius:60px;pointer-events:none;"></div>
+        <!-- Seta institucional (decorativa) -->
+        <svg width="240" height="240" viewBox="0 0 100 100" style="position:absolute;left:156px;top:168px;" aria-hidden="true"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="rgba(120,134,0,.45)"/></svg>
+
+        <!-- Texto da capa: TINTA sobre lima (contraste 7,7:1) -->
+        <div style="position:absolute;left:192px;top:300px;right:220px;">
+            <div class="eyebrow">Planejamento Estratégico 2026</div>
+            <h1 class="titulo">Metas e Ações para a<br>Formação a Distância</h1>
+            <p class="subtitulo">Diretoria · Junho de 2026</p>
+        </div>
+
+        <!-- Assinatura institucional ANONIMIZADA (placeholder) -->
+        <div style="position:absolute;right:120px;bottom:80px;color:#1a1a1a;">
+            <div style="display:flex;align-items:center;gap:16px;">
+                <!-- Marca-placeholder neutra (não identifica a instituição real) -->
+                <div role="img" aria-label="Marca da Instituição X (placeholder para revisão cega)"
+                     style="width:64px;height:64px;border-radius:12px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:28px;">X</div>
+                <div style="line-height:1.16;">
+                    <div style="font-weight:800;font-size:24px;">INSTITUTO X</div>
+                    <div style="font-weight:600;font-size:18px;">Centro de Educação a Distância</div>
+                    <div style="font-weight:400;font-size:15px;color:#333;">(identidade omitida para revisão cega)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé -->
+        <div class="rodape" style="position:absolute;left:120px;bottom:48px;">instituicao.edu.br</div>
+    </main>
+</body>
+</html>
