@@ -71,8 +71,8 @@ article-concefor/
 - **Saída:**
   - **HTML** (padrão, fonte da verdade): arquivo único, abre em qualquer navegador/projetor, com edição
     de texto inline (tecla E, Ctrl+S).
-  - **PowerPoint editável (.pptx)** sob demanda, via a skill de PPTX, preenchendo o **modelo oficial** do
-    Cefor (ver seção 4).
+  - **LibreOffice Impress editável (.odp)** sob demanda, via script Python nativo, alinhado com a 
+    política de software livre do governo federal (ver seção 4).
   - **Link** (Vercel) sob demanda.
 - **Identidade oficial:** Lima `#B0CB1F`, Azul `#2C459A`, Oliva `#8C9A0D`, degradê CEFOR; fonte **Open
   Sans**; seta CEFOR, logo IFES, rodapé `cefor.ifes.edu.br`; duas linguagens visuais (A e B), 10 modelos
@@ -84,18 +84,19 @@ article-concefor/
 
 ---
 
-## 4. Exportação para PowerPoint e a skill de PPTX (decisão de arquitetura)
+## 4. Exportação para LibreOffice Impress (.odp) — Alinhamento com Software Livre
 
-A exportação `.pptx` é feita por **composição** com a **skill de PPTX da Anthropic** (pasta `pptx/`), não
-por código próprio. Decisão: **manter separada, nunca fundir**.
+A exportação `.odp` é feita por **script Python nativo** (arquivo `cefor-slides/scripts/generate-odp.py`), 
+sem dependências proprietárias. Decisão: **software livre como padrão**.
 
-- **Motivo (licença):** a skill de PPTX é proprietária; a LICENSE.txt proíbe copiar, criar derivados,
-  redistribuir ou manter cópias fora do Claude. Fundir violaria a licença.
-- **Como funciona:** dentro do Claude, a `cefor-slides` delega a geração do `.pptx` à skill de PPTX,
-  preferencialmente **editando o modelo `.pptx` oficial** do Cefor. Isso entrega um PowerPoint editável já
-  no padrão institucional e fecha a lacuna entre a IA e os modelos que a instituição já distribui.
-- **Regra de distribuição:** a pasta `pptx/` **não** deve ser empacotada/redistribuída com a
-  `cefor-slides` nem incluída na submissão do Concefor. No Claude Web a skill de PPTX já é nativa.
+- **Motivo:** LibreOffice é a recomendação oficial do governo federal brasileiro para software de 
+  apresentações. ODF (.odp) é formato aberto, sem restrições de licença. Sem dependências proprietárias 
+  mantém a skill totalmente livre.
+- **Como funciona:** o script `generate-odp.py` lê o HTML da apresentação (Fase 5), extrai conteúdo, 
+  cores (`:root` CSS) e tipografia, e reconstrói em formato `.odp` editável pronto para LibreOffice Impress. 
+  O HTML permanece como **fonte da verdade**; o `.odp` é uma exportação sob demanda.
+- **Dependências:** apenas Python + bibliotecas padrão (`lxml`, `pillow`). Sem restrições de distribuição; 
+  a skill é 100% aberta.
 
 ---
 
@@ -144,7 +145,8 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 
 ## 8. Próximos passos
 
-- [ ] Obter o **modelo `.pptx` oficial** do Cefor para o caminho de exportação editar a partir dele.
+- [ ] Testar `scripts/generate-odp.py` com exemplos Versão A e B; validar cores, fontes e layout.
 - [ ] Obter o **logo IFES em arquivo** (PNG/SVG) oficial (hoje é um SVG reconstruído fiel).
+- [ ] Concefor: atualizar FUNDAMENTACAO-CONCEFOR.md para mencionar .odp (software livre) em vez de .pptx.
 - [ ] Concefor: gravar vídeo, capturar figura, preencher template e submeter (ver `concefor/`).
 - [ ] Quando for o momento, construir a **skill educacional** (ver `pesquisa-skill-educacional/`).

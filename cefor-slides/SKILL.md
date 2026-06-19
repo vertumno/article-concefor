@@ -1,6 +1,6 @@
 ---
 name: cefor-slides
-description: Cria rapidamente apresentações de slides com a identidade visual oficial do Cefor/Ifes (lima + azul institucional, Open Sans, seta CEFOR, 2 linguagens visuais), em HTML autossuficiente, a partir do conteúdo entregue. Ferramenta genérica para qualquer servidor do Cefor (reuniões, eventos, comunicados, relatórios, materiais informativos). Saída padrão em HTML; exporta também para PowerPoint editável (.pptx) sob demanda. Descobre o estilo mostrando prévias, não pedindo descrições abstratas.
+description: Cria rapidamente apresentações de slides com a identidade visual oficial do Cefor/Ifes (lima + azul institucional, Open Sans, seta CEFOR, 2 linguagens visuais), em HTML autossuficiente, a partir do conteúdo entregue. Ferramenta genérica para qualquer servidor do Cefor (reuniões, eventos, comunicados, relatórios, materiais informativos). Saída padrão em HTML; exporta também para LibreOffice Impress editável (.odp) sob demanda, alinhado com a política de software livre do governo federal. Descobre o estilo mostrando prévias, não pedindo descrições abstratas.
 ---
 
 # Cefor Slides
@@ -160,26 +160,41 @@ não basta — grades podem se cobrir visualmente.
 ## Fase 6: Exportar e compartilhar (sob demanda)
 
 **O HTML é a entrega padrão.** Só gere outros formatos se a pessoa pedir. Pergunte: "Quer também em
-**PowerPoint editável (.pptx)** ou **publicar um link**? Ou ficamos só no HTML?"
+**LibreOffice Impress editável (.odp)** ou **publicar um link**? Ou ficamos só no HTML?"
 
-### 6A: Exportar PowerPoint editável (.pptx)
+### 6A: Exportar LibreOffice Impress editável (.odp)
 
-Use a **skill de PPTX** (motor de PowerPoint nativo, instalada à parte no Claude) para gerar um `.pptx`
-**editável** (texto editável, não imagem). É o caminho recomendado, pois integra a IA ao padrão que a
-instituição já distribui:
+Use o **script Python nativo** (`scripts/generate-odp.py`) para gerar um `.odp`
+**editável** (texto editável, não imagem). É o formato recomendado, pois alinha-se com a política de
+software livre do governo federal brasileiro (LibreOffice como padrão oficial):
 
-1. **Editar o modelo `.pptx` oficial do Cefor (preferível).** Peça o arquivo do template oficial; com a
-   skill de PPTX, preencha-o com o conteúdo do deck e salve. O resultado é um PowerPoint editável já no
-   padrão institucional.
-2. **Criar do zero (se não houver template).** A skill de PPTX gera o `.pptx` aplicando os tokens da
-   marca (cores, tipografia e elementos), conforme [CEFOR_BRAND.md](CEFOR_BRAND.md).
+```bash
+python scripts/generate-odp.py <deck.html> <deck.odp>
+```
 
-Depois de gerar, faça a QA visual da skill de PPTX (miniaturas) e confira contraste e ausência de
-sobreposição.
+**Processo:**
 
-> **Dependência e licença:** a skill de PPTX é de terceiros (proprietária, Anthropic) e roda dentro do
-> Claude. Não faz parte da `cefor-slides` nem deve ser empacotada/redistribuída com ela. O HTML
-> permanece como fonte da verdade; o `.pptx` é uma exportação.
+1. O script lê o HTML da apresentação (da Fase 5).
+2. Extrai os slides, conteúdo, cores e tipografia (das variáveis CSS `:root`).
+3. Reconstrói a apresentação em formato `.odp` (ODF — Open Document Format).
+4. Preserva a marca Cefor (cores lima, azul, oliva; font Open Sans; elementos visuais).
+5. Salva um arquivo editável pronto em LibreOffice Impress.
+
+**Dependências:**
+```bash
+pip install lxml pillow requests
+```
+
+Depois de gerar, abra o `.odp` em **LibreOffice Impress** e valide:
+- [ ] Cores estão corretas (lima, azul, oliva)
+- [ ] Fontes (Open Sans) carregaram
+- [ ] Imagens estão presentes
+- [ ] Layout não estourou slides
+- [ ] Acessibilidade mantida (alt text, contraste WCAG)
+
+> **Alinhamento institucional:** formato .odp segue a recomendação do governo federal para software
+> livre. O HTML permanece como fonte da verdade; o `.odp` é uma exportação editável sem dependências
+> proprietárias.
 
 ### 6B: Publicar link (Vercel)
 ```bash
