@@ -3,15 +3,16 @@
 > Evidência para a seção de resultados da submissão Concefor (Eixo 1). Avaliação de **protótipo** (não é
 > piloto com usuários finais). Objeto: deck de exemplo `cefor-slides/exemplos/exemplo-versao-a.html`
 > (Versão A — Cor Sólida), representativo da saída da skill.
-> Método alinhado à Design Science Research: avaliação → refinamento do artefato.
+> Método alinhado à fase de **Avaliação do modelo ADDIE** (Aldoobie, 2015): avaliação → refinamento do artefato.
 
 ## 1. Método
 
 - **Auditoria de acessibilidade** contra **WCAG 2.2 nível AA** e **eMAG**, com cálculo de razão de
   contraste pela fórmula oficial do W3C (luminância relativa; (L1+0,05)/(L2+0,05)). Verificação de
   estrutura, alternativas, navegação por teclado e movimento reduzido.
-- **Inspeção heurística por especialista** com as 10 heurísticas de Nielsen e princípios de design de
-  slides baseados em evidência (Mayer/CTML, Sweller/CLT, Alley/Assertion-Evidence).
+- **Inspeção heurística por especialistas internos** com as 10 heurísticas de Nielsen e princípios de
+  design de slides baseados em evidência (Teoria Cognitiva da Aprendizagem Multimídia, Mayer; Teoria da
+  Carga Cognitiva — Santos & Tarouco, Missel).
 - Referências em [FUNDAMENTACAO-CONCEFOR.md](FUNDAMENTACAO-CONCEFOR.md).
 
 ## 2. Auditoria de acessibilidade — contraste (cores reais do protótipo)
@@ -42,7 +43,7 @@
 | A5 | Logo (SVG) sem nome acessível | Médio | ✅ Corrigido: `role="img"` + `aria-label` |
 | A6 | Títulos de conteúdo em `<div>`/`<span>` (sem hierarquia semântica além do `<h1>`) | Médio | ⏳ Recomendado: usar `<h2>`/`role=heading`. Demonstrado na figura de referência |
 | A7 | Setas/números decorativos sem `aria-hidden` | Baixo | ⏳ Recomendado: `aria-hidden="true"`. Demonstrado na figura |
-| A8 | Palco fixo não reflui texto ao ampliar (zoom) — limitação inerente do formato 16:9 | Médio (limitação) | Mitigação: exportação em PPTX/HTML e alternativa textual; registrado como limitação |
+| A8 | Palco fixo não reflui texto ao ampliar (zoom) — limitação inerente do formato 16:9 | Médio (limitação) | Mitigação: exportação em Impress (.odp)/HTML e alternativa textual; registrado como limitação |
 
 **Pontos fortes confirmados:** estrutura `lang="pt-BR"`, HTML semântico (`<main>`/`<section>`), navegação
 completa por teclado (setas, espaço, PageUp/Down) e toque, marca d'água decorativa com `aria-hidden`,
@@ -66,22 +67,26 @@ e a maioria das combinações de texto em **AA/AAA**.
 
 ## 5. Princípios de design de slides (evidência)
 
-- **Mayer (coerência/sinalização)** e **Sweller (carga cognitiva)**: ✅ baixa carga extrínseca — layout
-  limpo, barra de título sinaliza o tópico, sem poluição visual.
-- **Alley (Assertion-Evidence)**: ⚠️ **parcial** — vários títulos ainda são *rótulos* ("Objetivos da
-  Reunião", "Indicadores...") em vez de *asserções* (frases-tese). Oportunidade de melhoria registrada
-  como trabalho futuro (oferecer modo de título-asserção).
+- **Aprendizagem multimídia (Mayer) — coerência/sinalização** e **carga cognitiva (Santos & Tarouco;
+  Missel)**: ✅ baixa carga extrínseca — layout limpo, barra de título sinaliza o tópico, sem poluição
+  visual, uma ideia por slide.
+- **Títulos informativos:** ⚠️ **parcial** — vários títulos ainda são *rótulos* ("Objetivos da Reunião",
+  "Indicadores...") em vez de *asserções* (frases-tese), o que reforçaria a sinalização do conteúdo
+  (princípio de sinalização de Mayer). Oportunidade de melhoria registrada como trabalho futuro (oferecer
+  modo de título-asserção).
 
 ## 6. Veredito
 
 **Conformidade parcial com WCAG 2.2 AA, com a maioria dos textos em AA/AAA e estrutura adequada.** A
 auditoria identificou achados pontuais — sobretudo o contraste da capa — que foram **corrigidos no ciclo
-de refinamento** (DSR): capa em tinta sobre lima, movimento reduzido, rodapé e selo escurecidos, e nome
-acessível no logo. Recomendações remanescentes (hierarquia semântica de títulos e `aria-hidden` em
-elementos decorativos) estão demonstradas na **figura de referência** ([figura-representativa.html](figura-representativa.html))
-e devem ser incorporadas ao gabarito da skill. Limitação inerente: o palco fixo 16:9 não reflui texto
-sob ampliação — mitigada por exportação e alternativas.
+de refinamento** (fase de Avaliação do ADDIE): capa em tinta sobre lima, movimento reduzido, rodapé e
+selo escurecidos, e nome acessível no logo. Recomendações remanescentes (hierarquia semântica de títulos
+e `aria-hidden` em elementos decorativos) estão demonstradas na **figura de referência**
+([figura-representativa.html](figura-representativa.html)) e devem ser incorporadas ao gabarito da skill.
+Limitação inerente: o palco fixo 16:9 não reflui texto sob ampliação — mitigada por exportação e
+alternativas.
 
 > Reflexo no resumo: descrever como *"avaliação por inspeção heurística e auditoria de acessibilidade
-> (WCAG 2.2/eMAG), cujos achados orientaram refinamentos do protótipo"* — afirmação verídica e que
-> evidencia rigor metodológico (ciclo avaliação→refinamento da DSR), em vez de alegar conformidade total.
+> (WCAG 2.2/eMAG), cujos achados orientaram refinamentos"* — afirmação verídica e que evidencia rigor
+> metodológico (ciclo avaliação→refinamento da fase de Avaliação do ADDIE), em vez de alegar conformidade
+> total.

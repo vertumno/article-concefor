@@ -4,6 +4,12 @@
 > Concefor, enquadrada no **Eixo 1 — EaD (dimensões institucionais e de gestão + ética/IA responsável)**.
 > Cada pilar abaixo sustenta um trecho do resumo/argumento. Fontes priorizadas por confiabilidade
 > (oficiais > acadêmicas > ilustrativas). Reconferir links antes do envio.
+>
+> **Alinhamento (2026-06-19):** este documento foi reconciliado com o artigo final
+> ([ARTIGO-FINAL.md](ARTIGO-FINAL.md)), que é a fonte da verdade. O conjunto de **10 referências citadas
+> no resumo** (Aldoobie; Batista; Brasil 2015/2020/2026a/2026b; Machado/Missel; Mayer; Santos & Tarouco;
+> WCAG/W3C) é o canônico. As demais fontes abaixo são **apoio** (não citadas no resumo): embasam pilares
+> de problema/solução, mas não entram na lista de referências do artigo.
 
 ---
 
@@ -16,7 +22,10 @@ conteúdo, porém de forma desarticulada do padrão: a saída da IA não incorpo
 e a adequação aos modelos permanece manual. Há, portanto, uma lacuna entre a adoção da IA e a sua
 integração ao padrão institucional, que a skill busca preencher. Sistemas de design e padronização visual
 respondem a esse tipo de problema com consistência, eficiência e escala, inclusive no setor público, onde
-a consistência reforça legitimidade e reduz retrabalho.
+a consistência reforça legitimidade e reduz retrabalho. Esse contexto encontra respaldo normativo na
+**Competência 2 da Matriz de Competências em IA** (SGD, Brasil 2026b), que orienta o agente público a
+aplicar IA generativa, de forma assistida e sob supervisão, para criar e refinar documentos padronizados
+(detalhada no Pilar 5).
 
 - U.S. Web Design System (USWDS): https://designsystem.digital.gov/
 - GOV.UK Design System / Government Design Principles: https://www.gov.uk/guidance/government-design-principles
@@ -45,15 +54,15 @@ dependência de fornecedor (*vendor lock-in*), favorece preservação digital e 
 
 ## Pilar 3 — Qualidade dos slides baseada em evidência
 
-Independentemente do uso, a skill aplica princípios de design de slides validados: Teoria Cognitiva da
-Aprendizagem Multimídia (Mayer), Teoria da Carga Cognitiva (Sweller) e abordagem Assertion-Evidence
-(Alley) — título como asserção + evidência visual, menos "parede de bullets".
+Independentemente do uso, a skill aplica princípios de design de slides baseados em evidência, apoiados
+em aspectos da **Teoria Cognitiva da Aprendizagem Multimídia** (Mayer) e da **Teoria da Carga Cognitiva**:
+layout limpo, sinalização do tópico (barra de título), uma ideia por slide e redução da carga extrínseca,
+em vez de "parede de bullets".
 
-- Mayer (CTML) — princípios multimídia: https://multimedia.ucsd.edu/best-practices/multimedia-learning.html ·
-  https://litfl.com/cognitive-theory-of-multimedia-learning/
-- Sweller (Carga Cognitiva): https://en.wikipedia.org/wiki/Cognitive_load
-- Alley — Assertion-Evidence (Penn State): https://www.assertion-evidence.com/guide.html ·
-  http://www.writing.engr.psu.edu/speaking/rethinking_psu.pdf
+**Referências canônicas (citadas no resumo):**
+- SANTOS; TAROUCO (2007) — Teoria da Carga Cognitiva em educação tecnológica: https://seer.ufrgs.br/index.php/renote/article/view/14145
+- MACHADO/MISSEL et al. (2023) — Recursos multimídia sob a TCAM de Mayer: https://seer.faccat.br/index.php/redin/article/view/2855
+- MAYER (2009) — Teoria Cognitiva da Aprendizagem Multimédia (in Miranda, org.): http://webhosting.bombyte.org/~joao.gama/guilhermina/m3/Mod3G2/Mayer_TCAMultimedia.pdf
 
 ## Pilar 4 — Acessibilidade (obrigatória por lei no setor público)
 
@@ -61,33 +70,46 @@ A skill incorpora acessibilidade por padrão (contraste, alternativas textuais, 
 `prefers-reduced-motion`), alinhada à legislação e aos padrões brasileiros/internacionais. Em
 instituição pública federal, isso é **exigência legal**, não diferencial opcional.
 
-- Lei 13.146/2015 (Lei Brasileira de Inclusão): https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm
+**Referências canônicas (citadas no resumo):**
+- BRASIL (2015) — Lei nº 13.146/2015 (Lei Brasileira de Inclusão): http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm
+- BRASIL (2020) — eMAG, Modelo de Acessibilidade em Governo Eletrônico (MGI/SGD): https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/acessibilidade-digital/modelo-de-acessibilidade
+- WORLD WIDE WEB CONSORTIUM (2025) — WCAG 2.2, tradução PT-BR autorizada (Ceweb.br): https://www.w3.org/Translations/WCAG22-pt-BR/
+
+**Apoio (não citada no resumo):**
 - Decreto 5.296/2004: https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5296.htm
-- eMAG — Modelo de Acessibilidade em Governo Eletrônico: https://emag.governoeletronico.gov.br/ ·
-  https://www.gov.br/governodigital/pt-br/acessibilidade-e-usuario/acessibilidade-digital/modelo-de-acessibilidade
-- WCAG 2.2 (tradução PT-BR autorizada — Ceweb.br/NIC.br): https://www.w3c.br/traducoes/wcag/wcag22-pt-BR/
 
 ## Pilar 5 — Inteligência Artificial responsável e com supervisão humana
 
-A skill usa IA generativa como **assistente sob curadoria humana** (human-in-the-loop): toda saída é
-revisada e validada por pessoas, com transparência e rastreabilidade do uso. Enquadra-se nas diretrizes
-éticas internacionais e no marco brasileiro emergente.
+A skill usa IA generativa como **assistente sob curadoria humana** (*human in the loop*): toda saída é
+revisada, testada e validada por pessoas, com transparência e rastreabilidade do uso. Ferramentas
+nomeadas no artigo: **Claude Code** e **Claude Design**, empregadas na concepção, na geração de modelos e
+código e em rascunhos textuais, sempre sob decisão humana. A verificação humana ocorre nas entregas ao
+final de cada etapa de produção. Enquadra-se nas orientações brasileiras para uso de IA no serviço
+público e na educação.
 
-- UNESCO — Recomendação sobre a Ética da IA (2021, PT): https://unesdoc.unesco.org/ark:/48223/pf0000381137_por
-- UNESCO — Guidance for generative AI in education and research (2023): https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research
-- Cartilha IA Generativa no Serviço Público (SGD/SERPRO, 2025): https://www.gov.br/governodigital/pt-br/infraestrutura-nacional-de-dados/inteligencia-artificial-1/publicacoes/cartilha-ia-generativa
-- PL 2338/2023 (marco legal da IA) — Senado: https://www25.senado.leg.br/web/atividade/materias/-/materia/157233
-- Human-in-the-loop (referência): https://www.ibm.com/think/topics/human-in-the-loop
-- Transparência/integridade no uso de IA (SciELO em Perspectiva): https://blog.scielo.org/blog/2025/05/07/integridade-cientifica-e-agencia-humana-na-pesquisa-ia-gen/
-- LGPD (Lei 13.709/2018): https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+Argumento central de gestão pública: a **Competência 2 da Matriz de Competências em IA** (SGD, Brasil
+2026b) estabelece que o agente público deve aplicar, de forma assistida e sob supervisão, soluções de IA
+generativa para criar e refinar documentos e relatórios padronizados, mantendo o julgamento crítico e a
+responsabilidade humana pela validação final, para melhorar produtividade e qualidade dos serviços. A
+skill operacionaliza diretamente essa competência.
 
-## Pilar 6 — Método: Design Science Research (DSR)
+**Referências canônicas (citadas no resumo):**
+- BRASIL (2026b) — Matriz de Competências em Inteligência Artificial (MGI/SGD): https://www.gov.br/governodigital/pt-br/infraestrutura-nacional-de-dados/inteligencia-artificial-1/matrizdeIA
+- BRASIL (2026a) — Inteligência Artificial na Educação Básica: diretrizes (MEC): https://www.gov.br/mec/pt-br/escolas-conectadas/arquivos/ia-educacao-basica.pdf
+- BATISTA et al. (2025) — Human-in-the-loop (HITL): participação humana em sistemas de IA (REGRASP/IFSP): https://regrasp.spo.ifsp.edu.br/index.php/regrasp/article/view/1307
 
-O desenvolvimento segue a DSR: construção e avaliação iterativa de um artefato para resolver um problema
-real, com rigor e comunicação dos resultados (Hevner et al., 2004; Dresch, Lacerda & Antunes no Brasil).
+## Pilar 6 — Método: modelo ADDIE (design instrucional)
 
-- Hevner et al. (2004) — Design Science in Information Systems Research: https://misq.umn.edu/misq/article/28/1/75/261/Design-Science-in-Information-Systems-Research1
-- Dresch, Lacerda & Antunes — Design Science Research (livro, PT): https://atenaeditora.com.br/catalogo/ebook/design-science-research-na-criacao-de-artefatos-educacionais
+O desenvolvimento do artefato foi guiado por aspectos do modelo **ADDIE** (*Analysis, Design, Development,
+Implementation, Evaluation*) — Aldoobie (2015). A aplicação estruturou-se em ciclos contínuos de projeto
+e avaliação, em três momentos: (1) **design e especificação** — formalização da identidade em design
+tokens e duas linguagens visuais; (2) **fluxo de experiência do usuário** — entrega do conteúdo, escolha
+de estilo por pré-visualização e geração automatizada; (3) **desenvolvimento e entrega técnica** — HTML
+autossuficiente em proporção fixa de tela, edição no navegador e exportação para LibreOffice Impress. A
+avaliação (inspeção heurística + auditoria de acessibilidade) realimenta o refinamento do artefato.
+
+**Referência canônica (citada no resumo):**
+- ALDOOBIE, N. (2015) — ADDIE model. *American International Journal of Contemporary Research*, v. 5, n. 6: https://aijcr.thebrpi.org/journals/Vol_5_No_6_December_2015/10.pdf
 
 ## Pilar 7 — Enquadramento como Produção Técnica (CAPES)
 
@@ -102,17 +124,27 @@ No Concefor, a categoria correspondente é **"Recursos Tecnológicos e Digitais"
 
 ## Como os pilares entram no resumo (mapa argumentativo)
 
-1. **Problema** (Pilar 1) → 2. **Objetivo** → 3. **Artefato** (Pilar 2: tokens/design system; saída em
-   formatos abertos — HTML + ODF/software livre) → 4. **Qualidade** (Pilar 3) + **Acessibilidade**
-   (Pilar 4) → 5. **IA responsável** (Pilar 5)
-   → 6. **Método DSR** (Pilar 6) → 7. **Avaliação/resultados** (inspeção heurística + auditoria de
-   acessibilidade + deck demonstrativo) → 8. **Limitações/trabalhos futuros**.
+1. **Problema** (Pilar 1) + **mandato de gestão pública** (Competência 2 da Matriz de Competências em IA,
+   Pilar 5) → 2. **Objetivo** → 3. **Artefato** (Pilar 2: tokens/design system; saída em formatos abertos
+   — HTML + ODF/software livre) → 4. **Qualidade** (Pilar 3) + **Acessibilidade** (Pilar 4) → 5. **IA
+   responsável** (Pilar 5) → 6. **Método ADDIE** (Pilar 6) → 7. **Avaliação/resultados** (inspeção
+   heurística + auditoria de acessibilidade + apresentação demonstrativa) → 8. **Limitações** (necessidade
+   de capacitação/conscientização dos servidores) **e trabalhos futuros** (validação empírica com
+   usuários, estudos de adoção e impacto).
 
 > Nota de integridade: o resumo só pode **afirmar** avaliação (inspeção heurística, auditoria de
 > acessibilidade) **depois** de realizá-las de fato. Ver checklist na submissão.
 
 ## Observações sobre as fontes
-- Mais fortes (oficiais): Planalto (leis), gov.br (eMAG, Cartilha IA, identidade digital), W3C/Ceweb.br
-  (WCAG, design tokens), UNESCO, CAPES, Senado (PL 2338), MIS Quarterly (Hevner).
-- Acadêmicas: SciELO em Perspectiva; Dresch et al.
-- Ilustrativas (usar com parcimônia, não como prova): blogs de mercado sobre custo de inconsistência.
+- **Canônicas (citadas no resumo — ver [ARTIGO-FINAL.md](ARTIGO-FINAL.md)):** Aldoobie (ADDIE); Batista
+  (HITL); Brasil 2015 (Lei 13.146), 2020 (eMAG), 2026a (IA na Educação Básica), 2026b (Matriz de
+  Competências em IA); Machado/Missel e Mayer (TCAM); Santos & Tarouco (carga cognitiva); WCAG 2.2/W3C.
+- **Apoio (oficiais, não citadas no resumo):** gov.br (identidade digital), OASIS/ISO (ODF), W3C
+  (design tokens), CAPES (Produção Técnica), Decreto 5.296/2004, USWDS, GOV.UK.
+- **Ilustrativas (usar com parcimônia, não como prova):** blogs de mercado sobre custo de inconsistência.
+
+> **Mudanças desta revisão (alinhamento ao artigo final):** método passou de Design Science Research para
+> **ADDIE** (Aldoobie); IA responsável passou a citar a **Matriz de Competências em IA** (Competência 2),
+> **Brasil 2026a** e **Batista** (HITL), no lugar de UNESCO/PL 2338/IBM; princípios de slide citam
+> **Santos & Tarouco, Missel e Mayer** (sem assertion-evidence/Alley); exportação é **LibreOffice
+> Impress**, não PowerPoint.

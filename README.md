@@ -49,8 +49,9 @@ article-concefor/
 │   └── exemplo-educacional.html           # Deck educacional de exemplo (Versão B)
 │
 ├── concefor/                              # Submissão ao VIII Concefor (Produção Técnica, Eixo 1)
-│   ├── RASCUNHO-SUBMISSAO-CONCEFOR.md     # Título, resumo (<=500 palavras), descrição, vídeo, checklist
-│   ├── FUNDAMENTACAO-CONCEFOR.md          # 7 pilares teóricos/legais com referências
+│   ├── ARTIGO-FINAL.md                    # TEXTO CANÔNICO: título, autores, resumo, palavras-chave, referências
+│   ├── RASCUNHO-SUBMISSAO-CONCEFOR.md     # Operacional: figura, vídeo, anonimização, checklist (aponta p/ ARTIGO-FINAL)
+│   ├── FUNDAMENTACAO-CONCEFOR.md          # 7 pilares teóricos/legais (referências alinhadas ao artigo)
 │   ├── AVALIACAO-PROTOTIPO.md             # Auditoria de acessibilidade (WCAG) + inspeção heurística
 │   └── figura-representativa.html         # Slide-título anonimizado para gerar a imagem (PNG)
 │
@@ -116,17 +117,24 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 
 ## 6. Submissão ao Concefor (VIII Concefor, ago/2026)
 
+- **Título final:** *Skill de inteligência artificial para geração de apresentações institucionais
+  padronizadas e acessíveis*.
+- **Autores (4, Cefor/Ifes):** Elton Vinicius Silva; Marcos Vinícius Forecchi Accioly; Rutinelli da Penha
+  Fávero; Andreia Cristina Carvalho Cáo. (Omitidos na fase de revisão cega.)
 - **Modalidade:** Produção Técnica. **Categoria:** Recursos Tecnológicos e Digitais. **Eixo:** 1 (EaD,
   dimensões institucionais e de gestão; uso responsável de IA).
-- **Materiais prontos** em `concefor/`: rascunho da submissão (resumo até 500 palavras, sem travessão, com
-  a palavra "skill" e a descrição obrigatória de uso de IA), fundamentação com referências, avaliação do
-  protótipo e figura representativa anonimizada.
-- **Atenção:** revisão cega exige anonimato; anonimizar a marca em imagem e vídeo na fase de avaliação.
-  A exportação `.odp` usa apenas software livre (`odfpy`), reforçando o enquadramento institucional; não
-  há mais dependência proprietária (skill de PPTX) a declarar.
-- **Pendências do autor:** definir autores e inscrever, gravar o vídeo (até 3 min), capturar o PNG da
-  figura, colar no template oficial e exportar em PDF, e e-mail à organização confirmando eixo, categoria
-  e uso do nome da instituição na fase cega.
+- **Texto canônico:** [concefor/ARTIGO-FINAL.md](concefor/ARTIGO-FINAL.md) (título, autores, resumo,
+  palavras-chave, descrição e as 10 referências). Os demais documentos derivam dele.
+- **Método:** modelo **ADDIE** (Aldoobie, 2015). **Fundamentação teórica:** IA responsável ancorada na
+  **Competência 2 da Matriz de Competências em IA** (SGD, 2026), *human in the loop* (Batista); qualidade
+  de slides em Mayer e carga cognitiva (Santos & Tarouco, Missel); acessibilidade em Lei 13.146/2015,
+  eMAG e WCAG 2.2.
+- **Atenção:** revisão cega exige anonimato; omitir autores/instituição do PDF e anonimizar a marca em
+  imagem e vídeo na fase de avaliação. A exportação `.odp` usa apenas software livre (`odfpy`),
+  reforçando o enquadramento institucional.
+- **Pendências do autor:** inscrever ao menos um dos autores, gravar o vídeo (até 3 min), capturar o PNG
+  da figura, colar o ARTIGO-FINAL no template oficial e exportar em PDF, e e-mail à organização
+  confirmando eixo, categoria e uso do nome da instituição na fase cega.
 
 ---
 
