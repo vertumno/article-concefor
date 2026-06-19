@@ -1,7 +1,9 @@
 # Identidade Visual do Cefor — Tokens de Marca (OFICIAL)
 
-> **Fonte da verdade:** [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html) —
+> **Fonte da verdade (visual, p/ humanos):** `brand/CEFOR-Design-System.dc.html` —
 > "Sistema de Design de Apresentações · CEFOR / IFES · 10 modelos em 2 linguagens visuais".
+> Renderize no navegador para conferência visual; **não leia como texto** (artefato de ~60 KB sem
+> ganho de fidelidade no markup). Os tokens abaixo já são a identidade completa para gerar.
 > Estes tokens são a **identidade obrigatória** de toda apresentação gerada pela `cefor-slides`.
 > A consistência de marca tem prioridade sobre preferências estéticas genéricas.
 

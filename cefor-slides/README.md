@@ -23,13 +23,14 @@ Baseada no padrão `frontend-slides` (palco fixo 16:9, "mostrar não contar", ed
 - Mostra **2 prévias** (Versão A e Versão B) na identidade oficial do Cefor para escolher.
 - Gera **um arquivo HTML** que abre em qualquer navegador/projetor.
 - Permite **editar o texto no próprio navegador** (tecla **E**, Ctrl+S salva).
-- **Sob demanda:** exporta para **PowerPoint editável (.pptx)** e/ou publica um **link**.
+- **Sob demanda:** exporta para **LibreOffice Impress editável (.odp)** e/ou publica um **link**.
 
 ## Saída
 
 - **Padrão: HTML.** É sempre o entregável principal e a fonte da verdade.
-- **PowerPoint editável (.pptx)** quando a pessoa pedir, idealmente preenchendo o **modelo `.pptx`
-  oficial** do Cefor (gerado pela skill de PPTX, de terceiros; ver abaixo).
+- **LibreOffice Impress editável (.odp)** quando a pessoa pedir, gerado pelo script nativo
+  `scripts/generate-odp.py` (odfpy) — texto editável, sem dependências proprietárias, alinhado à
+  política de software livre do governo federal (ODF é padrão aberto).
 - **Link** (Vercel) quando a pessoa pedir, com aval para conteúdo institucional.
 
 ## Identidade oficial (resumo)
@@ -61,13 +62,18 @@ cefor-slides/
 │   └── slide-patterns.md     # Catálogo genérico de padrões de slide
 ├── exemplos/
 │   └── exemplo-versao-a.html # Deck de exemplo (Versão A — Cor Sólida)
+├── OTIMIZACAO-TOKENS.md      # Registro da otimização de tokens (scaffold + no-read)
 └── scripts/
+    ├── new-deck.py           # Scaffold: monta o deck a partir só dos corpos de slide (Fase 3)
+    ├── deck-base.css         # CSS fixo de todo deck (injetado pelo scaffold)
     ├── extract-pptx.py       # Converter PowerPoint → conteúdo (Fase 4)
+    ├── generate-odp.py       # Exportar HTML → .odp editável (LibreOffice) (Fase 6A)
     └── deploy.sh             # Publicar deck → link Vercel (Fase 6B)
 ```
 
-> Export para `.pptx` editável usa a **skill de PPTX** (de terceiros, proprietária, Anthropic), dentro
-> do Claude. Ela **não** faz parte desta skill e **não** deve ser empacotada/redistribuída com ela.
+> Export para `.odp` editável usa o script nativo `scripts/generate-odp.py` (odfpy), empacotado com a
+> skill — sem dependências proprietárias, alinhado à política de software livre do governo federal.
+> `extract-pptx.py` é apenas **entrada** (converter um `.pptx` recebido), não exportação.
 
 ## Como usar
 
@@ -85,18 +91,19 @@ Aponte o agente para o `SKILL.md` desta pasta e siga o fluxo das fases.
 |----------------|-----------|
 | Criar/editar slides (HTML) | Nada (só o agente) |
 | Converter PowerPoint (entrada) | Python 3 + `pip install python-pptx` |
-| Exportar `.pptx` editável | Skill de PPTX (Anthropic), dentro do Claude (usa LibreOffice/PptxGenJS) |
+| Exportar `.odp` editável | Python 3 + `pip install odfpy` (`pillow` opcional p/ imagens raster) |
 | Publicar link | Node.js + conta Vercel (gratuita) |
 
 ## Status e próximos passos
 
 - [x] Skill **genérica** (sem cunho educacional), para todos os servidores.
 - [x] **Identidade OFICIAL** aplicada (lima/azul/oliva, Open Sans, seta CEFOR, Versões A e B).
-- [x] Catálogo genérico de padrões de slide.
-- [x] Regra de saída: HTML padrão; **PPTX editável** e link sob demanda (PDF removido).
-- [x] Scripts de deploy e extração de PPTX; 1 deck de exemplo (Versão A).
-- [x] Export `.pptx` editável via composição com a **skill de PPTX** (editando o modelo oficial).
-- [ ] Obter o **modelo `.pptx` oficial** do Cefor para o caminho de exportação editar a partir dele.
+- [x] Catálogo genérico de padrões de slide + classes utilitárias.
+- [x] Regra de saída: HTML padrão; **`.odp` editável** e link sob demanda (PDF/PPTX removidos).
+- [x] Scaffold `new-deck.py` + `deck-base.css` (boilerplate fixo determinístico) — ver
+      [OTIMIZACAO-TOKENS.md](OTIMIZACAO-TOKENS.md).
+- [x] Export `.odp` editável via script nativo `generate-odp.py` (odfpy, software livre).
+- [x] Scripts de deploy e extração de PPTX (entrada); 1 deck de exemplo (Versão A).
 - [ ] Adicionar o **logo IFES em arquivo** (PNG/SVG) caso se prefira a imagem oficial ao SVG reconstruído.
 - [ ] (Separado) Criar a **skill de apresentações educacionais** — ver
       [../pesquisa-skill-educacional/](../pesquisa-skill-educacional/).

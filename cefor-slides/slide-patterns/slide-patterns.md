@@ -70,6 +70,31 @@ Lista de ações com responsável e prazo, ou a conclusão central. Fechamento d
 ### 16. Encerramento / contato
 Agradecimento, assinatura institucional, contato. Modelo A5/B5.
 
+## Classes utilitárias prontas (injetadas pelo scaffold)
+
+Use estas classes nos corpos de slide — já vêm no `deck-base.css` (via `new-deck.py`), não precisa
+defini-las nem ler a CSS:
+
+| Classe | Para quê |
+|--------|----------|
+| `.t-capa` / `.t-secao` / `.t-conteudo` | Títulos (80/54/36px) |
+| `.corpo`, `li` | Texto e itens de lista (26px) |
+| `.eyebrow` | Sobrescrito MAIÚSCULO |
+| `.num-secao` | Número de seção grande (80px) |
+| `.rodape` | URL `cefor.ifes.edu.br` (oliva AA) |
+| `.barra-titulo` / `.barra-titulo.b` | Barra de título (lima / degradê B) |
+| `.bullet` / `.bullet.b` | Marcador quadrado (lima / ciano B) |
+| `.trilho` | Trilho lateral |
+| `.reveal` | Entrada animada (até 6 por slide; respeita reduced-motion) |
+| `.kpi-grid` / `.kpi-card` / `.kpi-num` / `.kpi-label` | Indicadores/KPIs |
+| `.timeline` / `.timeline-item` / `.timeline-dot` / `.timeline-title` / `.timeline-desc` | Linha do tempo |
+| `.admin-table` (`th`/`td`) | Tabela com cabeçalho lima |
+| `.badge-status` / `.badge-done` / `.badge-doing` | Selos de status (AA) |
+| `.slide-counter` | Contador "n / total" (preenchido pelo JS) |
+
+**SVGs de marca** (também injetados): seta CEFOR → `<svg style="..." fill="var(--navy)"><use href="#seta-cefor"/></svg>`;
+marca d'água → `<rect width="100%" height="100%" fill="url(#wm-setas)"/>`. Logo IFES: SVG em CEFOR_BRAND.md.
+
 ## Densidade recomendada
 
 - **Ao vivo (reunião, evento, palestra):** baixa densidade (poucas ideias por slide, mais visual).

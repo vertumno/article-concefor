@@ -30,7 +30,8 @@ quando a pessoa pedir** (ver Fase 6), alinhado à política de software livre do
 3. **Zero dependências.** Arquivo HTML único, CSS/JS inline. Sem npm, sem build.
 4. **Mostrar, não contar.** Gere prévias visuais reais (não opções abstratas). As pessoas escolhem vendo.
 5. **Palco fixo 16:9 (INEGOCIÁVEL).** Slides em 1920×1080 escalados como um todo. Nunca refluir conteúdo
-   por dispositivo. Inclua o conteúdo inteiro de [viewport-base.css](viewport-base.css) em todo deck.
+   por dispositivo. O CSS do palco (`viewport-base.css`) é injetado pelo scaffold `new-deck.py`; em todo
+   deck ele deve estar presente por completo.
 6. **Acessível e claro.** Contraste WCAG AA, `prefers-reduced-motion`, linguagem clara.
 7. **Sem "AI slop".** Respeite os anti-patterns do Cefor (sem gradiente roxo, sem emoji-ícone, sem
    animação chamativa). Ver [CEFOR_BRAND.md](CEFOR_BRAND.md).
@@ -97,11 +98,29 @@ pessoa quiser, pode ajustar a lima/azul dentro das opções oficiais (ver CEFOR_
 
 Gere o deck completo com o conteúdo da Fase 1 e o estilo da Fase 2.
 
-**Antes de gerar, leia:**
-- [CEFOR_BRAND.md](CEFOR_BRAND.md) — tokens de marca (cole no `:root`).
-- [html-template.md](html-template.md) — arquitetura HTML/JS e edição inline.
-- [viewport-base.css](viewport-base.css) — CSS obrigatório (inclua inteiro).
-- [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md) — catálogo genérico de padrões de slide.
+### Caminho recomendado (econômico): scaffold
+
+**Você escreve apenas os corpos de slide; o script monta o resto.** ~56% de todo deck é
+boilerplate idêntico (head, CSS de palco/tipografia/componentes, controlador JS, edição inline,
+SVGs de marca). Não recopie isso — `scripts/new-deck.py` injeta tudo de forma byte-correta:
+
+```bash
+python scripts/new-deck.py --version A --title "Título — Cefor/Ifes" --slides corpos.html --out deck.html
+# --version B para Degradê; --lime/--navy para ajustar cores dentro dos eixos da marca
+```
+
+1. Escreva em `corpos.html` **só** os `<section class="slide">…</section>` (sem `<head>`, sem `<script>`).
+2. Rode o script. Ele injeta `:root` (versão A/B), `deck-base.css` (palco, tipografia, componentes,
+   edição, utilitários KPI/timeline/tabela/badge), os SVGs de marca (`<use href="#seta-cefor">`,
+   `url(#wm-setas)`) e o controlador JS. Valida o resultado antes de gravar (`[OK] deck válido`).
+
+**Para escrever os corpos, basta:** [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md)
+(catálogo de padrões + classes utilitárias) e os modelos de [STYLE_PRESETS.md](STYLE_PRESETS.md) (já lido
+na Fase 2). Os tokens de marca e SVGs estão em [CEFOR_BRAND.md](CEFOR_BRAND.md) (já lido na Fase 2).
+**Não** releia `viewport-base.css` nem o boilerplate de `html-template.md` — o script já os contém.
+
+> **Fallback manual** (só se o script não puder rodar): monte o HTML inteiro à mão seguindo
+> [html-template.md](html-template.md) e incluindo [viewport-base.css](viewport-base.css) por completo.
 
 **Monte a sequência a partir do conteúdo**, usando os padrões do catálogo. Estrutura típica:
 capa → (índice) → (divisória) → conteúdo (listas, duas colunas, indicadores, gráficos, tabelas) →
@@ -115,7 +134,8 @@ contexto.
   completo. Nunca deixe virar bagunça visual — se estourar, divida.
 
 **Requisitos:**
-- Arquivo HTML único, todo CSS/JS inline; inclua o `viewport-base.css` inteiro no `<style>`.
+- Arquivo HTML único, todo CSS/JS inline (o scaffold já garante isso; no fallback manual, inclua o
+  `viewport-base.css` inteiro no `<style>`).
 - Fonte institucional **Open Sans** (400/600/700/800) via Google Fonts.
 - Reproduza fielmente os modelos oficiais da linguagem escolhida (A1–A5 ou B1–B5), traduzindo as
   proporções do preview (960×540) para o palco real 1920×1080.
@@ -215,12 +235,14 @@ do Cefor em hospedagem externa; para uso interno, o `.odp` ou o HTML costuma bas
 
 | Arquivo | Para quê | Quando ler |
 |---------|----------|-----------|
-| [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html) | Design system oficial (referência visual: 10 modelos, 2 linguagens) | Consulta de fidelidade |
+| [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html) | Design system oficial (artefato **visual** renderizado, ~60 KB, p/ humanos) | **Nunca carregar como texto** — não há ganho de fidelidade lendo o markup (~17 k tokens). A fonte de layout do agente é STYLE_PRESETS.md + html-template.md. Abra no navegador só se a pessoa pedir referência visual. |
 | [CEFOR_BRAND.md](CEFOR_BRAND.md) | Tokens de marca, Open Sans, SVGs de logo/seta, voz, anti-patterns | Sempre (Fase 2 e 3) |
 | [STYLE_PRESETS.md](STYLE_PRESETS.md) | Versão A (Cor Sólida) e Versão B (Degradê) + 10 modelos | Fase 2 (estilo) |
-| [viewport-base.css](viewport-base.css) | CSS obrigatório do palco fixo | Fase 3 (gerar) |
-| [html-template.md](html-template.md) | Arquitetura HTML/JS + edição inline + modelos | Fase 3 (gerar) |
-| [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md) | Catálogo genérico de padrões de slide | Fase 3 (gerar) |
+| [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md) | Catálogo de padrões + classes utilitárias prontas | Fase 3 (gerar) — **principal p/ escrever corpos** |
+| `scripts/new-deck.py` | **Scaffold**: monta o deck a partir só dos corpos de slide (injeta head/CSS/JS/marca fixos) | Fase 3 (caminho recomendado) |
+| `scripts/deck-base.css` | CSS fixo de todo deck (injetado pelo scaffold) | Não ler — injetado por `new-deck.py` |
+| [html-template.md](html-template.md) | Arquitetura HTML/JS completa | Só no **fallback manual** (sem o scaffold) |
+| [viewport-base.css](viewport-base.css) | CSS do palco fixo | Só no **fallback manual** (o scaffold já o contém) |
 | `scripts/extract-pptx.py` | Extrair conteúdo de .pptx (entrada da Fase 4) | Fase 4 (converter) |
 | `scripts/generate-odp.py` | Exportar HTML → `.odp` editável (LibreOffice) | Fase 6A (sob demanda) |
 | `scripts/deploy.sh` | Publicar link (Vercel) | Fase 6 (sob demanda) |

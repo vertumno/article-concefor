@@ -5,8 +5,8 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
 
 > Inclua sempre o conteúdo COMPLETO de [viewport-base.css](viewport-base.css) no `<style>`, os tokens de
 > [CEFOR_BRAND.md](CEFOR_BRAND.md) no `:root`, e siga os modelos oficiais de
-> [STYLE_PRESETS.md](STYLE_PRESETS.md) (Versão A ou B). Referência visual completa em
-> [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html).
+> [STYLE_PRESETS.md](STYLE_PRESETS.md) (Versão A ou B). Referência visual para humanos em
+> `brand/CEFOR-Design-System.dc.html` (renderizar no navegador; **não** ler como texto).
 
 ## Estrutura base
 
@@ -175,9 +175,10 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
 ## Regras de aplicação dos modelos
 
 - **Escolha UMA linguagem** (Versão A ou B) e use-a no deck inteiro.
-- Reproduza fielmente os modelos oficiais (A1–A5 / B1–B5) de
-  [STYLE_PRESETS.md](STYLE_PRESETS.md) e do design system. **Traduza as proporções** do preview
-  (960×540) para o palco real **1920×1080** (≈ multiplicar por 2).
+- Reproduza fielmente os modelos oficiais (A1–A5 / B1–B5) descritos em
+  [STYLE_PRESETS.md](STYLE_PRESETS.md) (a fonte de layout do agente). **Traduza as proporções** do
+  preview (960×540) para o palco real **1920×1080** (≈ multiplicar por 2). Não carregue o
+  `.dc.html` como texto — é artefato visual para humanos, sem ganho de fidelidade no markup.
 - Capa, divisória, conteúdo, destaque/citação e encerramento já têm modelo. Slides de **dados**
   (indicador, gráfico, tabela, linha do tempo) estendem o modelo de **Conteúdo** (A3/B4) na mesma linguagem.
 - Sempre presentes: **seta CEFOR** (azul ou lima), **logo IFES** na capa e encerramento, **rodapé**
