@@ -16,8 +16,8 @@ Baseada no padrão "frontend-slides" (palco fixo 16:9, mostrar-não-contar, edi�
 **Sistema de Design de Apresentações oficial do Cefor** (ver
 [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html)).
 
-**Saída:** HTML é o formato **padrão**. O **PowerPoint editável (.pptx)** é gerado **apenas quando a
-pessoa pedir** (ver Fase 6).
+**Saída:** HTML é o formato **padrão**. O **LibreOffice Impress editável (.odp)** é gerado **apenas
+quando a pessoa pedir** (ver Fase 6), alinhado à política de software livre do governo federal.
 
 ## Princípios
 
@@ -182,19 +182,24 @@ python scripts/generate-odp.py <deck.html> <deck.odp>
 
 **Dependências:**
 ```bash
-pip install lxml pillow requests
+pip install odfpy        # obrigatória (gera ODF válido)
+pip install pillow       # opcional (só para embutir imagens raster locais)
 ```
 
-Depois de gerar, abra o `.odp` em **LibreOffice Impress** e valide:
-- [ ] Cores estão corretas (lima, azul, oliva)
-- [ ] Fontes (Open Sans) carregaram
-- [ ] Imagens estão presentes
-- [ ] Layout não estourou slides
-- [ ] Acessibilidade mantida (alt text, contraste WCAG)
+O script **valida o arquivo reabrindo-o** antes de declarar sucesso (`[OK] ODF válido`). Ainda assim,
+depois de gerar, abra o `.odp` em **LibreOffice Impress** e revise:
+- [ ] Texto editável correto (títulos, antetítulos, bullets, mensagem-chave, encerramento)
+- [ ] Cores Cefor aplicadas (azul nos títulos, lima nos marcadores, oliva no rodapé)
+- [ ] Fonte Open Sans (instale-a no sistema se o LibreOffice substituir)
+- [ ] Imagens raster locais presentes (se houver `<img>`)
 
-> **Alinhamento institucional:** formato .odp segue a recomendação do governo federal para software
-> livre. O HTML permanece como fonte da verdade; o `.odp` é uma exportação editável sem dependências
-> proprietárias.
+> **Escopo da exportação (consciente):** o `.odp` carrega o **conteúdo editável** (texto, bullets,
+> cores, fonte). Os **grafismos do layout** (SVGs, degradês, molduras, KPIs/tabelas como blocos
+> visuais) **não** são transpostos — pertencem à fidelidade pixel-perfect do HTML, que permanece como
+> **fonte da verdade**. Tabelas/KPIs chegam ao `.odp` como texto corrido (editável), não como tabela.
+>
+> **Alinhamento institucional:** o formato .odp segue a recomendação do governo federal para software
+> livre; é padrão aberto (ODF), sem dependências proprietárias.
 
 ### 6B: Publicar link (Vercel)
 ```bash
@@ -202,7 +207,7 @@ bash scripts/deploy.sh <caminho-da-apresentacao>
 ```
 Aceita uma pasta (com index.html) ou um HTML único. Para muitos assets, publique a pasta. Confira no
 link publicado se todas as imagens carregam. **Nota institucional:** confirme antes de publicar conteúdo
-do Cefor em hospedagem externa; para uso interno, o `.pptx` ou o HTML costuma bastar.
+do Cefor em hospedagem externa; para uso interno, o `.odp` ou o HTML costuma bastar.
 
 ---
 
@@ -216,10 +221,13 @@ do Cefor em hospedagem externa; para uso interno, o `.pptx` ou o HTML costuma ba
 | [viewport-base.css](viewport-base.css) | CSS obrigatório do palco fixo | Fase 3 (gerar) |
 | [html-template.md](html-template.md) | Arquitetura HTML/JS + edição inline + modelos | Fase 3 (gerar) |
 | [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md) | Catálogo genérico de padrões de slide | Fase 3 (gerar) |
-| `scripts/extract-pptx.py` | Extrair conteúdo de .pptx | Fase 4 (converter) |
+| `scripts/extract-pptx.py` | Extrair conteúdo de .pptx (entrada da Fase 4) | Fase 4 (converter) |
+| `scripts/generate-odp.py` | Exportar HTML → `.odp` editável (LibreOffice) | Fase 6A (sob demanda) |
 | `scripts/deploy.sh` | Publicar link (Vercel) | Fase 6 (sob demanda) |
 
-> **Export para `.pptx` editável** é feito pela **skill de PPTX** (de terceiros, proprietária, Anthropic),
-> usada dentro do Claude e **não** empacotada com a `cefor-slides` (ver Fase 6A).
+> **Export para `.odp` editável** é feito pelo script nativo `scripts/generate-odp.py` (odfpy),
+> empacotado com a skill — sem dependências proprietárias, alinhado à política de software livre do
+> governo federal (ver Fase 6A). `extract-pptx.py` é apenas **entrada** (converter um `.pptx` recebido),
+> não exportação.
 > Skill **educacional** (com metodologias pedagógicas) será criada à parte; pesquisa e arquitetura já
 > documentadas em [../pesquisa-skill-educacional/](../pesquisa-skill-educacional/).

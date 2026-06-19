@@ -81,9 +81,11 @@ E abre em **LibreOffice Impress** (software livre recomendado pelo gov federal).
 ## 🔧 Requisitos
 
 - **Claude Web** (navegador moderno)
-- **Para exportar .odp:** Python 3.7+ + bibliotecas:
+- **Para exportar .odp:** Python 3.7+ + biblioteca obrigatória `odfpy` (e `pillow` opcional, só para
+  imagens raster):
   ```bash
-  pip install lxml pillow requests
+  pip install odfpy        # obrigatória
+  pip install pillow       # opcional (imagens raster locais)
   ```
 - **Para abrir .odp:** LibreOffice Impress (gratuito, software livre)
 

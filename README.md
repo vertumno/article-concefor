@@ -39,10 +39,7 @@ article-concefor/
 │   ├── brand/CEFOR-Design-System.dc.html  # Design system OFICIAL (referência visual)
 │   ├── slide-patterns/slide-patterns.md   # Catálogo genérico de padrões de slide
 │   ├── exemplos/exemplo-versao-a.html     # Deck de exemplo (Versão A), já com acessibilidade corrigida
-│   └── scripts/                           # deploy.sh (link), extract-pptx.py (entrada PPTX)
-│
-├── pptx/                                  # Skill de PPTX da ANTHROPIC (proprietária; NÃO é nossa)
-│                                          # Usada para exportar .pptx editável. Não redistribuir.
+│   └── scripts/                           # generate-odp.py (export .odp), extract-pptx.py (entrada PPTX), deploy.sh (link)
 │
 ├── pesquisa-skill-educacional/            # Base para a FUTURA skill educacional
 │   ├── README.md
@@ -95,8 +92,12 @@ sem dependências proprietárias. Decisão: **software livre como padrão**.
 - **Como funciona:** o script `generate-odp.py` lê o HTML da apresentação (Fase 5), extrai conteúdo, 
   cores (`:root` CSS) e tipografia, e reconstrói em formato `.odp` editável pronto para LibreOffice Impress. 
   O HTML permanece como **fonte da verdade**; o `.odp` é uma exportação sob demanda.
-- **Dependências:** apenas Python + bibliotecas padrão (`lxml`, `pillow`). Sem restrições de distribuição; 
-  a skill é 100% aberta.
+- **Dependências:** Python + `odfpy` (obrigatória; gera ODF válido por construção) e `pillow` (opcional,
+  só para embutir imagens raster locais). O script **valida o `.odp` reabrindo-o** antes de declarar
+  sucesso. Sem restrições de distribuição; a skill é 100% aberta.
+- **Escopo (consciente):** o `.odp` carrega o **conteúdo editável** (texto, bullets, cores, fonte). Os
+  grafismos do layout (SVGs, degradês, molduras, tabelas/KPIs visuais) **não** são transpostos —
+  pertencem à fidelidade pixel-perfect do HTML, que permanece a fonte da verdade.
 
 ---
 
@@ -120,8 +121,9 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 - **Materiais prontos** em `concefor/`: rascunho da submissão (resumo até 500 palavras, sem travessão, com
   a palavra "skill" e a descrição obrigatória de uso de IA), fundamentação com referências, avaliação do
   protótipo e figura representativa anonimizada.
-- **Atenção:** revisão cega exige anonimato; anonimizar a marca em imagem e vídeo na fase de avaliação e
-  declarar a skill de PPTX como dependência de terceiros (não como autoria).
+- **Atenção:** revisão cega exige anonimato; anonimizar a marca em imagem e vídeo na fase de avaliação.
+  A exportação `.odp` usa apenas software livre (`odfpy`), reforçando o enquadramento institucional; não
+  há mais dependência proprietária (skill de PPTX) a declarar.
 - **Pendências do autor:** definir autores e inscrever, gravar o vídeo (até 3 min), capturar o PNG da
   figura, colar no template oficial e exportar em PDF, e e-mail à organização confirmando eixo, categoria
   e uso do nome da instituição na fase cega.
@@ -138,8 +140,11 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 4. Decidido enquadrar a submissão ao Concefor no **Eixo 1** e fundamentá-la com pesquisa dedicada.
 5. Incorporada a justificativa concreta: a instituição já tem modelos PPTX, mas a IA é usada por fora
    deles; a skill integra a IA ao padrão.
-6. **PDF removido** da skill; exportação passa a ser **PowerPoint editável**, via composição com a skill
+6. **PDF removido** da skill; exportação passou a ser **PowerPoint editável**, via composição com a skill
    de PPTX (mantida separada por licença).
+7. **Migração para software livre:** exportação passa de `.pptx` (skill proprietária) para **LibreOffice
+   Impress `.odp`**, via script nativo `generate-odp.py` (odfpy), alinhada à recomendação do governo
+   federal. Dependência proprietária removida; geração validada nos exemplos Versão A e B.
 
 ---
 

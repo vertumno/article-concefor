@@ -1,276 +1,418 @@
 #!/usr/bin/env python3
 """
-generate-odp.py — Converter apresentações HTML Cefor para LibreOffice Impress (.odp)
+generate-odp.py - Converter apresentacoes HTML Cefor para LibreOffice Impress (.odp)
 
 Uso:
-    python generate-odp.py <arquivo-entrada.html> [arquivo-saida.odp]
+    python generate-odp.py <entrada.html> [saida.odp]
 
-Dependências:
-    pip install python-pptx lxml pillow
+Dependencias:
+    pip install odfpy          # obrigatoria (gera ODF valido)
+    pip install pillow         # opcional (so para embutir imagens raster locais)
 
 O script:
-1. Lê o HTML (estrutura de slides, conteúdo, cores)
-2. Extrai as cores e tipografia de :root (CSS)
-3. Reconstrói os slides em .odp preservando a marca Cefor
-4. Salva o arquivo editável em LibreOffice Impress
+1. Le o HTML (estrutura de slides, conteudo, cores de :root).
+2. Extrai blocos semanticos por classe (titulo, antetitulo, corpo, bullets).
+3. Monta um .odp VALIDO via odfpy (master page, estilos, escaping automatico).
+4. Aplica a paleta Cefor (lima/azul/oliva) e a fonte Open Sans.
+5. Valida o arquivo reabrindo-o antes de declarar sucesso.
+
+Limitacoes conscientes (o HTML continua sendo a fonte da verdade):
+- Vetores decorativos (SVG, grafismos, degrades, molduras) NAO sao transpostos:
+  pertencem ao layout pixel-perfect do HTML, nao ao conteudo editavel.
+- Imagens <img> raster locais (png/jpg) sao embutidas; SVG e remotas sao puladas
+  com aviso.
 """
 
 import sys
 import os
 import re
-import json
-from pathlib import Path
 from html.parser import HTMLParser
-from urllib.parse import urlparse
-import io
-from zipfile import ZipFile
-from lxml import etree as lxml_etree
 
-# Tentar importar bibliotecas necessárias
+# --- Saida ASCII-safe (evita UnicodeEncodeError em console cp1252 do Windows) ---
+def _log(msg):
+    try:
+        sys.stdout.write(msg + "\n")
+    except UnicodeEncodeError:
+        sys.stdout.write(msg.encode("ascii", "replace").decode("ascii") + "\n")
+
 try:
-    from PIL import Image
-    import requests
+    from odf.opendocument import OpenDocumentPresentation, load as odf_load
+    from odf.style import (
+        Style, MasterPage, PageLayout, PageLayoutProperties,
+        TextProperties, ParagraphProperties, GraphicProperties,
+        DrawingPageProperties, FontFace,
+    )
+    from odf.text import P, Span
+    from odf.draw import Page, Frame, TextBox, Image
 except ImportError:
-    print("⚠️  Aviso: PIL/Pillow ou requests não instalados. Imagens podem não funcionar.")
+    _log("[ERRO] odfpy nao instalado. Rode: pip install odfpy")
+    sys.exit(1)
+
+try:
+    from PIL import Image as PILImage
+    _HAS_PIL = True
+except ImportError:
+    _HAS_PIL = False
+
+
+# ---------------------------------------------------------------------------
+# Parser HTML -> blocos semanticos por slide
+# ---------------------------------------------------------------------------
+
+SKIP_CLASSES = {"rodape", "slide-counter", "bullet"}
+SKIP_TAGS = {"script", "style", "svg", "defs", "pattern"}
+TITLE_CLASSES = {"t-capa", "t-secao", "t-conteudo"}
+KICKER_CLASSES = {"eyebrow", "num-secao"}
+BODY_CLASSES = {"corpo"}
+VOID_TAGS = {"br", "img", "hr", "input", "meta", "link", "source", "col", "area", "base", "wbr"}
+
+
+def _normalize(text):
+    return " ".join(text.split()).strip()
+
+
+# Caracteres puramente decorativos (aspas tipograficas, marcas, pontuacao isolada)
+_DECORATION_RE = re.compile(r'^[\s"“”‘’\'`´\-—–·.,:;!?()]+$')
+
+
+def _is_decoration(text):
+    """Descarta blocos sem conteudo real (ex.: aspa de abertura solta '"')."""
+    return len(text) < 2 or bool(_DECORATION_RE.match(text))
 
 
 class HTMLSlideParser(HTMLParser):
-    """Parser customizado para extrair slides do HTML Cefor"""
+    """Extrai, por slide, uma lista ordenada de blocos (role, texto).
+
+    Roles: 'title' | 'kicker' | 'body' | 'bullet'. Imagens raster locais sao
+    guardadas em slide['images'] (lista de src).
+    """
 
     def __init__(self):
-        super().__init__()
+        super().__init__(convert_charrefs=True)
         self.slides = []
-        self.current_slide = None
-        self.current_element = None
         self.css_root = {}
+        self.cur = None          # slide atual
+        self.stack = []          # pilha de (tag, mode)
+        self.skip = 0            # profundidade de elementos a ignorar
+        self.capture = None      # {'role', 'buf'} do bloco em captura
         self.in_style = False
-        self.style_content = ""
+        self._style_buf = ""
+
+    # -- CSS :root --
+    def _parse_root(self, css_text):
+        # Restringe ao primeiro bloco :root { ... } (evita capturar vars de outros escopos)
+        m = re.search(r":root\s*\{([^}]*)\}", css_text, re.DOTALL)
+        scope = m.group(1) if m else css_text
+        for name, value in re.findall(r"--([\w-]+)\s*:\s*([^;]+);", scope):
+            self.css_root[name.strip()] = value.strip()
 
     def handle_starttag(self, tag, attrs):
-        attrs_dict = dict(attrs)
+        ad = dict(attrs)
+        classes = set((ad.get("class") or "").split())
 
         if tag == "style":
             self.in_style = True
-            self.style_content = ""
-        elif tag == "section" and "class" in attrs_dict and "slide" in attrs_dict.get("class", ""):
-            self.current_slide = {
-                "content": [],
-                "style": attrs_dict.get("style", ""),
-                "class": attrs_dict.get("class", "")
-            }
-            self.current_element = None
-        elif self.current_slide is not None:
-            if tag in ["h1", "h2", "h3", "h4", "h5", "h6", "p", "div", "li", "ul", "ol"]:
-                self.current_element = {
-                    "tag": tag,
-                    "class": attrs_dict.get("class", ""),
-                    "style": attrs_dict.get("style", ""),
-                    "text": ""
-                }
-                if tag == "img":
-                    self.current_element["src"] = attrs_dict.get("src", "")
-                    self.current_element["alt"] = attrs_dict.get("alt", "")
+            self._style_buf = ""
+            return
+
+        # Fronteira de slide
+        if tag == "section" and "slide" in classes:
+            self._end_slide()  # seguranca
+            self.cur = {"blocks": [], "images": []}
+            self.stack = [("section", "plain")]
+            self.skip = 0
+            self.capture = None
+            return
+
+        if self.cur is None:
+            return
+
+        # Imagem raster (conteudo)
+        if tag == "img":
+            src = ad.get("src", "")
+            if src and not src.lower().endswith(".svg") and not src.startswith(("http://", "https://", "data:")):
+                self.cur["images"].append(src)
+            if self.capture is not None and self.skip == 0:
+                self.capture["buf"] += " "
+            return
+
+        # Decide modo do elemento
+        role = None
+        if classes & SKIP_CLASSES or tag in SKIP_TAGS:
+            mode = "skip"
+        elif self.capture is not None:
+            mode = "inside"  # ja capturando: texto contribui, sem novo bloco
+        elif classes & TITLE_CLASSES or tag in ("h1", "h2", "h3"):
+            mode, role = "capture", "title"
+        elif classes & KICKER_CLASSES:
+            mode, role = "capture", "kicker"
+        elif tag == "li":
+            mode, role = "capture", "bullet"
+        elif (classes & BODY_CLASSES) or tag == "p":
+            mode, role = "capture", "body"
+        elif "reveal" in classes:
+            # 'reveal' e o marcador de conteudo animado do template da skill:
+            # carrega o texto real de slides sem classe semantica (mensagem-chave,
+            # encerramento, KPIs). Fallback de menor prioridade.
+            mode, role = "capture", "body"
+        else:
+            mode = "plain"
+
+        if mode == "skip":
+            self.skip += 1
+        elif mode == "capture":
+            self.capture = {"role": role, "buf": ""}
+
+        if tag in VOID_TAGS:
+            if tag == "br" and self.capture is not None and self.skip == 0:
+                self.capture["buf"] += " "
+        else:
+            self.stack.append((tag, mode))
 
     def handle_endtag(self, tag):
         if tag == "style":
             self.in_style = False
-            self._parse_css_root(self.style_content)
-        elif tag == "section" and self.current_slide is not None:
-            if self.current_element:
-                self.current_slide["content"].append(self.current_element)
-                self.current_element = None
-            self.slides.append(self.current_slide)
-            self.current_slide = None
-        elif tag in ["h1", "h2", "h3", "h4", "h5", "h6", "p", "div", "li"] and self.current_element:
-            self.current_slide["content"].append(self.current_element)
-            self.current_element = None
+            self._parse_root(self._style_buf)
+            return
+        if self.cur is None or tag in VOID_TAGS or not self.stack:
+            return
+
+        popped_tag, mode = self.stack.pop()
+        if mode == "skip":
+            self.skip = max(0, self.skip - 1)
+        elif mode == "capture":
+            text = _normalize(self.capture["buf"]) if self.capture else ""
+            role = self.capture["role"] if self.capture else None
+            self.capture = None
+            if text and not _is_decoration(text):
+                self.cur["blocks"].append((role, text))
+
+        if popped_tag == "section":
+            self._end_slide()
 
     def handle_data(self, data):
         if self.in_style:
-            self.style_content += data
-        elif self.current_element and data.strip():
-            self.current_element["text"] += data.strip() + " "
+            self._style_buf += data
+            return
+        if self.cur is None or self.capture is None or self.skip > 0:
+            return
+        self.capture["buf"] += data
 
-    def _parse_css_root(self, css_text):
-        """Extrair variáveis CSS do bloco :root {}"""
-        # Padrão: --variavel: valor;
-        pattern = r"--(\w+):\s*([^;]+);"
-        matches = re.findall(pattern, css_text)
-        for name, value in matches:
-            self.css_root[name] = value.strip()
+    def _end_slide(self):
+        if self.cur is not None:
+            self.slides.append(self.cur)
+            self.cur = None
 
 
-def parse_html_slides(html_path):
-    """Ler HTML e extrair slides + estilos"""
+def parse_html(html_path):
     try:
-        with open(html_path, 'r', encoding='utf-8') as f:
-            html_content = f.read()
+        with open(html_path, "r", encoding="utf-8") as f:
+            html = f.read()
     except FileNotFoundError:
-        print(f"❌ Erro: Arquivo não encontrado: {html_path}")
+        _log(f"[ERRO] Arquivo nao encontrado: {html_path}")
         sys.exit(1)
-
     parser = HTMLSlideParser()
-    parser.feed(html_content)
-
+    parser.feed(html)
+    parser._end_slide()
     return parser.slides, parser.css_root
 
 
-def hex_to_rgb(hex_color):
-    """Converter cor hex para RGB (tupla)"""
-    hex_color = hex_color.lstrip('#')
-    if len(hex_color) == 6:
-        return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
-    return (255, 255, 255)  # padrão branco
+# ---------------------------------------------------------------------------
+# Geracao do .odp (odfpy)
+# ---------------------------------------------------------------------------
+
+def _hex(css_root, key, default):
+    val = (css_root.get(key) or default).strip()
+    if not val.startswith("#"):
+        val = default
+    return val[:7]
 
 
-def create_odp_from_slides(slides, css_root, output_path):
-    """
-    Criar arquivo .odp a partir dos slides e estilos CSS.
+def build_odp(slides, css_root, output_path):
+    lime = _hex(css_root, "lime", "#B0CB1F")
+    navy = _hex(css_root, "navy", "#2C459A")
+    olive = _hex(css_root, "olive", "#8C9A0D")
+    ink = _hex(css_root, "ink", "#2B2B2B")
 
-    LibreOffice Impress (.odp) é um formato ZIP contendo:
-    - content.xml (conteúdo dos slides)
-    - styles.xml (estilos aplicáveis)
-    - META-INF/manifest.xml (estrutura)
-    - mimetype (tipo MIME)
-    """
+    doc = OpenDocumentPresentation()
 
-    print(f"📝 Criando apresentação: {len(slides)} slide(s) encontrado(s)")
+    # Fonte institucional
+    doc.fontfacedecls.addElement(
+        FontFace(name="Open Sans", fontfamily="Open Sans", fontfamilygeneric="swiss")
+    )
 
-    # Template mínimo de content.xml para ODP
-    content_xml = create_content_xml(slides, css_root)
-    styles_xml = create_styles_xml(css_root)
-    manifest_xml = create_manifest_xml()
+    # Page layout 16:9 widescreen (33.867cm x 19.05cm == 13.333in x 7.5in)
+    pagelayout = PageLayout(name="CeforLayout")
+    pagelayout.addElement(PageLayoutProperties(
+        margin="0cm", pagewidth="33.867cm", pageheight="19.05cm", printorientation="landscape"
+    ))
+    doc.automaticstyles.addElement(pagelayout)
 
-    # Criar arquivo ZIP (estrutura ODP)
+    # Estilo da pagina de desenho (fundo branco)
+    dpstyle = Style(name="dp-cefor", family="drawing-page")
+    dpstyle.addElement(DrawingPageProperties(fill="solid", fillcolor="#FFFFFF"))
+    doc.automaticstyles.addElement(dpstyle)
+
+    masterpage = MasterPage(name="Cefor", pagelayoutname=pagelayout)
+    doc.masterstyles.addElement(masterpage)
+
+    # --- Estilos de paragrafo/texto ---
+    def add_text_style(name, **text_props):
+        st = Style(name=name, family="paragraph")
+        st.addElement(ParagraphProperties(margintop="0cm", marginbottom="0.15cm"))
+        st.addElement(TextProperties(fontfamily="Open Sans", fontname="Open Sans", **text_props))
+        doc.styles.addElement(st)
+        return st
+
+    add_text_style("CeforKicker", fontsize="14pt", fontweight="bold", color=olive,
+                   letterspacing="0.05cm")
+    add_text_style("CeforTitle", fontsize="34pt", fontweight="bold", color=navy)
+    add_text_style("CeforBody", fontsize="18pt", color=ink)
+    add_text_style("CeforBullet", fontsize="18pt", color=ink)
+    add_text_style("CeforFooter", fontsize="11pt", color=olive)
+    # Span lima para o marcador de bullet
+    bulletspan = Style(name="CeforBulletMark", family="text")
+    bulletspan.addElement(TextProperties(fontfamily="Open Sans", fontname="Open Sans",
+                                         color=lime, fontweight="bold"))
+    doc.styles.addElement(bulletspan)
+
+    # Estilos grafados dos frames (graphic-properties: sem borda/preenchimento)
+    framestyle = Style(name="CeforFrame", family="graphic")
+    framestyle.addElement(GraphicProperties(stroke="none", fill="none"))
+    doc.automaticstyles.addElement(framestyle)
+
+    def make_frame(page, x, y, w, h):
+        frame = Frame(stylename=framestyle, width=w, height=h, x=x, y=y)
+        tb = TextBox()
+        frame.addElement(tb)
+        page.addElement(frame)
+        return tb
+
+    pic_dir = os.path.dirname(os.path.abspath(slides_src_path)) if slides else ""
+
+    for idx, slide in enumerate(slides, 1):
+        page = Page(name=f"slide{idx}", masterpagename=masterpage, stylename=dpstyle)
+        doc.presentation.addElement(page)
+
+        blocks = slide["blocks"]
+        title_block = next((b for b in blocks if b[0] == "title"), None)
+        kicker_block = next((b for b in blocks if b[0] == "kicker"), None)
+
+        # Cabecalho: antetitulo + titulo
+        head_tb = make_frame(page, "2.2cm", "1.3cm", "29.4cm", "4.5cm")
+        if kicker_block:
+            head_tb.addElement(P(stylename="CeforKicker", text=kicker_block[1].upper()))
+        if title_block:
+            head_tb.addElement(P(stylename="CeforTitle", text=title_block[1]))
+
+        # Corpo: bullets e paragrafos, na ordem do documento
+        body_tb = make_frame(page, "2.2cm", "6.4cm", "29.4cm", "10.8cm")
+        used = {id(title_block), id(kicker_block)}
+        had_body = False
+        for b in blocks:
+            if id(b) in used:
+                continue
+            role, text = b
+            if role == "bullet":
+                p = P(stylename="CeforBullet")
+                p.addElement(Span(stylename="CeforBulletMark", text="▸  "))
+                p.addText(text)
+                body_tb.addElement(p)
+                had_body = True
+            elif role in ("body", "title", "kicker"):
+                body_tb.addElement(P(stylename="CeforBody", text=text))
+                had_body = True
+
+        # Imagens raster locais
+        for src in slide.get("images", []):
+            path = os.path.join(pic_dir, src)
+            if not os.path.isfile(path):
+                _log(f"[AVISO] Slide {idx}: imagem nao encontrada, pulada: {src}")
+                continue
+            try:
+                w_cm, h_cm = _image_size_cm(path)
+                href = doc.addPicture(path)
+                imgframe = Frame(stylename=framestyle, width=f"{w_cm:.2f}cm",
+                                 height=f"{h_cm:.2f}cm", x="2.2cm", y="6.4cm")
+                imgframe.addElement(Image(href=href))
+                page.addElement(imgframe)
+                had_body = True
+            except Exception as e:  # noqa: BLE001
+                _log(f"[AVISO] Slide {idx}: falha ao embutir {src}: {e}")
+
+        # Rodape institucional
+        foot_tb = make_frame(page, "2.2cm", "17.8cm", "29.4cm", "0.8cm")
+        foot_tb.addElement(P(stylename="CeforFooter", text="cefor.ifes.edu.br"))
+
+        if not title_block and not kicker_block and not had_body:
+            body_tb.addElement(P(stylename="CeforBody", text=f"(Slide {idx})"))
+
+    doc.save(output_path)
+    return output_path
+
+
+def _image_size_cm(path, max_w_cm=18.0, max_h_cm=10.0):
+    """Dimensao em cm preservando proporcao; cai para um padrao se faltar PIL."""
+    if not _HAS_PIL:
+        return (12.0, 7.0)
+    with PILImage.open(path) as im:
+        w_px, h_px = im.size
+    ratio = (h_px / w_px) if w_px else 0.6
+    w = max_w_cm
+    h = w * ratio
+    if h > max_h_cm:
+        h = max_h_cm
+        w = h / ratio if ratio else max_w_cm
+    return (w, h)
+
+
+def validate_odp(path):
+    """Reabre o .odp para garantir que e um ODF valido (nao apenas um ZIP)."""
     try:
-        with ZipFile(output_path, 'w') as odp_zip:
-            # mimetype deve ser o primeiro arquivo, sem compressão
-            odp_zip.writestr('mimetype', 'application/vnd.oasis.opendocument.presentation', compress_type=0)
-
-            # Adicionar XML files
-            odp_zip.writestr('content.xml', content_xml)
-            odp_zip.writestr('styles.xml', styles_xml)
-            odp_zip.writestr('META-INF/manifest.xml', manifest_xml)
-
-            # Diretórios vazios necessários
-            odp_zip.writestr('Pictures/', '')
-
-        print(f"✅ Arquivo criado: {output_path}")
-        return True
-    except Exception as e:
-        print(f"❌ Erro ao criar ODP: {e}")
-        return False
+        doc = odf_load(path)
+        pages = doc.getElementsByType(Page)
+        return True, len(pages)
+    except Exception as e:  # noqa: BLE001
+        return False, str(e)
 
 
-def create_content_xml(slides, css_root):
-    """Gerar content.xml do ODP"""
-    # XML básico do ODP
-    xml_template = """<?xml version="1.0" encoding="UTF-8"?>
-<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
-    xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
-    xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-    xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"
-    xmlns:presentation="urn:oasis:names:tc:opendocument:xmlns:presentation:1.0"
-    xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
-    office:version="1.2">
-    <office:automatic-styles/>
-    <office:body>
-        <presentation:presentation>
-"""
-
-    # Adicionar slides
-    slides_xml = ""
-    for i, slide in enumerate(slides, 1):
-        slide_content = "<presentation:slide>"
-
-        # Adicionar conteúdo do slide
-        for element in slide.get("content", []):
-            text = element.get("text", "").strip()
-            tag = element.get("tag", "p")
-
-            if text:
-                # Mapear classe CSS para estilo
-                css_class = element.get("class", "")
-                if "t-capa" in css_class or tag == "h1":
-                    slide_content += f'<text:p><text:span>{text}</text:span></text:p>'
-                elif "t-secao" in css_class or tag == "h2":
-                    slide_content += f'<text:p><text:span><text:a>{text}</text:a></text:span></text:p>'
-                else:
-                    slide_content += f'<text:p><text:span>{text}</text:span></text:p>'
-
-        slide_content += "</presentation:slide>"
-        slides_xml += slide_content
-
-    xml_template += slides_xml
-    xml_template += """        </presentation:presentation>
-    </office:body>
-</office:document-content>"""
-
-    return xml_template
-
-
-def create_styles_xml(css_root):
-    """Gerar styles.xml com tokens Cefor"""
-    lime = css_root.get('lime', '#B0CB1F')
-    navy = css_root.get('navy', '#2C459A')
-    olive = css_root.get('olive', '#8C9A0D')
-
-    styles = f"""<?xml version="1.0" encoding="UTF-8"?>
-<office:document-styles xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
-    xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
-    xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-    xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"
-    xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
-    office:version="1.2">
-    <office:styles>
-        <!-- Cores Cefor -->
-        <style:color name="cefor-lime" rgb="{lime}"/>
-        <style:color name="cefor-navy" rgb="{navy}"/>
-        <style:color name="cefor-olive" rgb="{olive}"/>
-    </office:styles>
-    <office:automatic-styles/>
-</office:document-styles>"""
-
-    return styles
-
-
-def create_manifest_xml():
-    """Gerar META-INF/manifest.xml"""
-    manifest = """<?xml version="1.0" encoding="UTF-8"?>
-<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.2">
-    <manifest:file-entry manifest:full-path="/" manifest:media-type="application/vnd.oasis.opendocument.presentation"/>
-    <manifest:file-entry manifest:full-path="content.xml" manifest:media-type="text/xml"/>
-    <manifest:file-entry manifest:full-path="styles.xml" manifest:media-type="text/xml"/>
-    <manifest:file-entry manifest:full-path="META-INF/" manifest:media-type="application/vnd.oasis.opendocument.presentation"/>
-    <manifest:file-entry manifest:full-path="META-INF/manifest.xml" manifest:media-type="text/xml"/>
-</manifest:manifest>"""
-
-    return manifest
-
+# ---------------------------------------------------------------------------
 
 def main():
+    global slides_src_path, slides
     if len(sys.argv) < 2:
-        print(__doc__)
+        _log(__doc__)
         sys.exit(1)
 
-    html_file = sys.argv[1]
-    output_file = sys.argv[2] if len(sys.argv) > 2 else html_file.replace('.html', '.odp')
+    slides_src_path = sys.argv[1]
+    output = sys.argv[2] if len(sys.argv) > 2 else re.sub(r"\.html?$", "", slides_src_path) + ".odp"
 
-    print(f"🔄 Lendo: {html_file}")
-    slides, css_root = parse_html_slides(html_file)
+    _log(f"[INFO] Lendo: {slides_src_path}")
+    slides, css_root = parse_html(slides_src_path)
+    if not slides:
+        _log("[ERRO] Nenhum slide (<section class=\"slide\">) encontrado no HTML.")
+        sys.exit(1)
 
-    print(f"📋 Encontrados {len(slides)} slides")
-    print(f"🎨 Cores extraídas: Lima={css_root.get('lime')}, Navy={css_root.get('navy')}, Olive={css_root.get('olive')}")
+    _log(f"[INFO] Slides encontrados: {len(slides)}")
+    _log(f"[INFO] Cores Cefor: lima={css_root.get('lime')} azul={css_root.get('navy')} oliva={css_root.get('olive')}")
 
-    print(f"\n⏳ Gerando .odp...")
-    success = create_odp_from_slides(slides, css_root, output_file)
+    _log("[INFO] Gerando .odp via odfpy...")
+    try:
+        build_odp(slides, css_root, output)
+    except Exception as e:  # noqa: BLE001
+        _log(f"[ERRO] Falha ao gerar .odp: {e}")
+        sys.exit(1)
 
-    if success:
-        print(f"\n✨ Sucesso! Abra em LibreOffice Impress: {output_file}")
+    ok, info = validate_odp(output)
+    if ok:
+        _log(f"[OK] ODF valido: {output} ({info} slide(s) confirmados na releitura)")
+        _log("[OK] Abra em LibreOffice Impress e revise o conteudo editavel.")
     else:
-        print(f"\n❌ Falha ao gerar .odp")
+        _log(f"[ERRO] Arquivo gerado NAO e um ODF valido: {info}")
         sys.exit(1)
 
 
 if __name__ == "__main__":
+    slides = []
+    slides_src_path = ""
     main()

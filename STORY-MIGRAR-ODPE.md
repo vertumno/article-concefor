@@ -1,8 +1,14 @@
 # Story: Migrar exportação de PowerPoint (.pptx) para LibreOffice Impress (.odp)
 
-**Status:** InProgress  
+**Status:** Done (validado nos exemplos Versão A e B)  
 **Data:** 2026-06-19  
 **Decisão:** Alinhamento com política de software livre do governo federal brasileiro
+
+> **Nota de revisão (2026-06-19):** a 1ª implementação (`generate-odp.py` escrevendo ODF XML à mão)
+> gerava arquivo **inválido** — `content.xml` não bem-formado (sem escaping), `<presentation:slide>`
+> inexistente em ODF, sem master page, crash de console no Windows. Reescrita com **odfpy** (ODF válido
+> por construção) + parser semântico robusto + autovalidação por releitura. Provado abrindo os dois
+> exemplos.
 
 ---
 
@@ -19,12 +25,13 @@ A skill `cefor-slides` atualmente exporta para PowerPoint (.pptx) editável usan
 ## Aceitação
 
 - [x] SKILL.md atualizado: remover menção a .pptx, adicionar .odp como formato de exportação
-- [x] Script Python criado: `scripts/generate-odp.py` para converter HTML → .odp
-- [x] README.md atualizado: mencionar .odp em lugar de .pptx
-- [x] Fase 6A (SKILL.md) reescrita: usar Python em vez de skill de PPTX
-- [ ] Concetor/FUNDAMENTACAO-CONCEFOR.md revisado: atualizar if menciona exportação
+- [x] Script Python criado e **funcional**: `scripts/generate-odp.py` (odfpy) converte HTML → .odp válido
+- [x] README.md atualizado: mencionar .odp em lugar de .pptx (mapa de pastas, seção 4, timeline, Concefor)
+- [x] Fase 6A (SKILL.md) reescrita: usar script nativo em vez de skill de PPTX
+- [ ] Concetor/FUNDAMENTACAO-CONCEFOR.md revisado: atualizar se menciona exportação
 - [x] Documentação da skill (descrição breve no início) atualizada
-- [x] Dependências Python documentadas (lxml, pillow, requests)
+- [x] Dependências Python documentadas e **consistentes** (odfpy obrigatória; pillow opcional)
+- [x] Testado nos exemplos Versão A (7 slides) e Versão B (8 slides): ODF válido, releitura confirma slides
 
 ---
 
@@ -74,14 +81,12 @@ A skill `cefor-slides` atualmente exporta para PowerPoint (.pptx) editável usan
 - [ ] concefor/FUNDAMENTACAO-CONCEFOR.md (se menciona exportação)
 
 ### Tarefa 4: Testes
-- [ ] Gerar .odp a partir de exemplo Versão A
-- [ ] Gerar .odp a partir de exemplo Versão B
-- [ ] Abrir em LibreOffice Impress e validar:
-  - [ ] Todas as cores corretas
-  - [ ] Tipografia intacta
-  - [ ] Imagens carregam
-  - [ ] Layout não estourou
-  - [ ] Acessibilidade mantida (alt text, contraste)
+- [x] Gerar .odp a partir de exemplo Versão A (7 slides, ODF válido)
+- [x] Gerar .odp a partir de exemplo Versão B (8 slides, ODF válido)
+- [x] Autovalidação por releitura (odfpy `load`) integrada ao script
+- [x] Auditoria: XML bem-formado em todas as partes, `draw:page` correto, escaping de acentos/`&`/`<`/`>`
+- [ ] **Pendente (humano):** abrir os dois `.odp` no LibreOffice Impress real e conferir render final
+  (cores, Open Sans, ausência de "estouro"). A geração é válida; falta o olho humano no app.
 
 ---
 

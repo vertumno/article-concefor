@@ -4,6 +4,12 @@ node_modules/
 # Arquivos temporários gerados pela skill cefor-slides
 .cefor-slides/
 
+# Saídas .odp geradas pelo generate-odp.py (artefatos de build, regeneráveis do HTML)
+*.odp
+
+# Snapshots de backup da skill (o histórico do git é o backup canônico)
+cefor-slides.backup-*/
+
 # Material auxiliar (extração de skills); descartável
 skills-extract/
 
