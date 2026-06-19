@@ -28,7 +28,7 @@ A skill `cefor-slides` atualmente exporta para PowerPoint (.pptx) editável usan
 - [x] Script Python criado e **funcional**: `scripts/generate-odp.py` (odfpy) converte HTML → .odp válido
 - [x] README.md atualizado: mencionar .odp em lugar de .pptx (mapa de pastas, seção 4, timeline, Concefor)
 - [x] Fase 6A (SKILL.md) reescrita: usar script nativo em vez de skill de PPTX
-- [ ] Concetor/FUNDAMENTACAO-CONCEFOR.md revisado: atualizar se menciona exportação
+- [x] concefor/FUNDAMENTACAO-CONCEFOR.md revisado: Pilar 2 ganhou ângulo de formatos abertos/software livre (ODF)
 - [x] Documentação da skill (descrição breve no início) atualizada
 - [x] Dependências Python documentadas e **consistentes** (odfpy obrigatória; pillow opcional)
 - [x] Testado nos exemplos Versão A (7 slides) e Versão B (8 slides): ODF válido, releitura confirma slides

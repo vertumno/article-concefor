@@ -152,6 +152,6 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 
 - [ ] Testar `scripts/generate-odp.py` com exemplos Versão A e B; validar cores, fontes e layout.
 - [ ] Obter o **logo IFES em arquivo** (PNG/SVG) oficial (hoje é um SVG reconstruído fiel).
-- [ ] Concefor: atualizar FUNDAMENTACAO-CONCEFOR.md para mencionar .odp (software livre) em vez de .pptx.
+- [x] Concefor: FUNDAMENTACAO-CONCEFOR.md atualizada — Pilar 2 incorpora formatos abertos/software livre (ODF).
 - [ ] Concefor: gravar vídeo, capturar figura, preencher template e submeter (ver `concefor/`).
 - [ ] Quando for o momento, construir a **skill educacional** (ver `pesquisa-skill-educacional/`).

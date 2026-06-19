@@ -29,9 +29,19 @@ A skill formaliza a identidade oficial em **tokens de design** (cores, tipografi
 garantindo consistência em escala e governança de marca. Identidade visual institucional padronizada é
 prática consolidada no governo digital brasileiro.
 
+Além disso, a skill entrega exclusivamente **formatos abertos**: HTML autossuficiente (fonte da verdade)
+e exportação para **LibreOffice Impress (.odp)**, gerada por script próprio sem dependência de software
+proprietário. O ODF (OpenDocument Format) é padrão aberto OASIS e norma **ISO/IEC 26300**, e o uso de
+formatos abertos e software livre alinha-se aos princípios de interoperabilidade do governo eletrônico
+brasileiro. Isso reforça o enquadramento no Eixo 1 (dimensões institucionais e de gestão): reduz
+dependência de fornecedor (*vendor lock-in*), favorece preservação digital e amplia o acesso equitativo.
+
 - Design Tokens Community Group (W3C): https://www.designtokens.org/ · https://www.w3.org/community/design-tokens/
 - Identidade Padrão de Comunicação Digital do Governo Federal: https://identidade-digital-de-governo-plone.readthedocs.io/en/latest/
 - Secom (Governo Federal): https://www.gov.br/secom/
+- OpenDocument Format (OASIS) / ISO/IEC 26300: https://www.oasis-open.org/standards/#opendocumentv1.2
+- e-PING — Padrões de Interoperabilidade de Governo Eletrônico (formatos abertos): https://www.gov.br/governodigital/pt-br/ ·
+  **[autor: confirmar o instrumento vigente que recomenda ODF/software livre — e-PING ou portaria atual — antes do envio]**
 
 ## Pilar 3 — Qualidade dos slides baseada em evidência
 
@@ -92,8 +102,9 @@ No Concefor, a categoria correspondente é **"Recursos Tecnológicos e Digitais"
 
 ## Como os pilares entram no resumo (mapa argumentativo)
 
-1. **Problema** (Pilar 1) → 2. **Objetivo** → 3. **Artefato** (Pilar 2: tokens/design system; saída HTML
-   aberta) → 4. **Qualidade** (Pilar 3) + **Acessibilidade** (Pilar 4) → 5. **IA responsável** (Pilar 5)
+1. **Problema** (Pilar 1) → 2. **Objetivo** → 3. **Artefato** (Pilar 2: tokens/design system; saída em
+   formatos abertos — HTML + ODF/software livre) → 4. **Qualidade** (Pilar 3) + **Acessibilidade**
+   (Pilar 4) → 5. **IA responsável** (Pilar 5)
    → 6. **Método DSR** (Pilar 6) → 7. **Avaliação/resultados** (inspeção heurística + auditoria de
    acessibilidade + deck demonstrativo) → 8. **Limitações/trabalhos futuros**.
 
