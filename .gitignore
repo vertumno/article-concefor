@@ -19,3 +19,7 @@ skills-extract/
 # SO
 Thumbs.db
 .DS_Store
+
+# Python bytecode
+__pycache__/
+*.pyc
