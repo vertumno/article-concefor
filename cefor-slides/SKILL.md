@@ -136,7 +136,12 @@ contexto.
 **Requisitos:**
 - Arquivo HTML único, todo CSS/JS inline (o scaffold já garante isso; no fallback manual, inclua o
   `viewport-base.css` inteiro no `<style>`).
-- Fonte institucional **Open Sans** (400/600/700/800) via Google Fonts.
+- Fonte institucional **Open Sans** (400/600/700/800): o scaffold a **embute** no HTML
+  (woff2 base64 — funciona **offline**, sem chamadas a CDN externa). No fallback manual usa-se o
+  link do Google Fonts — nesse caso avise que o deck precisa de internet para exibir a fonte.
+- **Acessibilidade do gabarito:** `<h1>` só na capa; títulos de conteúdo em `<h2 class="t-conteudo">`;
+  `aria-hidden="true"` em SVGs decorativos (setas, marca d'água); logo IFES com `role="img"` +
+  `aria-label`. Capa Versão A: texto em **tinta** sobre lima (nunca branco — reprova WCAG).
 - Reproduza fielmente os modelos oficiais da linguagem escolhida (A1–A5 ou B1–B5), traduzindo as
   proporções do preview (960×540) para o palco real 1920×1080.
 - Sempre: **seta CEFOR** (azul/lima), **logo IFES** na capa e encerramento, **rodapé**
@@ -206,17 +211,19 @@ pip install odfpy        # obrigatória (gera ODF válido)
 pip install pillow       # opcional (só para embutir imagens raster locais)
 ```
 
-O script **valida o arquivo reabrindo-o** antes de declarar sucesso (`[OK] ODF válido`). Ainda assim,
+O script **valida o arquivo reabrindo-o** antes de declarar sucesso (`[OK] ODF válido`) e **avisa**
+(`[AVISO]`) se algum slide não contribuir conteúdo — nada é perdido em silêncio. Ainda assim,
 depois de gerar, abra o `.odp` em **LibreOffice Impress** e revise:
 - [ ] Texto editável correto (títulos, antetítulos, bullets, mensagem-chave, encerramento)
+- [ ] **Tabelas ODF reais** (editáveis, cabeçalho lima) e **KPIs** como linhas "número — rótulo"
 - [ ] Cores Cefor aplicadas (azul nos títulos, lima nos marcadores, oliva no rodapé)
 - [ ] Fonte Open Sans (instale-a no sistema se o LibreOffice substituir)
 - [ ] Imagens raster locais presentes (se houver `<img>`)
 
 > **Escopo da exportação (consciente):** o `.odp` carrega o **conteúdo editável** (texto, bullets,
-> cores, fonte). Os **grafismos do layout** (SVGs, degradês, molduras, KPIs/tabelas como blocos
-> visuais) **não** são transpostos — pertencem à fidelidade pixel-perfect do HTML, que permanece como
-> **fonte da verdade**. Tabelas/KPIs chegam ao `.odp` como texto corrido (editável), não como tabela.
+> tabelas reais, KPIs, cores, fonte). Os **grafismos do layout** (SVGs, degradês, molduras) **não**
+> são transpostos — pertencem à fidelidade pixel-perfect do HTML, que permanece como
+> **fonte da verdade**.
 >
 > **Alinhamento institucional:** o formato .odp segue a recomendação do governo federal para software
 > livre; é padrão aberto (ODF), sem dependências proprietárias.
@@ -239,8 +246,10 @@ do Cefor em hospedagem externa; para uso interno, o `.odp` ou o HTML costuma bas
 | [CEFOR_BRAND.md](CEFOR_BRAND.md) | Tokens de marca, Open Sans, SVGs de logo/seta, voz, anti-patterns | Sempre (Fase 2 e 3) |
 | [STYLE_PRESETS.md](STYLE_PRESETS.md) | Versão A (Cor Sólida) e Versão B (Degradê) + 10 modelos | Fase 2 (estilo) |
 | [slide-patterns/slide-patterns.md](slide-patterns/slide-patterns.md) | Catálogo de padrões + classes utilitárias prontas | Fase 3 (gerar) — **principal p/ escrever corpos** |
-| `scripts/new-deck.py` | **Scaffold**: monta o deck a partir só dos corpos de slide (injeta head/CSS/JS/marca fixos) | Fase 3 (caminho recomendado) |
+| `scripts/new-deck.py` | **Scaffold**: monta o deck a partir só dos corpos de slide (injeta head/CSS/JS/marca/fonte fixos) | Fase 3 (caminho recomendado) |
 | `scripts/deck-base.css` | CSS fixo de todo deck (injetado pelo scaffold) | Não ler — injetado por `new-deck.py` |
+| `scripts/deck-fonts.css` | Open Sans embutida (woff2 base64, offline; injetada pelo scaffold) | Não ler — injetado por `new-deck.py` |
+| `scripts/smoke-test.py` | Testes de fumaça dos scripts (round-trip A/B, ODP nos exemplos) | Após alterar qualquer script |
 | [html-template.md](html-template.md) | Arquitetura HTML/JS completa | Só no **fallback manual** (sem o scaffold) |
 | [viewport-base.css](viewport-base.css) | CSS do palco fixo | Só no **fallback manual** (o scaffold já o contém) |
 | `scripts/extract-pptx.py` | Extrair conteúdo de .pptx (entrada da Fase 4) | Fase 4 (converter) |

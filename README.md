@@ -38,8 +38,9 @@ article-concefor/
 │   ├── viewport-base.css                  # CSS do palco fixo 16:9
 │   ├── brand/CEFOR-Design-System.dc.html  # Design system OFICIAL (referência visual)
 │   ├── slide-patterns/slide-patterns.md   # Catálogo genérico de padrões de slide
-│   ├── exemplos/exemplo-versao-a.html     # Deck de exemplo (Versão A), já com acessibilidade corrigida
-│   └── scripts/                           # generate-odp.py (export .odp), extract-pptx.py (entrada PPTX), deploy.sh (link)
+│   ├── exemplos/                          # 2 decks de exemplo (Versão A e Versão B, acessibilidade auditada)
+│   └── scripts/                           # new-deck.py (scaffold), deck-fonts.css (Open Sans offline),
+│                                          #   generate-odp.py (export .odp), smoke-test.py, extract-pptx.py, deploy.sh
 │
 ├── pesquisa-skill-educacional/            # Base para a FUTURA skill educacional
 │   ├── README.md
@@ -158,7 +159,9 @@ A `cefor-slides` é genérica de propósito. A vertente educacional foi separada
 
 ## 8. Próximos passos
 
-- [ ] Testar `scripts/generate-odp.py` com exemplos Versão A e B; validar cores, fontes e layout.
+- [x] Testar `scripts/generate-odp.py` com exemplos Versão A e B — automatizado em
+      `scripts/smoke-test.py` (17 checks); tabelas ODF reais e KPIs estruturados (2026-07-16).
+- [ ] Abrir os `.odp` gerados no LibreOffice Impress real e conferir o render final (olho humano).
 - [ ] Obter o **logo IFES em arquivo** (PNG/SVG) oficial (hoje é um SVG reconstruído fiel).
 - [x] Concefor: FUNDAMENTACAO-CONCEFOR.md atualizada — Pilar 2 incorpora formatos abertos/software livre (ODF).
 - [ ] Concefor: gravar vídeo, capturar figura, preencher template e submeter (ver `concefor/`).

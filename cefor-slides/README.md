@@ -21,7 +21,8 @@ Baseada no padrão `frontend-slides` (palco fixo 16:9, "mostrar não contar", ed
 - Conversa com a pessoa (não precisa saber design nem código).
 - Recebe o **conteúdo entregue** e monta o deck com os padrões da marca.
 - Mostra **2 prévias** (Versão A e Versão B) na identidade oficial do Cefor para escolher.
-- Gera **um arquivo HTML** que abre em qualquer navegador/projetor.
+- Gera **um arquivo HTML** que abre em qualquer navegador/projetor — com a **Open Sans embutida**
+  (funciona **offline**, sem chamadas a CDN externa) e **impressão/PDF** nativa (Ctrl+P, 1 slide/página).
 - Permite **editar o texto no próprio navegador** (tecla **E**, Ctrl+S salva).
 - **Sob demanda:** exporta para **LibreOffice Impress editável (.odp)** e/ou publica um **link**.
 
@@ -61,11 +62,14 @@ cefor-slides/
 ├── slide-patterns/
 │   └── slide-patterns.md     # Catálogo genérico de padrões de slide
 ├── exemplos/
-│   └── exemplo-versao-a.html # Deck de exemplo (Versão A — Cor Sólida)
+│   ├── exemplo-versao-a.html # Deck de exemplo (Versão A — Cor Sólida)
+│   └── exemplo-versao-b.html # Deck de exemplo (Versão B — Degradê, gerado pelo scaffold)
 ├── OTIMIZACAO-TOKENS.md      # Registro da otimização de tokens (scaffold + no-read)
 └── scripts/
     ├── new-deck.py           # Scaffold: monta o deck a partir só dos corpos de slide (Fase 3)
     ├── deck-base.css         # CSS fixo de todo deck (injetado pelo scaffold)
+    ├── deck-fonts.css        # Open Sans embutida (woff2 base64, offline; injetada pelo scaffold)
+    ├── smoke-test.py         # Testes de fumaça (round-trip A/B + ODP nos exemplos)
     ├── extract-pptx.py       # Converter PowerPoint → conteúdo (Fase 4)
     ├── generate-odp.py       # Exportar HTML → .odp editável (LibreOffice) (Fase 6A)
     └── deploy.sh             # Publicar deck → link Vercel (Fase 6B)
@@ -102,8 +106,13 @@ Aponte o agente para o `SKILL.md` desta pasta e siga o fluxo das fases.
 - [x] Regra de saída: HTML padrão; **`.odp` editável** e link sob demanda (PDF/PPTX removidos).
 - [x] Scaffold `new-deck.py` + `deck-base.css` (boilerplate fixo determinístico) — ver
       [OTIMIZACAO-TOKENS.md](OTIMIZACAO-TOKENS.md).
-- [x] Export `.odp` editável via script nativo `generate-odp.py` (odfpy, software livre).
-- [x] Scripts de deploy e extração de PPTX (entrada); 1 deck de exemplo (Versão A).
+- [x] Export `.odp` editável via script nativo `generate-odp.py` (odfpy, software livre) — com
+      **tabelas ODF reais**, KPIs estruturados e aviso de slide sem conteúdo.
+- [x] **Open Sans embutida** no deck (offline, sem CDN — privacidade/eMAG) e **impressão/PDF** (Ctrl+P).
+- [x] Acessibilidade do gabarito: capa em tinta sobre lima (AA), `h2` nos títulos, `aria-hidden`
+      em decorativos, `salvar()` gera cópia limpa.
+- [x] Scripts de deploy e extração de PPTX (entrada); 2 decks de exemplo (Versões A e B).
+- [x] `smoke-test.py` — 17 verificações automáticas dos scripts.
 - [ ] Adicionar o **logo IFES em arquivo** (PNG/SVG) caso se prefira a imagem oficial ao SVG reconstruído.
 - [ ] (Separado) Criar a **skill de apresentações educacionais** — ver
       [../pesquisa-skill-educacional/](../pesquisa-skill-educacional/).
