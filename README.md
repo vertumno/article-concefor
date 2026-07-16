@@ -56,8 +56,7 @@ article-concefor/
 │   ├── AVALIACAO-PROTOTIPO.md             # Auditoria de acessibilidade (WCAG) + inspeção heurística
 │   └── figura-representativa.html         # Slide-título anonimizado para gerar a imagem (PNG)
 │
-├── cefor-slides.zip                       # Pacote da skill genérica para upload no Claude Web
-└── skills-extract/                        # Material auxiliar (extração de skills); descartável
+└── cefor-slides.zip                       # Pacote da skill p/ upload no Claude Web (gerado por scripts/make-zip.py)
 ```
 
 ---

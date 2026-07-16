@@ -1,6 +1,6 @@
 # Story: Melhorias da skill cefor-slides (Sprints 1 e 2 da avaliação sênior)
 
-**Status:** Done (pendência humana: conferir os `.odp` no LibreOffice Impress)
+**Status:** Done — Sprints 1, 2 e 3 (pendência humana: conferir os `.odp` no LibreOffice Impress)
 **Data:** 2026-07-16
 **Origem:** Avaliação sênior completa da skill (16/07/2026) — 3 bugs confirmados em teste,
 1 regressão latente de acessibilidade e melhorias de robustez. O artigo Concefor foi aprovado
@@ -49,14 +49,25 @@ crítico 1,8:1) que a auditoria do artigo corrigiu só no exemplo.
 
 ---
 
-## Fora do escopo (Sprint 3 — futuro)
+## Aceitação — Sprint 3 (higiene e polimento)
 
-extract-pptx (tabelas/grupos), prévias via scaffold, make-zip.py, teclas Home/End/Esc/F,
-refactor de globals no generate-odp, remoção de `producao-tecnica/` e `slides-generator.zip`.
+- [x] S3.1 `extract-pptx.py`: extrai **tabelas** (GraphicFrame) como linhas estruturadas e percorre
+      **shapes agrupados** (recursão); mensagem amigável se `python-pptx` faltar; enum
+      `MSO_SHAPE_TYPE` em vez de `13` mágico; JSON em UTF-8 legível (`ensure_ascii=False`)
+- [x] S3.2 Prévias da Fase 2 geradas **via scaffold** (1 corpo de capa cada) — SKILL.md atualizado;
+      fim do boilerplate manual de ~5k tokens e do drift visual entre prévia e deck final
+- [x] S3.3 Teclas de apresentação: **Home/End** (primeiro/último slide), **Esc** (sair do modo
+      edição), **F** (fullscreen) — scaffold, html-template.md e exemplos A/B
+- [x] S3.4 `scripts/make-zip.py`: regenera o `cefor-slides.zip` a partir da pasta (fim do drift
+      de zip manual)
+- [x] S3.5 `generate-odp.py` sem globals (`slides_src_path` vira parâmetro)
+- [x] S3.6 Limpeza: remover `producao-tecnica/` (vazia) e `slides-generator.zip` (artefato
+      anonimizado da fase cega, obsoleto após a aprovação)
+- [x] S3.7 Smoke test cobre as novas teclas e o make-zip; docs atualizados; zip regenerado
 
 ## Testes executados
 
-- [x] `python scripts/smoke-test.py` — todos verdes (17/17)
+- [x] `python scripts/smoke-test.py` — todos verdes (19/19 após Sprint 3)
 - [x] `generate-odp.py` nos exemplos A e B — ODF válido na releitura (7 e 7 slides)
 - [x] Verificação visual (screenshots via Chrome headless) dos exemplos A e B — capa,
       divisória, KPIs, tabela e encerramento conferidos
@@ -65,3 +76,10 @@ refactor de globals no generate-odp, remoção de `producao-tecnica/` e `slides-
 ## Bloqueadores
 
 - Nenhum.
+
+### Verificação extra do Sprint 3
+
+- [x] `extract-pptx.py` testado com PPTX sintético: tabela 2×3 estruturada no JSON,
+      texto dentro de shape agrupado extraído, acentos legíveis (`ensure_ascii=False`)
+- [x] Exemplo B regenerado pelo scaffold atualizado (paridade de teclas)
+- [x] `cefor-slides.zip` regenerado pelo próprio `make-zip.py` (19 arquivos)

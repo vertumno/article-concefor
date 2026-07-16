@@ -81,6 +81,8 @@ def test_new_deck(tmp):
                   all(t in html for t in (".deck-stage", "ApresentacaoCefor",
                                           "prefers-reduced-motion", "editToggle")))
             check("new-deck A: salvar() serializa cópia limpa", "cloneNode(true)" in html)
+            check("new-deck A: teclas Home/End/Esc/F presentes",
+                  all(t in html for t in ("'Home'", "'End'", "'Escape'", "requestFullscreen")))
         else:
             check("new-deck B: fundo degradê (--slide-bg: var(--grad))",
                   "--slide-bg: var(--grad)" in html)
@@ -112,11 +114,23 @@ def test_generate_odp(tmp):
               "CeforKpiNum" in xml)
 
 
+def test_make_zip(tmp):
+    out = os.path.join(tmp, "pacote.zip")
+    rc, log = run([sys.executable, os.path.join(HERE, "make-zip.py"), out])
+    ok = rc == 0 and os.path.isfile(out)
+    if ok:
+        nomes = zipfile.ZipFile(out).namelist()
+        ok = ("cefor-slides/SKILL.md" in nomes and
+              any(n.endswith("deck-fonts.css") for n in nomes) and len(nomes) >= 15)
+    check("make-zip: pacote gerado com SKILL.md e fontes", ok, log.strip()[:200])
+
+
 def main():
     print(f"== Smoke test cefor-slides ==\n   skill: {SKILL}\n")
     with tempfile.TemporaryDirectory() as tmp:
         test_new_deck(tmp)
         test_generate_odp(tmp)
+        test_make_zip(tmp)
     falhas = [n for n, ok in resultados if not ok]
     total = len(resultados)
     print(f"\n== {total - len(falhas)}/{total} verdes ==")

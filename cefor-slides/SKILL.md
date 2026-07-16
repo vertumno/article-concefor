@@ -86,8 +86,16 @@ ser fiel ao design system oficial (modelo A1 ou B1), com seta CEFOR, logo IFES e
   nomes de arquivo, anotações de requisito. Os nomes das linguagens só vão na mensagem ao usuário.
 - "Moldura" só com elementos reais: título do deck, data, responsável, logo/rodapé Cefor.
 
-Salve as prévias em `.cefor-slides/previas/` (versao-a.html, versao-b.html), autossuficientes e compactas,
-mostrando um slide-título animado. Abra cada uma para a pessoa.
+**Gere as prévias com o scaffold** (mesmo caminho da Fase 3 — não reescreva boilerplate): escreva
+**só o `<section>` da capa** (modelo A1 e B1) com o título real do deck e rode:
+
+```bash
+python scripts/new-deck.py --version A --title "Título real" --slides capa-a.html --out .cefor-slides/previas/versao-a.html
+python scripts/new-deck.py --version B --title "Título real" --slides capa-b.html --out .cefor-slides/previas/versao-b.html
+```
+
+Assim a prévia é **idêntica** ao deck final (mesmo palco, fonte embutida, marca, animação) — zero
+drift visual. Abra cada uma para a pessoa.
 
 **Escolha:** pergunte "Qual linguagem você prefere? Versão A (Cor Sólida) / Versão B (Degradê)". Se a
 pessoa quiser, pode ajustar a lima/azul dentro das opções oficiais (ver CEFOR_BRAND.md).
@@ -174,10 +182,11 @@ não basta — grades podem se cobrir visualmente.
 2. **Abrir** — abra o `.html` no navegador.
 3. **Resumir** para a pessoa:
    - Local do arquivo, nome do estilo, nº de slides.
-   - Navegação: setas, espaço, swipe no celular.
-   - Como personalizar: variáveis CSS no `:root` (cores), link de fonte (tipografia).
+   - Navegação: setas, espaço, swipe no celular; **Home/End** (primeiro/último), **F** (tela cheia).
+   - Como personalizar: variáveis CSS no `:root` (cores), bloco `@font-face` (tipografia).
    - Edição inline: passe o mouse no canto superior esquerdo ou tecle **E**, clique no texto para editar,
-     **Ctrl+S** salva uma cópia.
+     **Ctrl+S** salva uma cópia limpa, **Esc** sai do modo edição.
+   - Imprimir/PDF: **Ctrl+P** (um slide por página).
    - Ofereça os próximos passos: pedir ajustes, editar texto no navegador, ou exportar/compartilhar.
 
 ---

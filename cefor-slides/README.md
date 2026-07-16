@@ -70,6 +70,7 @@ cefor-slides/
     ├── deck-base.css         # CSS fixo de todo deck (injetado pelo scaffold)
     ├── deck-fonts.css        # Open Sans embutida (woff2 base64, offline; injetada pelo scaffold)
     ├── smoke-test.py         # Testes de fumaça (round-trip A/B + ODP nos exemplos)
+    ├── make-zip.py           # Regenera o cefor-slides.zip (rodar após alterar a skill)
     ├── extract-pptx.py       # Converter PowerPoint → conteúdo (Fase 4)
     ├── generate-odp.py       # Exportar HTML → .odp editável (LibreOffice) (Fase 6A)
     └── deploy.sh             # Publicar deck → link Vercel (Fase 6B)

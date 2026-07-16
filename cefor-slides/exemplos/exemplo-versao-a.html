@@ -604,6 +604,12 @@
                     if (e.target.getAttribute('contenteditable')) return;
                     if (['ArrowRight',' ','PageDown'].includes(e.key)) this.mostrar(this.atual+1);
                     if (['ArrowLeft','PageUp'].includes(e.key)) this.mostrar(this.atual-1);
+                    if (e.key==='Home') { e.preventDefault(); this.mostrar(0); }
+                    if (e.key==='End') { e.preventDefault(); this.mostrar(this.slides.length-1); }
+                    if (e.key==='f'||e.key==='F') {
+                        document.fullscreenElement ? document.exitFullscreen()
+                            : document.documentElement.requestFullscreen();
+                    }
                 });
             }
             navToque() {
@@ -678,6 +684,7 @@
         hotzone.addEventListener('click', () => editor.toggle());
         document.addEventListener('keydown', (e) => {
             if ((e.key==='e'||e.key==='E') && !e.target.getAttribute('contenteditable')) editor.toggle();
+            if (e.key==='Escape' && editor.isActive) editor.toggle();
             if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); editor.salvar(); }
         });
     </script>

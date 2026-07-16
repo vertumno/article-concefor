@@ -305,7 +305,7 @@ def _hex(css_root, key, default):
     return val[:7]
 
 
-def build_odp(slides, css_root, output_path):
+def build_odp(slides, css_root, output_path, src_dir):
     lime = _hex(css_root, "lime", "#B0CB1F")
     navy = _hex(css_root, "navy", "#2C459A")
     olive = _hex(css_root, "olive", "#8C9A0D")
@@ -412,7 +412,7 @@ def build_odp(slides, css_root, output_path):
         frame.addElement(table)
         page.addElement(frame)
 
-    pic_dir = os.path.dirname(os.path.abspath(slides_src_path)) if slides else ""
+    pic_dir = src_dir
 
     for idx, slide in enumerate(slides, 1):
         page = Page(name=f"slide{idx}", masterpagename=masterpage, stylename=dpstyle)
@@ -536,7 +536,6 @@ def validate_odp(path):
 # ---------------------------------------------------------------------------
 
 def main():
-    global slides_src_path, slides
     if len(sys.argv) < 2:
         _log(__doc__)
         sys.exit(1)
@@ -555,7 +554,8 @@ def main():
 
     _log("[INFO] Gerando .odp via odfpy...")
     try:
-        build_odp(slides, css_root, output)
+        build_odp(slides, css_root, output,
+                  src_dir=os.path.dirname(os.path.abspath(slides_src_path)))
     except Exception as e:  # noqa: BLE001
         _log(f"[ERRO] Falha ao gerar .odp: {e}")
         sys.exit(1)
@@ -570,6 +570,4 @@ def main():
 
 
 if __name__ == "__main__":
-    slides = []
-    slides_src_path = ""
     main()
