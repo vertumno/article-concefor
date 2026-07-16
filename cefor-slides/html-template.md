@@ -61,7 +61,7 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
         .corpo, li  { font-weight: 400; font-size: 26px; line-height: 1.45; }
         .eyebrow    { font-weight: 700; font-size: 15px; letter-spacing: .2em; text-transform: uppercase; }
         .num-secao  { font-weight: 800; font-size: 80px; line-height: 1; }
-        .rodape     { font-weight: 600; font-size: 20px; color: var(--olive); }
+        .rodape     { font-weight: 600; font-size: 20px; color: #6E7A0A; } /* oliva escurecida p/ contraste AA (~4.7:1); a oliva oficial #8C9A0D dá só 3,1:1 */
 
         /* === COMPONENTES DE MARCA === */
         .seta { /* seta CEFOR — usar inline o SVG do path abaixo */ }
@@ -84,11 +84,12 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
                 <!-- moldura oliva -->
                 <div style="position:absolute;left:120px;top:92px;right:120px;bottom:236px;border:3px solid rgba(140,154,13,.55);border-radius:60px;"></div>
                 <!-- seta CEFOR d'água -->
-                <svg width="220" height="220" viewBox="0 0 100 100" style="position:absolute;left:156px;top:168px;"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="rgba(120,134,0,.45)"/></svg>
-                <div style="position:absolute;left:192px;top:300px;right:220px;color:#fff;">
-                    <div class="eyebrow reveal" style="color:#fff;opacity:.92;">Título da Apresentação</div>
-                    <h1 class="t-capa reveal" style="color:#fff;margin-top:22px;">Formação que transforma<br>a educação pública</h1>
-                    <p class="corpo reveal" style="color:rgba(255,255,255,.92);font-size:36px;margin-top:28px;">Subtítulo · responsável · 2026</p>
+                <svg width="220" height="220" viewBox="0 0 100 100" style="position:absolute;left:156px;top:168px;" aria-hidden="true"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="rgba(120,134,0,.45)"/></svg>
+                <!-- Texto da capa SEMPRE em tinta sobre lima (7,7:1 AA). Branco sobre lima = 1,8:1, reprova WCAG (auditoria A1). -->
+                <div style="position:absolute;left:192px;top:300px;right:220px;color:var(--ink);">
+                    <div class="eyebrow reveal" style="color:var(--ink);">Título da Apresentação</div>
+                    <h1 class="t-capa reveal" style="color:var(--ink);margin-top:22px;">Formação que transforma<br>a educação pública</h1>
+                    <p class="corpo reveal" style="color:var(--ink);font-size:36px;margin-top:28px;">Subtítulo · responsável · 2026</p>
                 </div>
                 <!-- logo IFES inferior-direito (ver SVG da marca em CEFOR_BRAND.md) -->
                 <div style="position:absolute;right:108px;bottom:80px;">[LOGO IFES]</div>
@@ -99,9 +100,9 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
                 <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
                     <!-- marca d'água de setas (ver CEFOR_BRAND.md) -->
                 </div>
-                <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="var(--navy)"/></svg>
+                <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" aria-hidden="true"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="var(--navy)"/></svg>
                 <div style="position:absolute;left:660px;top:92px;right:108px;">
-                    <div class="barra-titulo reveal"><span class="t-conteudo">Título do conteúdo</span></div>
+                    <div class="barra-titulo reveal"><h2 class="t-conteudo">Título do conteúdo</h2></div>
                     <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
                 </div>
                 <ul style="position:absolute;left:668px;top:400px;right:128px;display:flex;flex-direction:column;gap:36px;list-style:none;">
@@ -216,10 +217,20 @@ const editor = {
         document.getElementById('editToggle').classList.toggle('active', this.isActive);
     },
     salvar() {
-        const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        /* Serializa uma CÓPIA limpa: sem contenteditable, sem elementos injetados por JS,
+           sem estado do botão de edição (senão o arquivo salvo reabre "sujo"). */
+        const doc = document.documentElement.cloneNode(true);
+        doc.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+        doc.querySelectorAll('.deck-progress').forEach(el => el.remove());
+        const bt = doc.querySelector('#editToggle');
+        if (bt) bt.classList.remove('active', 'show');
+        const html = '<!DOCTYPE html>\n' + doc.outerHTML;
         const a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([html], {type:'text/html'}));
-        a.download = 'apresentacao-cefor.html'; a.click();
+        const nome = (document.title || '').toLowerCase().normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '').slice(0, 80) || 'apresentacao-cefor';
+        a.download = nome + '.html'; a.click();
     }
 };
 const hotzone = document.querySelector('.edit-hotzone');
@@ -249,5 +260,9 @@ document.addEventListener('keydown', (e) => {
 
 - Comentários `/* === NOME DA SEÇÃO === */` e `<!-- ID do modelo -->` em cada slide.
 - HTML semântico, navegação por teclado completa, ARIA quando necessário.
+- **Hierarquia de títulos (auditoria A6):** `<h1>` só na capa; títulos de slide de conteúdo em
+  `<h2 class="t-conteudo">` (não `<span>`/`<div>`); subseções em `<h3>`.
+- **Decorativos (auditoria A7):** toda seta CEFOR, marca d'água e grafismo decorativo com
+  `aria-hidden="true"`; logo IFES com `role="img"` + `aria-label`.
 - `prefers-reduced-motion` já vem em viewport-base.css.
 - Arquivo único autossuficiente: todo CSS/JS inline; só `assets/` para imagens.

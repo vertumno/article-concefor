@@ -18,6 +18,16 @@
 - **Dado com contexto.** Todo número vem com o que significa.
 - **Feche com o próximo passo / a conclusão.** Não termine sem o "e agora?".
 
+## Acessibilidade obrigatória nos corpos (auditoria WCAG)
+
+- **Hierarquia de títulos:** `<h1 class="t-capa">` só na capa; título de slide de conteúdo em
+  **`<h2 class="t-conteudo">`** dentro da `.barra-titulo` (não `<span>`/`<div>`); subseções `<h3>`.
+- **Decorativos:** toda **seta CEFOR**, marca d'água e grafismo sem função informativa recebe
+  `aria-hidden="true"`. Logo IFES recebe `role="img"` + `aria-label` descritivo.
+- **Capa Versão A:** texto **em tinta** (`var(--ink)`) sobre o bloco lima — nunca branco
+  (1,8:1 reprova WCAG; tinta dá 7,7:1).
+- **Rodapé:** use a classe `.rodape` (já vem com oliva escurecida AA), sem sobrescrever a cor.
+
 ## Catálogo
 
 ### 1. Capa
@@ -92,8 +102,9 @@ defini-las nem ler a CSS:
 | `.badge-status` / `.badge-done` / `.badge-doing` | Selos de status (AA) |
 | `.slide-counter` | Contador "n / total" (preenchido pelo JS) |
 
-**SVGs de marca** (também injetados): seta CEFOR → `<svg style="..." fill="var(--navy)"><use href="#seta-cefor"/></svg>`;
-marca d'água → `<rect width="100%" height="100%" fill="url(#wm-setas)"/>`. Logo IFES: SVG em CEFOR_BRAND.md.
+**SVGs de marca** (também injetados): seta CEFOR → `<svg style="..." fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>`;
+marca d'água → `<svg ... aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>`.
+Logo IFES: SVG em CEFOR_BRAND.md (com `role="img"` + `aria-label`).
 
 ## Densidade recomendada
 

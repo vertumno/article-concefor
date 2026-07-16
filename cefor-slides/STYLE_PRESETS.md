@@ -27,7 +27,7 @@ linha-guia e URL em oliva no rodapé.
 
 | ID | Modelo | Layout-resumo |
 |----|--------|---------------|
-| **A1** | Capa | Bloco lima no topo (canto inf-esq. arredondado grande); moldura oliva; seta lima d'água; eyebrow MAIÚSCULAS, título branco 800, subtítulo; logo IFES no canto inf-direito. |
+| **A1** | Capa | Bloco lima no topo (canto inf-esq. arredondado grande); moldura oliva; seta lima d'água; eyebrow MAIÚSCULAS, **título em tinta 800** (nunca branco sobre lima — contraste 1,8:1 reprova WCAG; tinta dá 7,7:1), subtítulo em tinta; logo IFES no canto inf-direito. |
 | **A2** | Divisória de seção | Trilho lima à esquerda (34%) com marca d'água de setas; seta azul; número "01" lima 80px; título da seção em azul; sublinhado lima; linha oliva + URL no rodapé. |
 | **A3** | Conteúdo com lista | Trilho cinza à esquerda (30%) com marca d'água; seta azul; barra de título lima (texto tinta) + sublinhado azul com "tique"; lista com bullets quadrados lima; linha oliva + URL. |
 | **A4** | Destaque / citação | Cantos lima (sup-esq) e azul (inf-esq); linha vertical oliva; painel cinza à direita; aspas lima grandes; frase em azul 700; atribuição em texto médio. |

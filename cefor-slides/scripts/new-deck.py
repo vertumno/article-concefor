@@ -26,12 +26,15 @@ Uso:
 Sem dependências externas (stdlib apenas). Valida o resultado antes de gravar.
 """
 import argparse
+import html
 import os
+import re
 import sys
 from html.parser import HTMLParser
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE_CSS = os.path.join(HERE, "deck-base.css")
+FONTS_CSS = os.path.join(HERE, "deck-fonts.css")
 
 # Tokens de :root oficiais (de CEFOR_BRAND.md). --slide-bg muda por versão.
 ROOT_TOKENS = """        :root {{
@@ -136,10 +139,20 @@ CONTROLLER_JS = """    <script>
                 document.getElementById('editToggle').classList.toggle('active', this.isActive);
             },
             salvar() {
-                const html = '<!DOCTYPE html>\\n' + document.documentElement.outerHTML;
+                /* Serializa uma CÓPIA limpa: sem contenteditable, sem barra de progresso
+                   injetada, sem estado do botão de edição (senão o arquivo salvo reabre "sujo"). */
+                const doc = document.documentElement.cloneNode(true);
+                doc.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+                doc.querySelectorAll('.deck-progress').forEach(el => el.remove());
+                const bt = doc.querySelector('#editToggle');
+                if (bt) bt.classList.remove('active', 'show');
+                const html = '<!DOCTYPE html>\\n' + doc.outerHTML;
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(new Blob([html], {type:'text/html'}));
-                a.download = 'apresentacao-cefor.html'; a.click();
+                const nome = (document.title || '').toLowerCase().normalize('NFD')
+                    .replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '').slice(0, 80) || 'apresentacao-cefor';
+                a.download = nome + '.html'; a.click();
             }
         };
         const hotzone = document.querySelector('.edit-hotzone');
@@ -161,8 +174,15 @@ CONTROLLER_JS = """    <script>
 def montar(version, title, slides_html, lime, navy):
     with open(BASE_CSS, encoding="utf-8") as f:
         base_css = f.read()
+    with open(FONTS_CSS, encoding="utf-8") as f:
+        fonts_css = f.read()
     slide_bg = "var(--grad)" if version.upper() == "B" else "#FFFFFF"
     root = ROOT_TOKENS.format(lime=lime, navy=navy, slide_bg=slide_bg)
+    title = html.escape(title)
+    # Garante o 1º slide visível mesmo sem JS (robustez): classe "active" no primeiro <section>
+    if not re.search(r'<section\b[^>]*class="[^"]*\bactive\b', slides_html):
+        slides_html = re.sub(r'(<section\b[^>]*class=")([^"]*\bslide\b)',
+                             r'\1\2 active', slides_html, count=1)
     css = "        /* === TOKENS DE MARCA === */\n" + root + "\n\n" + \
           "\n".join("        " + ln if ln else ln for ln in base_css.splitlines())
     return f"""<!DOCTYPE html>
@@ -172,10 +192,9 @@ def montar(version, title, slides_html, lime, navy):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
 
-    <!-- Fonte institucional do Cefor: Open Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap">
+    <!-- Fonte institucional do Cefor: Open Sans (EMBUTIDA — funciona offline, sem CDN externa) -->
+    <style>
+{fonts_css}    </style>
 
     <style>
 {css}
@@ -211,7 +230,8 @@ class _Validador(HTMLParser):
 def validar(html):
     erros = []
     obrig = [".deck-stage", "ApresentacaoCefor", "prefers-reduced-motion",
-             "deck-viewport", "editToggle", "Open+Sans"]
+             "deck-viewport", "editToggle", "@font-face", "'Open Sans'",
+             "@media print", "data:font/woff2;base64,"]
     for token in obrig:
         if token not in html:
             erros.append(f"faltando: {token}")
