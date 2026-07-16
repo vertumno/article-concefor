@@ -24,14 +24,18 @@ Baseada no padrão `frontend-slides` (palco fixo 16:9, "mostrar não contar", ed
 - Gera **um arquivo HTML** que abre em qualquer navegador/projetor — com a **Open Sans embutida**
   (funciona **offline**, sem chamadas a CDN externa) e **impressão/PDF** nativa (Ctrl+P, 1 slide/página).
 - Permite **editar o texto no próprio navegador** (tecla **E**, Ctrl+S salva).
-- **Sob demanda:** exporta para **LibreOffice Impress editável (.odp)** e/ou publica um **link**.
+- **Sob demanda:** exporta para **LibreOffice Impress editável (.odp)** (recomendado), para
+  **PowerPoint editável (.pptx)** quando necessário, e/ou publica um **link**.
 
 ## Saída
 
 - **Padrão: HTML.** É sempre o entregável principal e a fonte da verdade.
 - **LibreOffice Impress editável (.odp)** quando a pessoa pedir, gerado pelo script nativo
   `scripts/generate-odp.py` (odfpy) — texto editável, sem dependências proprietárias, alinhado à
-  política de software livre do governo federal (ODF é padrão aberto).
+  política de software livre do governo federal (ODF é padrão aberto). **Recomendado.**
+- **PowerPoint editável (.pptx)** quando houver necessidade concreta de compatibilidade, via
+  `scripts/generate-pptx.py` (python-pptx, **licença MIT** — segue sem dependência proprietária).
+  Mesmo escopo do `.odp`: tabelas reais, KPIs, imagens; grafismos ficam no HTML.
 - **Link** (Vercel) quando a pessoa pedir, com aval para conteúdo institucional.
 
 ## Identidade oficial (resumo)
@@ -72,8 +76,10 @@ cefor-slides/
     ├── smoke-test.py         # Testes de fumaça (round-trip A/B + ODP nos exemplos)
     ├── make-zip.py           # Regenera o cefor-slides.zip (rodar após alterar a skill)
     ├── extract-pptx.py       # Converter PowerPoint → conteúdo (Fase 4)
-    ├── generate-odp.py       # Exportar HTML → .odp editável (LibreOffice) (Fase 6A)
-    └── deploy.sh             # Publicar deck → link Vercel (Fase 6B)
+    ├── deck_parser.py        # Parser HTML compartilhado dos exports (.odp/.pptx)
+    ├── generate-odp.py       # Exportar HTML → .odp editável (LibreOffice, recomendado) (Fase 6A)
+    ├── generate-pptx.py      # Exportar HTML → .pptx editável (PowerPoint, se necessário) (Fase 6B)
+    └── deploy.sh             # Publicar deck → link Vercel (Fase 6C)
 ```
 
 > Export para `.odp` editável usa o script nativo `scripts/generate-odp.py` (odfpy), empacotado com a
@@ -97,6 +103,7 @@ Aponte o agente para o `SKILL.md` desta pasta e siga o fluxo das fases.
 | Criar/editar slides (HTML) | Nada (só o agente) |
 | Converter PowerPoint (entrada) | Python 3 + `pip install python-pptx` |
 | Exportar `.odp` editável | Python 3 + `pip install odfpy` (`pillow` opcional p/ imagens raster) |
+| Exportar `.pptx` editável (se necessário) | Python 3 + `pip install python-pptx` (MIT) |
 | Publicar link | Node.js + conta Vercel (gratuita) |
 
 ## Status e próximos passos

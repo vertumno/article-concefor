@@ -65,6 +65,20 @@ crítico 1,8:1) que a auditoria do artigo corrigiu só no exemplo.
       anonimizado da fase cega, obsoleto após a aprovação)
 - [x] S3.7 Smoke test cobre as novas teclas e o make-zip; docs atualizados; zip regenerado
 
+## Aceitação — Sprint 4 (export PPTX opcional)
+
+- [x] S4.1 `scripts/generate-pptx.py`: HTML → PowerPoint editável (.pptx) 16:9 com paleta Cefor,
+      Open Sans, tabelas PowerPoint REAIS (cabeçalho lima), KPIs "número — rótulo", imagens,
+      rodapé; valida por releitura e avisa slide vazio. Dependência: python-pptx (**MIT** — a
+      skill segue sem dependências proprietárias; `.odp` continua o recomendado institucional)
+- [x] S4.2 Parser HTML extraído para `scripts/deck_parser.py` compartilhado (REUSE — generate-odp
+      e generate-pptx importam; quem só quer .pptx não precisa de odfpy e vice-versa)
+- [x] S4.3 SKILL.md Fase 6 reorganizada: 6A `.odp` (recomendado) · 6B `.pptx` (quando necessário)
+      · 6C link; pergunta da Fase 6, frontmatter e tabela de apoio atualizados
+- [x] S4.4 Smoke test: +5 checks (PPTX válido A/B, sem slide vazio, tabela `<a:tbl>` real);
+      round-trip validado com o próprio `extract-pptx.py` (tabela e KPIs conferidos)
+- [x] S4.5 READMEs atualizados; zip regenerado via make-zip.py
+
 ## Testes executados
 
 - [x] `python scripts/smoke-test.py` — todos verdes (19/19 após Sprint 3)

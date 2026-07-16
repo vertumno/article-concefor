@@ -114,6 +114,32 @@ def test_generate_odp(tmp):
               "CeforKpiNum" in xml)
 
 
+def test_generate_pptx(tmp):
+    try:
+        import pptx  # noqa: F401
+    except ImportError:
+        print("[AVISO] python-pptx não instalado — testes do generate-pptx PULADOS (pip install python-pptx)")
+        return
+    gen = os.path.join(HERE, "generate-pptx.py")
+    for exemplo in EXEMPLOS:
+        nome = os.path.basename(exemplo)
+        if not os.path.isfile(exemplo):
+            continue  # já reportado no teste do ODP
+        out = os.path.join(tmp, nome.replace(".html", ".pptx"))
+        rc, log = run([sys.executable, gen, exemplo, out])
+        check(f"generate-pptx {nome}: PPTX válido na releitura",
+              rc == 0 and "[OK] PPTX valido" in log, log.strip()[:200])
+        if rc != 0:
+            continue
+        check(f"generate-pptx {nome}: nenhum slide vazio (sem [AVISO])",
+              "[AVISO] Slide" not in log, log.strip()[:200])
+        z = zipfile.ZipFile(out)
+        xml = "".join(z.read(n).decode("utf-8", "replace")
+                      for n in z.namelist() if n.startswith("ppt/slides/slide"))
+        check(f"generate-pptx {nome}: tabela PowerPoint REAL presente",
+              "<a:tbl>" in xml and xml.count("<a:tc>") >= 8)
+
+
 def test_make_zip(tmp):
     out = os.path.join(tmp, "pacote.zip")
     rc, log = run([sys.executable, os.path.join(HERE, "make-zip.py"), out])
@@ -130,6 +156,7 @@ def main():
     with tempfile.TemporaryDirectory() as tmp:
         test_new_deck(tmp)
         test_generate_odp(tmp)
+        test_generate_pptx(tmp)
         test_make_zip(tmp)
     falhas = [n for n, ok in resultados if not ok]
     total = len(resultados)

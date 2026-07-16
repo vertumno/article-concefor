@@ -1,6 +1,6 @@
 ---
 name: cefor-slides
-description: Cria rapidamente apresentações de slides com a identidade visual oficial do Cefor/Ifes (lima + azul institucional, Open Sans, seta CEFOR, 2 linguagens visuais), em HTML autossuficiente, a partir do conteúdo entregue. Ferramenta genérica para qualquer servidor do Cefor (reuniões, eventos, comunicados, relatórios, materiais informativos). Saída padrão em HTML; exporta também para LibreOffice Impress editável (.odp) sob demanda, alinhado com a política de software livre do governo federal. Descobre o estilo mostrando prévias, não pedindo descrições abstratas.
+description: Cria rapidamente apresentações de slides com a identidade visual oficial do Cefor/Ifes (lima + azul institucional, Open Sans, seta CEFOR, 2 linguagens visuais), em HTML autossuficiente, a partir do conteúdo entregue. Ferramenta genérica para qualquer servidor do Cefor (reuniões, eventos, comunicados, relatórios, materiais informativos). Saída padrão em HTML; exporta sob demanda para LibreOffice Impress editável (.odp, recomendado — política de software livre do governo federal) e para PowerPoint editável (.pptx) quando necessário. Descobre o estilo mostrando prévias, não pedindo descrições abstratas.
 ---
 
 # Cefor Slides
@@ -16,8 +16,9 @@ Baseada no padrão "frontend-slides" (palco fixo 16:9, mostrar-não-contar, edi�
 **Sistema de Design de Apresentações oficial do Cefor** (ver
 [brand/CEFOR-Design-System.dc.html](brand/CEFOR-Design-System.dc.html)).
 
-**Saída:** HTML é o formato **padrão**. O **LibreOffice Impress editável (.odp)** é gerado **apenas
-quando a pessoa pedir** (ver Fase 6), alinhado à política de software livre do governo federal.
+**Saída:** HTML é o formato **padrão**. Sob demanda (Fase 6): **LibreOffice Impress editável
+(.odp)** — recomendado, alinhado à política de software livre do governo federal — e **PowerPoint
+editável (.pptx)** quando houver necessidade concreta de compatibilidade.
 
 ## Princípios
 
@@ -194,7 +195,8 @@ não basta — grades podem se cobrir visualmente.
 ## Fase 6: Exportar e compartilhar (sob demanda)
 
 **O HTML é a entrega padrão.** Só gere outros formatos se a pessoa pedir. Pergunte: "Quer também em
-**LibreOffice Impress editável (.odp)** ou **publicar um link**? Ou ficamos só no HTML?"
+**LibreOffice Impress editável (.odp)** (recomendado), **PowerPoint editável (.pptx)** se precisar de
+compatibilidade, ou **publicar um link**? Ou ficamos só no HTML?"
 
 ### 6A: Exportar LibreOffice Impress editável (.odp)
 
@@ -237,7 +239,29 @@ depois de gerar, abra o `.odp` em **LibreOffice Impress** e revise:
 > **Alinhamento institucional:** o formato .odp segue a recomendação do governo federal para software
 > livre; é padrão aberto (ODF), sem dependências proprietárias.
 
-### 6B: Publicar link (Vercel)
+### 6B: Exportar PowerPoint editável (.pptx) — quando necessário
+
+Ofereça o `.pptx` **apenas quando houver necessidade concreta** (destinatário só usa PowerPoint,
+modelo exigido por terceiros, edital que pede .pptx). O formato **recomendado** continua sendo o
+`.odp` (6A), alinhado à política de software livre. A geração usa `python-pptx` (**licença MIT** —
+a mesma lib do `extract-pptx.py`): a skill segue sem dependências proprietárias.
+
+```bash
+python scripts/generate-pptx.py <deck.html> <deck.pptx>
+```
+
+Mesmo pipeline e mesmo escopo do 6A (parser compartilhado `deck_parser.py`): **tabelas viram
+tabelas PowerPoint reais** (cabeçalho lima), KPIs viram linhas "número — rótulo", imagens raster
+locais são embutidas, e o script **valida reabrindo o arquivo** (`[OK] PPTX válido`) e avisa se
+algum slide não contribuir conteúdo. Grafismos do layout não são transpostos (HTML é a fonte da
+verdade). Aviso ao entregar: a **Open Sans** precisa estar instalada na máquina que abrir o
+arquivo, senão o PowerPoint substitui a fonte.
+
+```bash
+pip install python-pptx      # obrigatória para o .pptx (MIT)
+```
+
+### 6C: Publicar link (Vercel)
 ```bash
 bash scripts/deploy.sh <caminho-da-apresentacao>
 ```
@@ -262,12 +286,15 @@ do Cefor em hospedagem externa; para uso interno, o `.odp` ou o HTML costuma bas
 | [html-template.md](html-template.md) | Arquitetura HTML/JS completa | Só no **fallback manual** (sem o scaffold) |
 | [viewport-base.css](viewport-base.css) | CSS do palco fixo | Só no **fallback manual** (o scaffold já o contém) |
 | `scripts/extract-pptx.py` | Extrair conteúdo de .pptx (entrada da Fase 4) | Fase 4 (converter) |
-| `scripts/generate-odp.py` | Exportar HTML → `.odp` editável (LibreOffice) | Fase 6A (sob demanda) |
-| `scripts/deploy.sh` | Publicar link (Vercel) | Fase 6 (sob demanda) |
+| `scripts/generate-odp.py` | Exportar HTML → `.odp` editável (LibreOffice, recomendado) | Fase 6A (sob demanda) |
+| `scripts/generate-pptx.py` | Exportar HTML → `.pptx` editável (PowerPoint, se necessário) | Fase 6B (sob demanda) |
+| `scripts/deck_parser.py` | Parser HTML compartilhado dos exports | Não ler — usado pelos scripts |
+| `scripts/deploy.sh` | Publicar link (Vercel) | Fase 6C (sob demanda) |
 
-> **Export para `.odp` editável** é feito pelo script nativo `scripts/generate-odp.py` (odfpy),
-> empacotado com a skill — sem dependências proprietárias, alinhado à política de software livre do
-> governo federal (ver Fase 6A). `extract-pptx.py` é apenas **entrada** (converter um `.pptx` recebido),
-> não exportação.
+> **Export para `.odp` editável** (recomendado) é feito pelo script nativo `scripts/generate-odp.py`
+> (odfpy), alinhado à política de software livre do governo federal (Fase 6A). **Export para `.pptx`**,
+> quando necessário, usa `scripts/generate-pptx.py` (python-pptx, MIT — Fase 6B). Ambos compartilham o
+> parser `deck_parser.py`; sem dependências proprietárias. `extract-pptx.py` é apenas **entrada**
+> (converter um `.pptx` recebido), não exportação.
 > Skill **educacional** (com metodologias pedagógicas) será criada à parte; pesquisa e arquitetura já
 > documentadas em [../pesquisa-skill-educacional/](../pesquisa-skill-educacional/).

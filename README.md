@@ -40,7 +40,8 @@ article-concefor/
 │   ├── slide-patterns/slide-patterns.md   # Catálogo genérico de padrões de slide
 │   ├── exemplos/                          # 2 decks de exemplo (Versão A e Versão B, acessibilidade auditada)
 │   └── scripts/                           # new-deck.py (scaffold), deck-fonts.css (Open Sans offline),
-│                                          #   generate-odp.py (export .odp), smoke-test.py, extract-pptx.py, deploy.sh
+│                                          #   generate-odp.py (.odp, recomendado), generate-pptx.py (.pptx,
+│                                          #   se necessário), deck_parser.py, smoke-test.py, extract-pptx.py, deploy.sh
 │
 ├── pesquisa-skill-educacional/            # Base para a FUTURA skill educacional
 │   ├── README.md
@@ -93,6 +94,10 @@ sem dependências proprietárias. Decisão: **software livre como padrão**.
 - **Como funciona:** o script `generate-odp.py` lê o HTML da apresentação (Fase 5), extrai conteúdo, 
   cores (`:root` CSS) e tipografia, e reconstrói em formato `.odp` editável pronto para LibreOffice Impress. 
   O HTML permanece como **fonte da verdade**; o `.odp` é uma exportação sob demanda.
+- **PowerPoint (.pptx) quando necessário:** para casos concretos de compatibilidade (destinatário só
+  usa PowerPoint, modelo exigido por terceiros), `generate-pptx.py` gera um `.pptx` editável usando
+  **python-pptx (licença MIT)** — a skill continua 100% software livre; o `.odp` segue sendo o
+  formato recomendado.
 - **Dependências:** Python + `odfpy` (obrigatória; gera ODF válido por construção) e `pillow` (opcional,
   só para embutir imagens raster locais). O script **valida o `.odp` reabrindo-o** antes de declarar
   sucesso. Sem restrições de distribuição; a skill é 100% aberta.
