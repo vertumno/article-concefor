@@ -142,11 +142,13 @@ Grade de quadrados verdes + ponto vermelho. Vem com o texto ao lado. Três vers�
 
 ### Seta CEFOR (símbolo-chave)
 Sempre apontando para **baixo-direita**, em **azul** (`--navy`) ou **lima** (`--lime`). É o elemento
-gráfico mais forte da marca — use em capas, divisórias e como acento.
+gráfico mais forte da marca — use em capas, divisórias e como acento. **Exclusiva da Versão A** (Cor
+Sólida). Na Versão B (Degradê) não aparece — o acento gráfico da B são os grafismos do degradê
+(quadrados em contorno, círculos concêntricos, linha pontilhada), abaixo.
 
 ```html
 <svg width="84" height="84" viewBox="0 0 100 100">
-  <path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="#2C459A"/>
+  <path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z" fill="#2C459A"/>
 </svg>
 ```
 
@@ -157,7 +159,7 @@ Padrão de setas em baixa opacidade sobre painéis (lima, cinza ou degradê).
 <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true">
   <defs>
     <pattern id="wm" width="56" height="56" patternUnits="userSpaceOnUse">
-      <path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z"
+      <path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z"
             transform="scale(0.42)" fill="rgba(0,0,0,0.06)"/>
     </pattern>
   </defs>
@@ -195,6 +197,7 @@ linha-guia oliva fina.
 - ❌ Gradientes "AI slop" (roxo/rosa) — o único degradê é o degradê CEFOR oficial.
 - ❌ Emojis como ícones (usar os SVGs da marca / ícones de traço).
 - ❌ Seta CEFOR em direção errada (deve apontar para baixo-direita) ou em cor fora de azul/lima.
+- ❌ Seta CEFOR na Versão B (Degradê) — é exclusiva da Versão A; na B use os grafismos do degradê.
 - ❌ Logo esticado/desproporcional ou sem área de respiro.
 - ❌ Baixo contraste; texto abaixo do tamanho de leitura confortável.
 - ❌ Animações chamativas — movimento sutil e funcional.

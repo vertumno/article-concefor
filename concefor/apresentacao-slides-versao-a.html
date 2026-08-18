@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana de Formação Docente 2026 — Cefor/Ifes</title>
+    <title>Skill de IA para Apresentações Institucionais — VIII Concefor</title>
 
     <!-- Fonte institucional do Cefor: Open Sans (EMBUTIDA — funciona offline, sem CDN externa) -->
     <style>
@@ -43,7 +43,7 @@
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
             --duration: 0.5s;
             --stage-bg: #11151c;   /* moldura fora do slide (letterbox) */
-            --slide-bg: var(--grad);
+            --slide-bg: #FFFFFF;
         }
 
         /* =====================================================================
@@ -147,278 +147,400 @@
     </style>
 </head>
 <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <path id="seta-cefor" d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z"/>
+        <pattern id="wm-setas" width="56" height="56" patternUnits="userSpaceOnUse">
+          <path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z"
+                transform="scale(0.42)" fill="rgba(0,0,0,0.06)"/>
+        </pattern>
+      </defs>
+    </svg>
     <div class="deck-viewport">
         <main class="deck-stage" id="deckStage">
-            <!-- ===== SLIDE 1: B1 · CAPA (fundo degradê inteiro + grafismos brancos) ===== -->
-            <section class="slide active">
-                <!-- grafismos brancos translúcidos: quadrados em contorno -->
-                <div style="position:absolute;right:150px;top:120px;width:220px;height:220px;border:4px solid rgba(255,255,255,.34);border-radius:34px;"></div>
-                <div style="position:absolute;right:300px;top:270px;width:130px;height:130px;border:3px solid rgba(255,255,255,.26);border-radius:24px;"></div>
-                <div style="position:absolute;right:110px;bottom:190px;width:88px;height:88px;border:3px solid rgba(255,255,255,.22);border-radius:18px;"></div>
-                <!-- círculos concêntricos -->
-                <svg width="260" height="260" viewBox="0 0 100 100" style="position:absolute;left:1310px;bottom:110px;" aria-hidden="true">
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="1.6"/>
-                    <circle cx="50" cy="50" r="32" fill="none" stroke="rgba(255,255,255,.26)" stroke-width="1.6"/>
-                    <circle cx="50" cy="50" r="18" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.6"/>
-                </svg>
-                <!-- linha pontilhada -->
-                <svg width="420" height="8" style="position:absolute;left:190px;bottom:330px;" aria-hidden="true">
-                    <line x1="0" y1="4" x2="420" y2="4" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
-                </svg>
-                <div style="position:absolute;left:190px;top:330px;right:560px;color:#fff;">
-                    <div class="eyebrow reveal" style="color:rgba(255,255,255,.92);">Semana de Formação Docente 2026</div>
-                    <h1 class="t-capa reveal" style="color:#fff;margin-top:24px;text-shadow:0 2px 10px rgba(0,0,0,.22);">Inovação e prática<br>na educação a distância</h1>
-                    <p class="corpo reveal" style="color:rgba(255,255,255,.94);font-size:34px;margin-top:30px;">14 a 18 de setembro de 2026 · Cefor/Ifes</p>
-                </div>
-                <!-- logo IFES em negativo (branco), canto inferior-esquerdo -->
-                <div style="position:absolute;left:190px;bottom:88px;color:#fff;">
-                    <div style="display:flex;align-items:center;gap:13px;">
-                        <svg width="52" height="70" viewBox="0 0 31 42" style="flex:none;display:block;" role="img" aria-label="Instituto Federal do Espírito Santo — Centro de Referência em Formação e em Educação a Distância">
-                            <circle cx="4.5" cy="4.5" r="4.5" fill="#fff"/>
-                            <rect x="0" y="11" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="0" y="22" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="0" y="33" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="11" y="0" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="11" y="11" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="11" y="22" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="11" y="33" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="22" y="0" width="9" height="9" rx="1.4" fill="#fff"/>
-                            <rect x="22" y="22" width="9" height="9" rx="1.4" fill="#fff"/>
-                        </svg>
-                        <div style="line-height:1.14;">
-                            <div style="font-weight:800;font-size:22px;">INSTITUTO FEDERAL</div>
-                            <div style="font-weight:600;font-size:17px;">Espírito Santo</div>
-                            <div style="font-weight:400;font-size:15px;">Centro de Referência em Formação<br>e em Educação a Distância</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<!-- ===== SLIDE 1: A1 · CAPA ===== -->
+<section class="slide active">
+    <div style="position:absolute;left:0;top:0;width:100%;height:66%;background:var(--lime);border-bottom-left-radius:300px;"></div>
+    <div style="position:absolute;left:120px;top:92px;right:120px;bottom:236px;border:3px solid rgba(140,154,13,.55);border-radius:60px;pointer-events:none;"></div>
+    <svg width="172" height="172" viewBox="0 0 100 100" style="position:absolute;left:168px;top:144px;z-index:0;" fill="rgba(120,134,0,.45)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:192px;top:352px;right:220px;color:var(--ink);z-index:2;">
+        <div class="eyebrow reveal" style="color:var(--ink);">Produção Técnica · VIII Concefor · Eixo 1</div>
+        <h1 class="t-capa reveal" style="color:var(--ink);margin-top:22px;font-size:56px;line-height:1.2;">Skill de inteligência artificial para geração de apresentações institucionais padronizadas e acessíveis</h1>
+        <p class="corpo reveal" style="color:var(--ink);font-size:30px;margin-top:28px;">Cefor/Ifes · Congresso Regional de Formação e Educação a Distância · 17 a 20 de agosto de 2026</p>
+    </div>
+    <div style="position:absolute;right:120px;bottom:80px;color:#1a1a1a;">
+        <div style="display:flex;align-items:center;gap:13px;">
+            <svg width="60" height="81" viewBox="0 0 31 42" style="flex:none;display:block;" role="img" aria-label="Instituto Federal do Espírito Santo — Centro de Referência em Formação e em Educação a Distância">
+                <circle cx="4.5" cy="4.5" r="4.5" fill="#CE1126"/>
+                <rect x="0" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="0" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="0" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="22" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="22" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+            </svg>
+            <div style="line-height:1.14;">
+                <div style="font-weight:800;font-size:24px;">INSTITUTO FEDERAL</div>
+                <div style="font-weight:600;font-size:18px;">Espírito Santo</div>
+                <div style="font-weight:400;font-size:16px;">Centro de Referência em Formação<br>e em Educação a Distância</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <!-- ===== SLIDE 2: B3 · DIVISÓRIA DE SEÇÃO (trilho degradê + grafismos) ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:34%;background:var(--grad);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:64px;top:110px;width:150px;height:150px;border:3px solid rgba(255,255,255,.32);border-radius:26px;"></div>
-                    <svg width="190" height="190" viewBox="0 0 100 100" style="position:absolute;left:210px;bottom:150px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="1.6"/>
-                    </svg>
-                    <svg width="300" height="8" style="position:absolute;left:70px;bottom:90px;" aria-hidden="true">
-                        <line x1="0" y1="4" x2="300" y2="4" stroke="rgba(255,255,255,.5)" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:800px;top:412px;right:160px;">
-                    <div class="num-secao reveal" style="color:var(--gray-dk);">01</div>
-                    <h2 class="t-secao reveal" style="color:#1f3a52;margin-top:12px;">Programação e destaques</h2>
-                    <div class="reveal" style="display:flex;gap:14px;margin-top:36px;">
-                        <div style="width:120px;height:10px;background:#57B86A;border-radius:5px;"></div>
-                        <div style="width:60px;height:10px;background:var(--navy);border-radius:5px;"></div>
-                    </div>
-                </div>
-                <div style="position:absolute;right:0;bottom:96px;left:34%;height:4px;background:var(--olive);"></div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
-            </section>
+<!-- ===== SLIDE 2: A2 · DIVISÓRIA 01 ===== -->
+<section class="slide">
+    <div class="trilho" style="width:34%;background:var(--lime);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="168" height="168" viewBox="0 0 100 100" style="position:absolute;left:450px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:800px;top:412px;right:160px;">
+        <div class="num-secao reveal" style="color:var(--lime);opacity:.9;">01</div>
+        <h2 class="t-secao reveal" style="color:var(--navy);margin-top:12px;">O problema</h2>
+        <div class="reveal" style="width:180px;height:10px;background:var(--lime);border-radius:5px;margin-top:36px;"></div>
+    </div>
+    <div style="position:absolute;right:0;bottom:96px;left:34%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
+</section>
 
-            <!-- ===== SLIDE 3: B4 · CONTEÚDO COM LISTA (agenda) ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:60px;top:130px;width:140px;height:140px;border:3px solid rgba(87,184,106,.4);border-radius:26px;"></div>
-                    <svg width="170" height="170" viewBox="0 0 100 100" style="position:absolute;left:230px;bottom:170px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(54,180,166,.42)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(54,180,166,.32)" stroke-width="1.6"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:660px;top:92px;right:108px;">
-                    <div class="barra-titulo b reveal"><h2 class="t-conteudo">O que acontece na semana</h2></div>
-                    <div style="position:relative;height:10px;background:var(--ink);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--ink);"></div></div>
-                </div>
-                <ul style="position:absolute;left:668px;top:380px;right:128px;display:flex;flex-direction:column;gap:36px;list-style:none;">
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Palestras de abertura:</strong> convidados discutem IA e mediação pedagógica na EaD pública.</span></li>
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Oficinas práticas:</strong> produção de materiais acessíveis e uso do AVA institucional.</span></li>
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Mostra de experiências:</strong> docentes apresentam projetos das próprias disciplinas.</span></li>
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Encerramento cultural:</strong> apresentação aberta à comunidade no auditório do campus.</span></li>
-                </ul>
-                <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
-                    <span>cefor.ifes.edu.br</span>
-                    <span class="slide-counter">1 / 1</span>
-                </div>
-            </section>
+<!-- ===== SLIDE 3: DESTAQUE · O PROBLEMA EM UMA FRASE (A4) ===== -->
+<section class="slide">
+    <div style="position:absolute;left:0;top:0;width:21%;height:25%;background:var(--lime);border-bottom-right-radius:60px;"></div>
+    <div style="position:absolute;left:0;bottom:0;width:21%;height:14%;background:var(--navy);border-top-right-radius:60px;"></div>
+    <div style="position:absolute;left:11%;top:25%;bottom:14%;width:4px;background:var(--olive);"></div>
+    <div style="position:absolute;left:28%;top:13%;right:0;bottom:0;background:var(--gray);border-top-left-radius:60px;border-bottom-left-radius:60px;"></div>
+    <div style="position:absolute;left:33%;top:360px;right:108px;">
+        <div class="eyebrow reveal" style="color:var(--muted);">O problema, em uma frase</div>
+        <div class="reveal" style="font-size:56px;font-weight:700;color:var(--navy);line-height:1.3;margin-top:20px;">A IA acelera a criação de conteúdo — mas não aplica a identidade institucional. A formatação continua manual.</div>
+        <div class="reveal" style="width:140px;height:8px;background:var(--lime);border-radius:4px;margin-top:36px;"></div>
+    </div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
 
-            <!-- ===== SLIDE 4: B4 EXTENSION · INDICADORES (KPIs) ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:60px;top:130px;width:140px;height:140px;border:3px solid rgba(87,184,106,.4);border-radius:26px;"></div>
-                    <svg width="170" height="170" viewBox="0 0 100 100" style="position:absolute;left:230px;bottom:170px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(54,180,166,.42)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(54,180,166,.32)" stroke-width="1.6"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:660px;top:92px;right:108px;">
-                    <div class="barra-titulo b reveal"><h2 class="t-conteudo">A semana em números</h2></div>
-                    <div style="position:relative;height:10px;background:var(--ink);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--ink);"></div></div>
-                </div>
-                <div style="position:absolute;left:668px;top:320px;right:128px;" class="reveal">
-                    <div class="kpi-grid">
-                        <div class="kpi-card">
-                            <div class="kpi-num">32</div>
-                            <div class="kpi-label">Atividades entre palestras, oficinas e rodas de conversa</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-num">450</div>
-                            <div class="kpi-label">Vagas abertas para docentes da rede federal e parceiros</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-num">18</div>
-                            <div class="kpi-label">Campi do Ifes com transmissão ao vivo das plenárias</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-num">100%</div>
-                            <div class="kpi-label">Atividades com certificação registrada no SIGA</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
-                    <span>cefor.ifes.edu.br</span>
-                    <span class="slide-counter">1 / 1</span>
-                </div>
-            </section>
+<!-- ===== SLIDE 4: A2 · DIVISÓRIA 02 ===== -->
+<section class="slide">
+    <div class="trilho" style="width:34%;background:var(--lime);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="168" height="168" viewBox="0 0 100 100" style="position:absolute;left:450px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:800px;top:412px;right:160px;">
+        <div class="num-secao reveal" style="color:var(--lime);opacity:.9;">02</div>
+        <h2 class="t-secao reveal" style="color:var(--navy);margin-top:12px;">A solução</h2>
+        <div class="reveal" style="width:180px;height:10px;background:var(--lime);border-radius:5px;margin-top:36px;"></div>
+    </div>
+    <div style="position:absolute;right:0;bottom:96px;left:34%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
+</section>
 
-            <!-- ===== SLIDE 5: B4 EXTENSION · TABELA (oficinas) ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:60px;top:130px;width:140px;height:140px;border:3px solid rgba(87,184,106,.4);border-radius:26px;"></div>
-                    <svg width="170" height="170" viewBox="0 0 100 100" style="position:absolute;left:230px;bottom:170px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(54,180,166,.42)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(54,180,166,.32)" stroke-width="1.6"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:660px;top:92px;right:108px;">
-                    <div class="barra-titulo b reveal"><h2 class="t-conteudo">Oficinas com inscrição aberta</h2></div>
-                    <div style="position:relative;height:10px;background:var(--ink);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--ink);"></div></div>
-                </div>
-                <div style="position:absolute;left:668px;top:300px;right:128px;" class="reveal">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th style="background:var(--grad);color:#fff;border-bottom-color:var(--ink);">Oficina</th>
-                                <th style="background:var(--grad);color:#fff;border-bottom-color:var(--ink);">Facilitação</th>
-                                <th style="background:var(--grad);color:#fff;border-bottom-color:var(--ink);">Dia</th>
-                                <th style="background:var(--grad);color:#fff;border-bottom-color:var(--ink);">Vagas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Materiais didáticos acessíveis na prática</td>
-                                <td>Equipe de Design Educacional</td>
-                                <td>15/09</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>IA generativa com responsabilidade na docência</td>
-                                <td>Grupo de Pesquisa em EaD</td>
-                                <td>16/09</td>
-                                <td>60</td>
-                            </tr>
-                            <tr>
-                                <td>Avaliação por competências no AVA</td>
-                                <td>Coordenação Pedagógica</td>
-                                <td>17/09</td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>Produção de videoaulas com o estúdio do Cefor</td>
-                                <td>Equipe Multimídia</td>
-                                <td>18/09</td>
-                                <td>25</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
-                    <span>cefor.ifes.edu.br</span>
-                    <span class="slide-counter">1 / 1</span>
-                </div>
-            </section>
+<!-- ===== SLIDE 5: DIAGRAMA DE FLUXO · COMO A SKILL FUNCIONA ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">Como a skill funciona</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
 
-            <!-- ===== SLIDE 6: B4 · PRÓXIMOS PASSOS ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:60px;top:130px;width:140px;height:140px;border:3px solid rgba(87,184,106,.4);border-radius:26px;"></div>
-                    <svg width="170" height="170" viewBox="0 0 100 100" style="position:absolute;left:230px;bottom:170px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(54,180,166,.42)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(54,180,166,.32)" stroke-width="1.6"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:660px;top:92px;right:108px;">
-                    <div class="barra-titulo b reveal"><h2 class="t-conteudo">Como participar</h2></div>
-                    <div style="position:relative;height:10px;background:var(--ink);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--ink);"></div></div>
-                </div>
-                <ul style="position:absolute;left:668px;top:400px;right:128px;display:flex;flex-direction:column;gap:36px;list-style:none;">
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Inscreva-se até 05/09</strong> pelo portal do Cefor — vagas por ordem de inscrição.</span></li>
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Escolha até 3 oficinas</strong>; as plenárias são abertas e não exigem inscrição.</span></li>
-                    <li class="reveal" style="display:flex;gap:28px;align-items:flex-start;"><span class="bullet b"></span><span class="corpo"><strong>Certificados no SIGA</strong> em até 10 dias após o encerramento da semana.</span></li>
-                </ul>
-                <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
-                    <span>cefor.ifes.edu.br</span>
-                    <span class="slide-counter">1 / 1</span>
-                </div>
-            </section>
+    <div class="reveal" style="position:absolute;left:668px;top:452px;width:320px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:28px 30px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 16px;">1</div>
+        <div style="font-weight:700;font-size:26px;color:var(--navy);">Conteúdo do servidor</div>
+        <div style="font-size:20px;color:var(--muted);margin-top:12px;line-height:1.45;">Tema, texto, tópicos e imagens entregues pela pessoa.</div>
+    </div>
+    <svg width="70" height="40" viewBox="0 0 70 40" style="position:absolute;left:994px;top:546px;" aria-hidden="true"><path d="M4 20 H56 M42 6 L58 20 L42 34" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
-            <!-- ===== SLIDE 7: B5 · ENCERRAMENTO (trilho degradê + grafismos) ===== -->
-            <section class="slide" style="background:#fff;">
-                <div class="trilho" style="width:34%;background:var(--grad);border-top-right-radius:60px;border-bottom-right-radius:60px;">
-                    <div style="position:absolute;left:64px;top:110px;width:150px;height:150px;border:3px solid rgba(255,255,255,.32);border-radius:26px;"></div>
-                    <svg width="190" height="190" viewBox="0 0 100 100" style="position:absolute;left:210px;bottom:150px;" aria-hidden="true">
-                        <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="1.6"/>
-                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="1.6"/>
-                    </svg>
-                    <svg width="300" height="8" style="position:absolute;left:70px;bottom:90px;" aria-hidden="true">
-                        <line x1="0" y1="4" x2="300" y2="4" stroke="rgba(255,255,255,.5)" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div style="position:absolute;left:820px;top:300px;right:140px;">
-                    <div style="font-size:104px;font-weight:800;color:#1f3a52;line-height:1;" class="reveal">Obrigado!</div>
-                    <div style="width:440px;height:8px;background:var(--grad);margin-top:40px;" class="reveal"></div>
-                </div>
-                <!-- logo IFES no encerramento -->
-                <div style="position:absolute;left:820px;top:600px;color:#1a1a1a;">
-                    <div style="display:flex;align-items:center;gap:13px;">
-                        <svg width="60" height="81" viewBox="0 0 31 42" style="flex:none;display:block;" role="img" aria-label="Instituto Federal do Espírito Santo — Centro de Referência em Formação e em Educação a Distância">
-                            <circle cx="4.5" cy="4.5" r="4.5" fill="#CE1126"/>
-                            <rect x="0" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="0" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="0" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="11" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="11" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="11" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="11" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="22" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                            <rect x="22" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
-                        </svg>
-                        <div style="line-height:1.14;">
-                            <div style="font-weight:800;font-size:24px;">INSTITUTO FEDERAL</div>
-                            <div style="font-weight:600;font-size:18px;">Espírito Santo</div>
-                            <div style="font-weight:400;font-size:16px;">Centro de Referência em Formação<br>e em Educação a Distância</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Redes sociais (badges azuis na Versão B) -->
-                <div style="position:absolute;left:820px;top:800px;display:flex;gap:26px;">
-                    <span style="width:68px;height:68px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;">
-                        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.7"/><path d="M4.5 9.5 C 11 9.5 16 11.5 19.5 16.5" stroke="#fff" fill="none" stroke-width="1.5"/><path d="M8 20 C 10 13 14 8 18 5.5" stroke="#fff" fill="none" stroke-width="1.5"/></svg>
-                    </span>
-                    <span style="width:68px;height:68px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;">
-                        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="#fff" stroke-width="1.7"/><circle cx="12" cy="12" r="3.7" fill="none" stroke="#fff" stroke-width="1.7"/><circle cx="17" cy="7" r="1.2" fill="#fff"/></svg>
-                    </span>
-                    <span style="width:68px;height:68px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;">
-                        <svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6.5" width="18" height="11" rx="3.4" fill="#fff"/><path d="M10.3 9.6 L14.8 12 L10.3 14.4 Z" fill="var(--navy)"/></svg>
-                    </span>
-                </div>
-                <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
-            </section>
+    <div class="reveal" style="position:absolute;left:1070px;top:452px;width:320px;background:rgba(176,203,31,.12);border:2px solid var(--navy);border-radius:12px;padding:28px 30px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 16px;">2</div>
+        <div style="font-weight:700;font-size:26px;color:var(--navy);">Skill Cefor</div>
+        <div style="font-size:20px;color:var(--muted);margin-top:12px;line-height:1.45;">Instruções + Design System oficial — cores, tipografia, marca.</div>
+    </div>
+    <svg width="70" height="40" viewBox="0 0 70 40" style="position:absolute;left:1396px;top:546px;" aria-hidden="true"><path d="M4 20 H56 M42 6 L58 20 L42 34" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <div class="reveal" style="position:absolute;left:1472px;top:452px;width:320px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:28px 30px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 16px;">3</div>
+        <div style="font-weight:700;font-size:26px;color:var(--navy);">Apresentação pronta</div>
+        <div style="font-size:20px;color:var(--muted);margin-top:12px;line-height:1.45;">HTML com a identidade do Cefor aplicada automaticamente.</div>
+    </div>
+
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 6: A3 EXTENSION · TIMELINE (ADDIE) ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">Construída em três momentos (modelo ADDIE)</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+    <div style="position:absolute;left:668px;top:340px;right:128px;" class="reveal">
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot">1</div>
+                <div class="timeline-title">Design e especificação</div>
+                <div class="timeline-desc">Identidade institucional formalizada em design tokens, em duas linguagens visuais oficiais.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">2</div>
+                <div class="timeline-title">Experiência do usuário</div>
+                <div class="timeline-desc">Entrega direta do conteúdo, escolha de estilo por pré-visualização e geração automatizada.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">3</div>
+                <div class="timeline-title">Desenvolvimento e entrega</div>
+                <div class="timeline-desc">Apresentações em HTML editável no navegador, com exportação para o LibreOffice Impress.</div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 7: COMPARAÇÃO EM PAINÉIS · FUNDAMENTAÇÃO ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">Cognição e acessibilidade guiam o design</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+
+    <div class="reveal" style="position:absolute;left:668px;top:340px;width:542px;background:var(--gray);border-style:solid;border-width:4px 1px 1px 1px;border-color:var(--navy) var(--gray-dk) var(--gray-dk) var(--gray-dk);border-radius:12px;padding:36px 40px;">
+        <div class="eyebrow" style="color:var(--navy);">Como as pessoas aprendem</div>
+        <div class="corpo" style="margin-top:16px;">Teoria Cognitiva da Aprendizagem Multimédia e Teoria da Carga Cognitiva orientam a densidade e a hierarquia dos slides.</div>
+        <div style="font-size:15px;color:var(--muted);margin-top:20px;font-style:italic;">Mayer, 2009 · Santos; Tarouco, 2007 · Machado et al., 2023</div>
+    </div>
+
+    <div class="reveal" style="position:absolute;left:1250px;top:340px;width:542px;background:var(--gray);border-style:solid;border-width:4px 1px 1px 1px;border-color:var(--olive) var(--gray-dk) var(--gray-dk) var(--gray-dk);border-radius:12px;padding:36px 40px;">
+        <div class="eyebrow" style="color:var(--olive);">Direito de acesso</div>
+        <div class="corpo" style="margin-top:16px;">Acessibilidade incorporada por padrão: contraste, alternativas textuais, navegação por teclado e respeito ao movimento reduzido.</div>
+        <div style="font-size:15px;color:var(--muted);margin-top:20px;font-style:italic;">Lei 13.146/2015 · eMAG · WCAG 2.2</div>
+    </div>
+
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 8: CICLO · IA COM SUPERVISÃO HUMANA ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">IA usada com curadoria e decisão humanas</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+
+    <div class="reveal" style="position:absolute;left:668px;top:392px;width:320px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:26px 28px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 14px;">1</div>
+        <div style="font-weight:700;font-size:25px;color:var(--navy);">IA gera</div>
+        <div style="font-size:19px;color:var(--muted);margin-top:10px;line-height:1.45;">Claude Code e Claude Design produzem rascunhos de modelos, código e texto.</div>
+    </div>
+    <svg width="70" height="40" viewBox="0 0 70 40" style="position:absolute;left:994px;top:486px;" aria-hidden="true"><path d="M4 20 H56 M42 6 L58 20 L42 34" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <div class="reveal" style="position:absolute;left:1070px;top:392px;width:320px;background:rgba(176,203,31,.12);border:2px solid var(--navy);border-radius:12px;padding:26px 28px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 14px;">2</div>
+        <div style="font-weight:700;font-size:25px;color:var(--navy);">Pessoa revisa e valida</div>
+        <div style="font-size:19px;color:var(--muted);margin-top:10px;line-height:1.45;">Toda saída é testada e validada manualmente antes de publicar.</div>
+    </div>
+    <svg width="70" height="40" viewBox="0 0 70 40" style="position:absolute;left:1396px;top:486px;" aria-hidden="true"><path d="M4 20 H56 M42 6 L58 20 L42 34" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <div class="reveal" style="position:absolute;left:1472px;top:392px;width:320px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:26px 28px;text-align:center;">
+        <div class="timeline-dot" style="margin:0 auto 14px;">3</div>
+        <div style="font-weight:700;font-size:25px;color:var(--navy);">Publicação responsável</div>
+        <div style="font-size:19px;color:var(--muted);margin-top:10px;line-height:1.45;">Alinhado à Competência 2 da Matriz de Competências em IA.</div>
+    </div>
+
+    <svg width="804" height="96" viewBox="0 0 804 96" style="position:absolute;left:828px;top:716px;" aria-hidden="true">
+        <path d="M784 12 C 784 76, 20 76, 20 18" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M20 18 L34 7 M20 18 L34 29" stroke="var(--navy)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="reveal" style="position:absolute;left:828px;top:828px;width:780px;text-align:center;">
+        <div class="eyebrow" style="color:var(--muted);">Ciclo contínuo — human in the loop</div>
+        <div style="font-size:15px;color:var(--muted);margin-top:8px;">Batista, 2025</div>
+    </div>
+
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 9: A3 EXTENSION · KPI (O QUE A SKILL ENTREGA) ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">O que a skill entrega</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+    <div style="position:absolute;left:668px;top:320px;right:128px;" class="reveal">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-num">2</div>
+                <div class="kpi-label">Linguagens visuais oficiais — Cor Sólida e Degradê</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">10</div>
+                <div class="kpi-label">Modelos de slide: capa, divisória, conteúdo, destaque e encerramento</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">1</div>
+                <div class="kpi-label">Arquivo HTML único, sem dependências — funciona offline, em qualquer navegador</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-num">.odp</div>
+                <div class="kpi-label">Exportação editável para LibreOffice Impress, em formato aberto (ODF)</div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 10: A2 · DIVISÓRIA 03 ===== -->
+<section class="slide">
+    <div class="trilho" style="width:34%;background:var(--lime);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="168" height="168" viewBox="0 0 100 100" style="position:absolute;left:450px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:800px;top:412px;right:160px;">
+        <div class="num-secao reveal" style="color:var(--lime);opacity:.9;">03</div>
+        <h2 class="t-secao reveal" style="color:var(--navy);margin-top:12px;">Resultados e próximos passos</h2>
+        <div class="reveal" style="width:180px;height:10px;background:var(--lime);border-radius:5px;margin-top:36px;"></div>
+    </div>
+    <div style="position:absolute;right:0;bottom:96px;left:34%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
+</section>
+
+<!-- ===== SLIDE 11: FLUXO CONVERGENTE · AVALIAÇÃO DO PROTÓTIPO ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">Achados de especialistas orientaram refinamentos</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+
+    <div class="reveal" style="position:absolute;left:668px;top:400px;width:496px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:24px 28px;">
+        <div style="font-weight:700;font-size:25px;color:var(--navy);">Inspeção heurística</div>
+        <div style="font-size:20px;color:var(--muted);margin-top:10px;line-height:1.45;">Conduzida por especialistas internos, avaliando fluxo e usabilidade.</div>
+    </div>
+    <div class="reveal" style="position:absolute;left:668px;top:594px;width:496px;background:var(--gray);border:1px solid var(--gray-dk);border-radius:12px;padding:24px 28px;">
+        <div style="font-weight:700;font-size:25px;color:var(--navy);">Auditoria de acessibilidade</div>
+        <div style="font-size:20px;color:var(--muted);margin-top:10px;line-height:1.45;">Contraste, teclado, movimento reduzido e alternativas textuais conferidos.</div>
+    </div>
+    <svg width="90" height="60" viewBox="0 0 90 60" style="position:absolute;left:1196px;top:544px;" aria-hidden="true"><path d="M4 30 H72 M56 10 L76 30 L56 50" stroke="var(--navy)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <div class="reveal" style="position:absolute;left:1316px;top:452px;width:476px;background:rgba(176,203,31,.12);border:2px solid var(--navy);border-radius:12px;padding:28px 32px;">
+        <div class="eyebrow" style="color:var(--navy);">Resultado</div>
+        <div style="font-weight:700;font-size:28px;color:var(--navy);margin-top:12px;">Viabilidade comprovada</div>
+        <div style="font-size:20px;color:var(--ink);margin-top:14px;line-height:1.45;">Viabilidade técnica, padronização e acessibilidade comprovadas — os achados orientaram refinamentos diretos no design system.</div>
+    </div>
+
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 12: STATUS · O QUE FALTA PARA ADOÇÃO PLENA ===== -->
+<section class="slide">
+    <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:660px;top:92px;right:108px;">
+        <div class="barra-titulo reveal"><h2 class="t-conteudo">O que falta para adoção plena</h2></div>
+        <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>
+    </div>
+
+    <div class="reveal" style="position:absolute;left:668px;top:404px;width:1124px;display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--gray-dk);border-radius:10px;padding:28px 34px;">
+        <span class="corpo" style="font-weight:600;max-width:820px;">Capacitar os servidores para a adoção da ferramenta no dia a dia institucional.</span>
+        <span class="badge-status" style="background:rgba(90,90,90,.14);color:var(--muted);">Pendente</span>
+    </div>
+    <div class="reveal" style="position:absolute;left:668px;top:544px;width:1124px;display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--gray-dk);border-radius:10px;padding:28px 34px;">
+        <span class="corpo" style="font-weight:600;max-width:820px;">Realizar testes práticos com usuários para avaliar a adoção e o impacto da ferramenta.</span>
+        <span class="badge-status" style="background:rgba(90,90,90,.14);color:var(--muted);">Pendente</span>
+    </div>
+    <div class="reveal" style="position:absolute;left:668px;top:684px;width:1124px;display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--gray-dk);border-radius:10px;padding:28px 34px;">
+        <span class="corpo" style="font-weight:600;max-width:820px;">Conferir os arquivos .odp exportados no LibreOffice Impress real.</span>
+        <span class="badge-status badge-doing">Em andamento</span>
+    </div>
+
+    <div style="position:absolute;right:0;bottom:84px;left:30%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;display:flex;justify-content:space-between;width:70%;align-items:center;">
+        <span>cefor.ifes.edu.br</span>
+        <span class="slide-counter">1 / 1</span>
+    </div>
+</section>
+
+<!-- ===== SLIDE 13: A5 · ENCERRAMENTO ===== -->
+<section class="slide">
+    <div class="trilho" style="width:34%;background:var(--lime);border-top-right-radius:60px;border-bottom-right-radius:60px;">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true"><rect width="100%" height="100%" fill="url(#wm-setas)"/></svg>
+    </div>
+    <svg width="156" height="156" viewBox="0 0 100 100" style="position:absolute;left:444px;top:220px;" fill="var(--navy)" aria-hidden="true"><use href="#seta-cefor"/></svg>
+    <div style="position:absolute;left:820px;top:270px;right:140px;">
+        <div style="font-size:104px;font-weight:800;color:var(--navy);line-height:1;" class="reveal">Obrigado!</div>
+        <div style="width:440px;height:8px;background:var(--navy);margin-top:40px;" class="reveal"></div>
+        <p class="corpo reveal" style="margin-top:32px;font-size:24px;color:var(--muted);">Elton Vinicius Silva · Marcos Vinícius Forecchi Accioly<br>Rutinelli da Penha Fávero · Andreia Cristina Carvalho Cáo<br>Cefor/Ifes</p>
+    </div>
+    <div style="position:absolute;left:820px;top:600px;color:#1a1a1a;">
+        <div style="display:flex;align-items:center;gap:13px;">
+            <svg width="60" height="81" viewBox="0 0 31 42" style="flex:none;display:block;" role="img" aria-label="Instituto Federal do Espírito Santo — Centro de Referência em Formação e em Educação a Distância">
+                <circle cx="4.5" cy="4.5" r="4.5" fill="#CE1126"/>
+                <rect x="0" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="0" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="0" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="11" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="11" y="33" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="22" y="0" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+                <rect x="22" y="22" width="9" height="9" rx="1.4" fill="#3A9E3A"/>
+            </svg>
+            <div style="line-height:1.14;">
+                <div style="font-weight:800;font-size:24px;">INSTITUTO FEDERAL</div>
+                <div style="font-weight:600;font-size:18px;">Espírito Santo</div>
+                <div style="font-weight:400;font-size:16px;">Centro de Referência em Formação<br>e em Educação a Distância</div>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;right:0;bottom:96px;left:34%;height:4px;background:var(--olive);"></div>
+    <div class="rodape" style="position:absolute;right:56px;bottom:48px;background:#fff;padding-left:28px;">cefor.ifes.edu.br</div>
+</section>
         </main>
     </div>
 

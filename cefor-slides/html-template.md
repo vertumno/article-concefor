@@ -84,9 +84,9 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
                 <!-- moldura oliva -->
                 <div style="position:absolute;left:120px;top:92px;right:120px;bottom:236px;border:3px solid rgba(140,154,13,.55);border-radius:60px;"></div>
                 <!-- seta CEFOR d'água -->
-                <svg width="220" height="220" viewBox="0 0 100 100" style="position:absolute;left:156px;top:168px;" aria-hidden="true"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="rgba(120,134,0,.45)"/></svg>
-                <!-- Texto da capa SEMPRE em tinta sobre lima (7,7:1 AA). Branco sobre lima = 1,8:1, reprova WCAG (auditoria A1). -->
-                <div style="position:absolute;left:192px;top:300px;right:220px;color:var(--ink);">
+                <svg width="172" height="172" viewBox="0 0 100 100" style="position:absolute;left:168px;top:144px;z-index:0;" aria-hidden="true"><path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z" fill="rgba(120,134,0,.45)"/></svg>
+                <!-- Texto da capa SEMPRE em tinta sobre lima (7,7:1 AA). Branco sobre lima = 1,8:1, reprova WCAG (auditoria A1). Seta atrás do texto (z-index:0 vs 2) para não cortar o título. -->
+                <div style="position:absolute;left:192px;top:384px;right:220px;color:var(--ink);z-index:2;">
                     <div class="eyebrow reveal" style="color:var(--ink);">Título da Apresentação</div>
                     <h1 class="t-capa reveal" style="color:var(--ink);margin-top:22px;">Formação que transforma<br>a educação pública</h1>
                     <p class="corpo reveal" style="color:var(--ink);font-size:36px;margin-top:28px;">Subtítulo · responsável · 2026</p>
@@ -100,7 +100,7 @@ são criados em 1920×1080 e o palco inteiro é escalado para caber na janela do
                 <div class="trilho" style="width:30%;background:var(--gray);border-top-right-radius:60px;border-bottom-right-radius:60px;">
                     <!-- marca d'água de setas (ver CEFOR_BRAND.md) -->
                 </div>
-                <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" aria-hidden="true"><path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z" fill="var(--navy)"/></svg>
+                <svg width="148" height="148" viewBox="0 0 100 100" style="position:absolute;left:392px;top:300px;" aria-hidden="true"><path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z" fill="var(--navy)"/></svg>
                 <div style="position:absolute;left:660px;top:92px;right:108px;">
                     <div class="barra-titulo reveal"><h2 class="t-conteudo">Título do conteúdo</h2></div>
                     <div style="position:relative;height:10px;background:var(--navy);border-radius:5px;margin-top:18px;"><div style="position:absolute;left:62%;top:10px;width:10px;height:32px;background:var(--navy);"></div></div>

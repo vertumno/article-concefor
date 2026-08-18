@@ -59,9 +59,9 @@ ROOT_TOKENS = """        :root {{
 #   <rect width="100%" height="100%" fill="url(#wm-setas)"/>        (marca d'água)
 BRAND_DEFS = """    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <defs>
-        <path id="seta-cefor" d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z"/>
+        <path id="seta-cefor" d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z"/>
         <pattern id="wm-setas" width="56" height="56" patternUnits="userSpaceOnUse">
-          <path d="M41.8 26.2 L73.8 58.2 L81.6 50.4 L82 82 L50.4 81.6 L58.2 73.8 L26.2 41.8 Z"
+          <path d="M0 14L14 0L100 86L86 100Z M78 8H100V100H78Z M6 78H100V100H6Z"
                 transform="scale(0.42)" fill="rgba(0,0,0,0.06)"/>
         </pattern>
       </defs>

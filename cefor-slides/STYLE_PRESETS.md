@@ -41,8 +41,9 @@ linha-guia e URL em oliva no rodapé.
 eventos, aberturas, lançamentos, palestras e telas grandes.
 
 **Assinatura:** fundo (ou trilho) com o **degradê CEFOR**; grafismos em branco translúcido (quadrados
-arredondados em contorno, círculos concêntricos, linha pontilhada); seta/ logo em negativo (branco);
-barra de título em degradê com texto branco; bullets quadrados ciano; URL em oliva no rodapé.
+arredondados em contorno, círculos concêntricos, linha pontilhada) como elemento gráfico — **sem a seta
+CEFOR**, que é exclusiva da Versão A; logo em negativo (branco); barra de título em degradê com texto
+branco; bullets quadrados ciano; URL em oliva no rodapé.
 
 ```css
 :root { --slide-bg: var(--grad); --panel: var(--grad); --rail: var(--gray);

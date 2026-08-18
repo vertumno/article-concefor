@@ -32,16 +32,15 @@ article-concefor/
 ├── cefor-slides/                          # A SKILL GENÉRICA (produto principal, pronto)
 │   ├── SKILL.md                           # Fluxo da skill (ler primeiro)
 │   ├── README.md                          # Doc da skill
+│   ├── INSTALACAO-CLAUDE-WEB.md           # Guia de instalação no Claude Web
 │   ├── CEFOR_BRAND.md                     # Identidade oficial (cores, Open Sans, SVGs, voz)
 │   ├── STYLE_PRESETS.md                   # Versão A (Cor Sólida) e Versão B (Degradê) + 10 modelos
 │   ├── html-template.md                   # Arquitetura HTML/JS + edição inline
 │   ├── viewport-base.css                  # CSS do palco fixo 16:9
 │   ├── brand/CEFOR-Design-System.dc.html  # Design system OFICIAL (referência visual)
 │   ├── slide-patterns/slide-patterns.md   # Catálogo genérico de padrões de slide
-│   ├── exemplos/                          # 2 decks de exemplo (Versão A e Versão B, acessibilidade auditada)
-│   └── scripts/                           # new-deck.py (scaffold), deck-fonts.css (Open Sans offline),
-│                                          #   generate-odp.py (.odp, recomendado), generate-pptx.py (.pptx,
-│                                          #   se necessário), deck_parser.py, smoke-test.py, extract-pptx.py, deploy.sh
+│   ├── exemplos/                          # Decks de exemplo (Versão A e Versão B)
+│   └── scripts/                           # Scripts de automação, geração ODP/PPTX e testes
 │
 ├── pesquisa-skill-educacional/            # Base para a FUTURA skill educacional
 │   ├── README.md
@@ -52,12 +51,18 @@ article-concefor/
 │
 ├── concefor/                              # Submissão ao VIII Concefor (Produção Técnica, Eixo 1)
 │   ├── ARTIGO-FINAL.md                    # TEXTO CANÔNICO: título, autores, resumo, palavras-chave, referências
-│   ├── RASCUNHO-SUBMISSAO-CONCEFOR.md     # Operacional: figura, vídeo, anonimização, checklist (aponta p/ ARTIGO-FINAL)
-│   ├── FUNDAMENTACAO-CONCEFOR.md          # 7 pilares teóricos/legais (referências alinhadas ao artigo)
+│   ├── RASCUNHO-SUBMISSAO-CONCEFOR.md     # Operacional: figura, vídeo, anonimização, checklist
+│   ├── FUNDAMENTACAO-CONCEFOR.md          # 7 pilares teóricos/legais
 │   ├── AVALIACAO-PROTOTIPO.md             # Auditoria de acessibilidade (WCAG) + inspeção heurística
-│   └── figura-representativa.html         # Slide-título anonimizado para gerar a imagem (PNG)
+│   ├── STORY-MELHORIAS-SKILL.md           # Histórico de melhorias aplicadas
+│   ├── STORY-MIGRAR-ODPE.md               # Especificação da migração para ODP
+│   ├── Produção Técnica PDF               # Documento original e versão final [final]
+│   ├── apresentacao-slides-versao-*.html  # Slides da apresentação do artigo (Versões A e B)
+│   ├── figura-representativa.html         # Slide-título anonimizado
+│   └── imagens/                           # Capturas dos slides e diagramas gerados (PNGs)
 │
-└── cefor-slides.zip                       # Pacote da skill p/ upload no Claude Web (gerado por scripts/make-zip.py)
+├── cefor-design-system-deck/              # Projeto base do deck Design System
+└── cefor-slides.zip                       # Pacote da skill p/ upload no Claude Web
 ```
 
 ---

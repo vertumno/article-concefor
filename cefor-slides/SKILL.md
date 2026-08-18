@@ -79,7 +79,8 @@ O Cefor tem **duas linguagens visuais oficiais** — não invente estilos. Leia
 - **Versão B — Degradê** (malha verde-ciano-azul + grafismos; moderna; eventos, aberturas, telas grandes).
 
 Use a tabela "Como escolher por ocasião" de STYLE_PRESETS.md para indicar a recomendada. Cada prévia deve
-ser fiel ao design system oficial (modelo A1 ou B1), com seta CEFOR, logo IFES e rodapé.
+ser fiel ao design system oficial (modelo A1 ou B1) — seta CEFOR só na Versão A, grafismos do degradê na
+Versão B —, com logo IFES e rodapé.
 
 **Regras de autenticidade das prévias (INEGOCIÁVEL):**
 - Cada prévia parece um primeiro slide real do deck, não um cartão de diagnóstico.
@@ -153,8 +154,9 @@ contexto.
   `aria-label`. Capa Versão A: texto em **tinta** sobre lima (nunca branco — reprova WCAG).
 - Reproduza fielmente os modelos oficiais da linguagem escolhida (A1–A5 ou B1–B5), traduzindo as
   proporções do preview (960×540) para o palco real 1920×1080.
-- Sempre: **seta CEFOR** (azul/lima), **logo IFES** na capa e encerramento, **rodapé**
-  `cefor.ifes.edu.br` em oliva (SVGs prontos em CEFOR_BRAND.md).
+- Sempre: **logo IFES** na capa e encerramento, **rodapé** `cefor.ifes.edu.br` em oliva (SVGs prontos em
+  CEFOR_BRAND.md). **Seta CEFOR** (azul/lima) só na Versão A — na Versão B use os grafismos do degradê
+  (quadrados em contorno, círculos concêntricos, linha pontilhada), nunca a seta.
 - Texto na voz do Cefor (claro, humano, objetivo; sem juridiquês nem "folder de gestão").
 - Edição inline incluída por padrão (tecla **E**; Ctrl+S salva).
 - Comentários `/* === SEÇÃO === */` e `<!-- ID do modelo -->` em cada slide.

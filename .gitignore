@@ -23,3 +23,7 @@ Thumbs.db
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Ferramentas e testes temporários
+.playwright-mcp/
+
